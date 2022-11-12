@@ -13,7 +13,7 @@
     opacity: .1;
     pointer-events: none;
     z-index: -1;
-    background: url(../public/noise.gif)!important;
+    background: url(/noise.gif)!important;
 }
 .wrapper{
     display: flex;
