@@ -37,6 +37,7 @@
     font-size: 7rem;
     font-weight: 400;
     text-align: center;
+    color: white;
 }
 .btns{
     display: flex;
@@ -71,6 +72,7 @@
     }
     .btns button{
         width: 80%;
-        margin: 1rem auto;
+        margin: 0px auto;
+        margin-bottom: 10px;
     }
 }
