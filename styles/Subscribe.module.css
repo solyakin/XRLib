@@ -47,3 +47,30 @@
 .logos a{
     margin-right: 2rem;
 }
+@media screen and (max-width : 490px) {
+    .subscribe{
+        padding: 3rem 1.5rem;
+    }
+    .social{
+        flex-wrap: wrap;
+        margin-top: 2rem;
+    }
+    .social .logos{
+        margin-left: 0;
+        justify-content: space-between;
+    }
+    .subscribe h4{
+        font-size: 1.3rem;
+        line-height: 1.4;
+    }
+    .form{
+        display: block;
+    }
+    .form input{
+        width: 100%;
+    }
+    .form button{
+        margin-top: 1rem;
+        width: 100%;
+    }
+}

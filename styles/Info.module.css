@@ -66,6 +66,24 @@
     filter: grayscale(100%);
 }
 .image img:hover{
-    -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+    -webkit-filter: grayscale(0%);
   filter: grayscale(0%);
+}
+
+@media screen and (max-width : 990px) {
+    .wrapper{
+        width: 100%;
+        display: block;
+    }
+    .content button{
+        margin-bottom: 2rem;
+    }
+}
+@media screen and (max-width : 490px) {
+    .info{
+        padding: 2rem 1.5rem;
+    }
+    .content h2{
+        font-size: 2rem;
+    }
 }

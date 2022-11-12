@@ -34,7 +34,6 @@
 }
 .herosection h1{
     font-family: 'Bungee', cursive;
-    /* font-family: 'Anton', sans-serif; */
     font-size: 7rem;
     font-weight: 400;
     text-align: center;
@@ -57,4 +56,21 @@
     color: white;
     background: rgba(0, 0, 0, 0.8);
     border: 2px solid white;
+}
+@media screen and (max-width : 490px) {
+    .herosection h1{
+        font-size: 4rem;
+        word-wrap: break-word;
+    }
+    .nav{
+        display: none;
+    }
+    .btns{
+        display: block;
+        text-align: center;
+    }
+    .btns button{
+        width: 80%;
+        margin: 1rem auto;
+    }
 }

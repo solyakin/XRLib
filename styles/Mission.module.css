@@ -20,3 +20,23 @@
     text-align: left;
     flex: .4;
 }
+@media screen and (max-width : 990px) {
+    .mission h3{
+        width: 100%;
+    }
+    .mission .text{
+        flex: .6;
+    }
+}
+@media screen and (max-width : 490px) {
+    .mission{
+        padding: 3rem 1.5rem;
+    }
+    .mission h3{
+        font-size: 2rem;
+        line-height: 1.4;
+    }
+    .mission .text{
+        flex: 1;
+    }
+}
