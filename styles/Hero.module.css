@@ -1,0 +1,60 @@
+.hero{
+    position: relative;
+    min-height: 100vh;
+    background: url(../public/virtual.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+.logo{
+    display: flex;
+    align-items: center;
+    margin-top: .6rem;
+    flex: .5;
+}
+.logo img{
+    margin-right: 14px;
+}
+.nav{
+    flex: .3;
+}
+.nav ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.nav li{
+    list-style: none;
+}
+.herosection h1{
+    font-family: 'Bungee', cursive;
+    /* font-family: 'Anton', sans-serif; */
+    font-size: 7rem;
+    font-weight: 400;
+    text-align: center;
+}
+.btns{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 4rem;
+}
+.btns button{
+    padding: 1rem;
+    text-transform: capitalize;
+    font-size: 1.2rem;
+    color: white;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid white;
+}

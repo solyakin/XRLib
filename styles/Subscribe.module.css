@@ -1,0 +1,49 @@
+.subscribe{
+    padding: 3rem;
+}
+.wrapper{
+    border: 2px solid white;
+    padding: 1.4rem;
+}
+.subscribe h4{
+    font-size: 2rem;
+}
+.subscribe p{
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 26px;
+}
+.form{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem 0;
+    margin-top: 3rem;
+}
+.form input{
+    padding: 1rem;
+    width: 85%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+}
+.form button{
+    padding: 1rem;
+    width: 25%;
+    border: 2px solid white;
+    text-transform: capitalize;
+    font-size: 18px;
+    background: transparent;
+}
+.social{
+    display: flex;
+    align-items: center;
+}
+.social .logos{
+    display: flex;
+    margin-left: 2rem;
+}
+.logos a{
+    margin-right: 2rem;
+}

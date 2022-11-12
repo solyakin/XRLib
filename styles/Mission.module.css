@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@200;300;400;500;600;700&display=swap');
+
+.mission{
+    padding: 3rem;
+}
+.mission h3{
+    font-size: 3rem;
+    width: 56rem;
+}
+.mission p{
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 26px;
+    font-weight: 400;
+}
+.textwrapper{
+    display: flex;
+    justify-content: flex-end;
+}
+.mission .text{
+    text-align: left;
+    flex: .4;
+}
