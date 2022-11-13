@@ -1,6 +1,8 @@
 .container {
   width: 100%;
   font-family: 'Bungee', cursive;
+  /* background: black; */
+  /* color: white; */
 }
 .main {
   width: 100%;

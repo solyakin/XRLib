@@ -2,8 +2,11 @@
 .info{
     padding: 2rem 3rem;
     margin-top: 3rem;
+    /* background: black; */
+    /* color: white; */
+    /* position: relative; */
 }
-.noise::before{
+.noise{
     position: fixed;
     top: 0;
     left: 0;
@@ -13,8 +16,8 @@
     opacity: .1;
     pointer-events: none;
     z-index: -1;
-    background-color: black;
-    background: url(/noise.gif)!important;
+    background: url(/noise.gif);
+   
 }
 .wrapper{
     display: flex;

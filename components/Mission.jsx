@@ -4,6 +4,7 @@ import styles from '../styles/Mission.module.css'
 const Mission = () => {
   return (
     <div className={styles.mission}>
+        <div className={styles.noise}></div>
         <p>Our Mission</p>
         <h3>A MORE UNITED AND USER-FRIENDLY XR ENGINEERING IS INEVITABLE.</h3>
         <div className={styles.textwrapper}>
