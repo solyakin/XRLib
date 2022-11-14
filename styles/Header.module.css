@@ -1,0 +1,41 @@
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    font-family: 'Bungee', cursive;
+}
+.logo{
+    display: flex;
+    align-items: center;
+    margin-top: .6rem;
+    flex: .5;
+}
+.logo img{
+    margin-right: 14px;
+}
+.logo p{
+    color: white;
+}
+.nav{
+    flex: .3;
+}
+.nav ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.nav li{
+    list-style: none;
+    color: white;
+}
+@media screen and (max-width : 990px) {
+    .nav{
+        display: none;
+    }
+}
+@media screen and (max-width : 490px) {
+    .nav{
+        display: none;
+    }
+}

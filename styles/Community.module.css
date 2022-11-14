@@ -1,0 +1,29 @@
+.community{
+    padding: 0 3rem;
+}
+.community h2{
+    font-size: 4.5rem;
+    line-height: 1.3;
+}
+.community h2 span{
+    align-self: flex-start;
+    background-image: linear-gradient(194deg,#ff00d2 33%,#7657ea 74%);
+    color: #fff;
+    line-height: 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+@media screen and (max-width : 768px) {
+    .community h2{
+        font-size: 3rem;
+    }
+}
+@media screen and (max-width : 490px) {
+    .community{
+        padding: 0 1.5rem;
+    }
+    .community h2{
+        font-size: 2.4rem;
+    }
+}
