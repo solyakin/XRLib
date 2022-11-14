@@ -6,10 +6,12 @@ import styles from '../styles/Header.module.css'
 const Header = () => {
   return (
     <header className={styles.header}>
-        <div className={styles.logo}>
-            <Image src='/logos.svg' width={30} height={30} alt="logo"/>
-            <p>MetaHub</p>
-        </div>
+        <Link href='/'>
+            <div className={styles.logo}>
+                <Image src='/logos.svg' width={30} height={30} alt="logo"/>
+                <p>XRAtlas</p>
+            </div>
+        </Link>
         <nav className={styles.nav}>
         <ul>
             <li>

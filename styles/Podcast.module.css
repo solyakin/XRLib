@@ -1,0 +1,66 @@
+.wrapper{
+    max-width: 1200px;
+    margin: auto;
+    padding: 1.2em 3em;
+}
+.wrapper h1{
+    font-size: 4em;
+    font-weight: 500;
+    text-align: center;
+    align-self: flex-start;
+    background-image: linear-gradient(194deg,#ff00d2 33%,#7657ea 74%);
+    color: #fff;
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 0;
+    text-transform: uppercase;
+}
+.tumbutron{
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+.tumbutron h2{
+    font-size: 2em;
+}
+.tumbutron p{
+    line-height: 1.8;
+}
+.podcastList{
+    margin-top: 2em;
+}
+.item{
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 2em;
+    margin-bottom: 1.4em;
+}
+.item h3{
+    font-size: 1.4em;
+    margin-top: 0;
+}
+.item p{
+    line-height: 1.6;
+}
+.rhap_container{
+    border-radius: 30px;
+}
+@media only screen and (max-width : 790px) {
+    .tumbutron{
+        display: block;
+    }
+}
+@media only screen and (max-width : 480px) {
+    .wrapper{
+        padding: 1.3em;
+    }
+    .tumbutron img{
+        width: 100%;
+    }
+    .item{
+        padding: 2em 1.3em;
+    }
+}

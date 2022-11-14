@@ -7,6 +7,15 @@
     font-size: 3rem;
     width: 56rem;
 }
+.mission h3 span{
+    align-self: flex-start;
+    background-image: linear-gradient(194deg,#ff00d2 33%,#7657ea 74%);
+    color: #fff;
+    line-height: 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 .mission p{
     font-family: 'IBM Plex Mono', monospace;
     line-height: 26px;
@@ -18,7 +27,7 @@
 }
 .mission .text{
     text-align: left;
-    flex: .4;
+    flex: .5;
 }
 @media screen and (max-width : 990px) {
     .mission h3{

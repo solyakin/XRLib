@@ -9,7 +9,7 @@ const Information = () => {
         <div className={styles.wrapper}>
             <div className={styles.content}>
                 <h2>A GLIMPLSE INTO THE FUTURE OF HUMANITY</h2>
-                <p>Daedalus is a comic book that follows the story of two people, Estafos and Suraya, who meet each other by accident and are both trying to find the mystery behind a planet that has trapped them.</p>
+                <p>XR Atlas is a comic book that follows the story of two people, Estafos and Suraya, who meet each other by accident and are both trying to find the mystery behind a planet that has trapped them.</p>
 
                 <p>They soon discover that they have more in common than they thought and decide to work together to find a way off the planet.</p>
 
@@ -27,7 +27,7 @@ const Information = () => {
             </div>
             <div className={styles.content}>
                 <h2>A GLIMPLSE INTO THE FUTURE OF HUMANITY</h2>
-                <p>Daedalus is a comic book that follows the story of two people, Estafos and Suraya, who meet each other by accident and are both trying to find the mystery behind a planet that has trapped them.</p>
+                <p>XR Atlas is a comic book that follows the story of two people, Estafos and Suraya, who meet each other by accident and are both trying to find the mystery behind a planet that has trapped them.</p>
 
                 <p>They soon discover that they have more in common than they thought and decide to work together to find a way off the planet.</p>
 

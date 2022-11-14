@@ -5,7 +5,7 @@ import styles from '../styles/Community.module.css'
 const Community = () => {
   return (
     <div className={styles.community}>
-        <h2>BECOME PART OF OUR GROWING ECOSYSTEM OF AMAZING XR COMMUNITIES.</h2>
+        <h2>BECOME PART OF OUR GROWING <span>ECOSYSTEM</span> OF AMAZING XR COMMUNITIES.</h2>
     </div>
   )
 }

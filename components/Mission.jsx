@@ -6,9 +6,9 @@ const Mission = () => {
     <div className={styles.mission}>
         <div className={styles.noise}></div>
         <p>Our Mission</p>
-        <h3>A MORE UNITED AND USER-FRIENDLY XR ENGINEERING IS INEVITABLE.</h3>
+        <h3>A MORE UNITED AND <span>USER-FRIENDLY</span> XR ENGINEERING IS INEVITABLE.</h3>
         <div className={styles.textwrapper}>
-            <p className={styles.text}>Metahub is an ecosystem that brings XR communities together, providing them with simple yet powerful tools and incentives to grow faster and stronger, and to unlock unique experiences. </p>
+            <p className={styles.text}>XR Atlas focuses on exploring Extended Reality(XR), Artificial intelligence (AI), and Metaverse technologies, on better understand how these technologies are shaping the collective future of the human race. Episodes from podcasts include conversations with enthusiasts, developers, designers, and leaders in the XR & AI industry, to address key issues & innovations and better understand their unique and diverse points of view. </p>
         </div>
     </div>
   )

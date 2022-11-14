@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@200;300;400;500;600;700&display=swap');
+.container{
+    width: 990px;
+    margin: 10px auto;
+    padding: 0 2em;
+}
+.heading{
+    text-align: center;
+}
+.heading h2{
+    font-size: 4em;
+    font-weight: 500;
+    text-align: center;
+    align-self: flex-start;
+    background-image: linear-gradient(194deg,#ff00d2 33%,#7657ea 74%);
+    color: #fff;
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+/* .heading input{
+    padding: 1.2rem;
+    width: 500px;
+    border: 1px solid #a1a1a1;
+    border-radius: 40px;
+    margin-bottom: 1.3rem;
+    outline: none;
+} */
+.newsletter{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    border: 1px solid #727070 ;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2.3rem;
+    cursor: pointer;
+}
+.newsletter h3{
+    margin-top: 10px;
+}
+.author{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.author img{
+    border-radius: 50%;
+}
+.author span{
+    color: #8f8e8e;
+    
+}
+.text p{
+    line-height: 1.6;
+}
+.preview{
+    width: 800px;
+    margin: auto;
+}
+.preview h3{
+    font-size: 2.3em;
+    margin-top: 0em;
+}
+.writeup h4{
+    font-size: 1.5em;
+}
+.preview p{
+    font-size: 18px;
+    line-height: 2;
+    text-align: justify;
+}
+@media only screen and (max-width : 990px) {
+    .nav{
+        display: none;
+    }
+    .container{
+        width: 100%;
+    }
+    .preview{
+        width: 100%;
+    }
+    .articleimg{
+        width: 100%;
+    }
+}
+@media only screen and (max-width : 480px) {
+    .container{
+        padding: 2em 1em;
+    }
+    .heading h2{
+        font-size: 2em;
+        margin-top: 0;
+    }
+    .title h3{
+        font-size: 1.5em;
+    }
+    .author p{
+        font-size: 15px;
+    }
+    .writeup h4{
+        font-size: 1.2em;
+    }
+    .preview p{
+        font-size: 16px;
+    }
+    .text p{
+        display: none;
+    }
+    .text h3{
+        font-size: 1em;
+    }
+    .newsletter{
+        gap: 1.2rem;
+        padding: 1rem;
+    }
+    .photo img{
+        width: 80px;
+        height: 80px;
+    }
+}

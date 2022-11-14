@@ -36,6 +36,7 @@
     .herosection h1{
         font-size: 4rem;
         word-wrap: break-word;
+        margin-top: 5.5rem;
     }
     .nav{
         display: none;
