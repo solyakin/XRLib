@@ -8,10 +8,8 @@ const Information = () => {
         <div className={styles.noise}></div>
         <div className={styles.wrapper}>
             <div className={styles.content}>
-                <h2>A GLIMPLSE INTO THE FUTURE OF HUMANITY</h2>
-                <p>XR Atlas is a comic book that follows the story of two people, Estafos and Suraya, who meet each other by accident and are both trying to find the mystery behind a planet that has trapped them.</p>
-
-                <p>They soon discover that they have more in common than they thought and decide to work together to find a way off the planet.</p>
+                <h2>A GLIMPSE INTO THE FUTURE OF THE METAVERSE</h2>
+                <p>XR Atlas Podcast explores immersive technologies and Artificial intelligence. Episodes from podcasts include conversations with enthusiasts, developers, designers, and leaders in the XR & AI industry, to address key issues & innovations and better understand their unique and diverse points of view.</p>
 
                 <p>The story is full of action, adventure, and suspense and is sure to keep you entertained from beginning to end. If you're looking for a great new comic book to read, then be sure to check out Daedalus!</p>
 
@@ -26,10 +24,8 @@ const Information = () => {
                 <Image src='/optical.jpg' width={500} height={500} alt="mars"/>
             </div>
             <div className={styles.content}>
-                <h2>A GLIMPLSE INTO THE FUTURE OF HUMANITY</h2>
-                <p>XR Atlas is a comic book that follows the story of two people, Estafos and Suraya, who meet each other by accident and are both trying to find the mystery behind a planet that has trapped them.</p>
-
-                <p>They soon discover that they have more in common than they thought and decide to work together to find a way off the planet.</p>
+                <h2>A GLIMPSE INTO THE FUTURE OF THE METAVERSE</h2>
+                <p>Connecting the dots between the evolution of the Metaverse and  it’s a direct impact on human development. The XR Atlas Newsletter comes from creatives, technologists, designers and professionals from the Metaverse & AI spaces. Enjoy and stay on top of the latest interesting and insightful updates from the world of  XR and the Metaverse.</p>
 
                 <p>The story is full of action, adventure, and suspense and is sure to keep you entertained from beginning to end. If you're looking for a great new comic book to read, then be sure to check out Daedalus!</p>
 

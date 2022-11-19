@@ -17,7 +17,7 @@ const Subscribe = () => {
             <div className={styles.logos}>
                 <a href="">TWITTER</a>
                 <a href="https://www.linkedin.com/newsletters/xr-atlas-6897026405473812480/">LINKEDIN</a>
-                <a href="https://github.com/Babatunde-Fatai/XRAtlas">GITHUB</a>
+                <a href="">DISCORD</a>
             </div>
         </div>
     </div>

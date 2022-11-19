@@ -7,7 +7,9 @@ const Hero = () => {
     <div className={styles.hero}>
         <Header />
         <div className={styles.herosection}>
-          <h1>VIRTUAL REALITY</h1>
+          <h1>XR-ATLAS
+          <p className={styles.by}>By Babatunde</p>
+          </h1>
           <div className={styles.btns}>
                 <button>Subscribe to our newsletter</button>
                 <button>Listen to your podcast</button>
