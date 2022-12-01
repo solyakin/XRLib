@@ -4,6 +4,7 @@ import Header from "../components/Header"
 import styles from '../styles/Podcast.module.css'
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
+import Footer from "../components/Footer";
 
 const Podcast = () => {
   return (
@@ -21,14 +22,53 @@ const Podcast = () => {
             <div className={styles.wrapper}>
                 <h1>Podcast</h1>
                 <div className={styles.tumbutron}>
-                    <Image src='/xr.jpeg' width={300} height={250} alt="flyer"/>
+                    <Image src='/Group 73.svg' width={350} height={350} alt="flyer"/>
                     <div className={styles.about}>
                         <h2>XRAtlas</h2>
                         <p>XR Atlas Pod focuses on exploring XR, AI and Metaverse technologies, to better understand how these technologies are shaping the collective future of the human race. Episodes include conversations with enthusiasts, developers, designers and leaders in the XR & AI industry, to address key issues & innovations and also to better understand their unique and diverse points of view.</p>
                     </div>
                 </div>
                 <div className={styles.podcastList}>
-                    <div className={styles.item}>
+                    <div className={styles.d_grid}>
+                        <div className={styles.item}>
+                            <img src="/profile_3.svg" alt="" className={styles.post_image} />
+                            <div className="content">
+                                <h5>How Augmented Reality is Revolutionalizing Education - Ludenso</h5>
+                                <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype.</p>
+                                <img src="/Group 70.svg" alt="" />
+                            </div>
+                        </div>
+                        <div className={styles.item}>
+                            <img src="/profile_3.svg" alt="" className={styles.post_image}/>
+                            <div className="content">
+                                <h5>How Augmented Reality is Revolutionalizing Education - Ludenso</h5>
+                                <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype.</p>
+                                <img src="/Group 70.svg" alt="" />
+                            </div>
+                        </div>
+                        <div className={styles.item}>
+                            <img src="/profile_3.svg" alt="" className={styles.post_image}/>
+                            <div className="content">
+                                <h5>How Augmented Reality is Revolutionalizing Education - Ludenso</h5>
+                                <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype.</p>
+                                <img src="/Group 70.svg" alt="" />
+                            </div>
+                        </div>
+                        <div className={styles.item}>
+                            <img src="/profile_3.svg" alt="" className={styles.post_image}/>
+                            <div className="content">
+                                <h5>How Augmented Reality is Revolutionalizing Education - Ludenso</h5>
+                                <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype.</p>
+                                <img src="/Group 70.svg" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styles.pagination}>
+                        <span>1</span>
+                        <span>2</span>
+                        <span>3</span>
+                    </div>
+                    {/* <div className={styles.item}>
                         <h3>How Augmented Reality is Revolutionalizing Education - Ludenso</h3>
                         <p>Ludenso is an educational technology company made by thinkers and makers who build simple learning tools that include all learners. So far, more than 10.000 young, creative minds have used their products to learn, create and explore through playful AR experiences.
                         They are a small, but mighty young squad of people working hard to change education as we know it, while helping students become future-ready. They have been doing this in close collaboration with innovative teachers, leading universities, as well as experts from the tech and publishing industries. They are a passionate team of doers with strong values that convey through everything they do. I would advise you to check out their awesome solutions!</p>
@@ -40,33 +80,10 @@ const Podcast = () => {
                                 // other props here
                             />
                         </div>
-                    </div>
-                    <div className={styles.item}>
-                        <h3>Startups in Africa: SwiftXR</h3>
-                        <p>This episode of XR Atlas Pod is a special one, this XRAtlas pod segment is dedicated to promising startups rising in Africa and Globally, I have with me a dear friend and founder of SwiftXR Hammed Arowosegbe, SwiftXR is a fast no-code, cross-platform development solution for building lightweight interactive 3D, AR, and VR experiences. SwiftXR allows you to effortlessly create a project, drag and drop 3D objects into it, personalize it, and deploy cross-platform 3D, WebAR, and WebVR experiences. We will be discussing everything about SwiftXR, how people can utilize it, how it has been being a startup in Africa and what their dreams and goals are.</p>
-                        <div className={styles.audio}>
-                            <AudioPlayer
-                                autoPlay
-                                src="http://example.com/audio.mp3"
-                                onPlay={e => console.log("onPlay")}
-                                // other props here
-                            />
-                        </div>
-                    </div>
-                    <div className={styles.item}>
-                        <h3>Startups: A new reality for collaboration - RAUM for Businesses</h3>
-                        <p>Ludenso is an educational technology company made by thinkers and makers who build simple learning tools that include all learners. So far, more than 10.000 young, creative minds have used their products to learn, create and explore through playful AR experiences.
-                        They are a small, but mighty young squad of people working hard to change education as we know it, while helping students become future-ready. They have been doing this in close collaboration with innovative teachers, leading universities, as well as experts from the tech and publishing industries. They are a passionate team of doers with strong values that convey through everything they do. I would advise you to check out their awesome solutions!</p>
-                        <div className={styles.audio}>
-                            <AudioPlayer
-                                // autoPlay
-                                src="https://res.cloudinary.com/duhkz21x4/video/upload/v1668452954/01_Stand_Strong_feat._The_Samples_Prod._by_Pheelz____NetNaija.com_krkfxt.mp3"
-                                onPlay={e => console.log("onPlay")}
-                            />
-                        </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
+            <Footer />
         </mian>
     </div>
   )

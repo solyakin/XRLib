@@ -1,11 +1,20 @@
 import Head from 'next/head'
-import Image from 'next/image'
+import { AnimatePresence } from "framer-motion";
+// import { useLocation, useRoutes } from "react-router-dom";
 import Community from '../components/Community'
+import Footer from '../components/Footer'
+import Glimpse from '../components/Glimpse'
 import Hero from '../components/Hero'
 import Information from '../components/Information'
 import Mission from '../components/Mission'
+import RecentNewsletter from '../components/RecentNewsletter'
+import RecentPodcast from '../components/RecentPodcast'
 import Subscribe from '../components/Subscribe'
 import styles from '../styles/Home.module.css'
+
+const data = {
+  title : "Read Newsletters",
+}
 
 export default function Home() {
   return (
@@ -21,24 +30,14 @@ export default function Home() {
 
       <main className={styles.main}>
         <Hero />
-        <Mission/>
         <Information />
+        <RecentPodcast />
+        <Glimpse />
+        <RecentNewsletter data={data}/>
         <Community />
-        <Subscribe />
+        <Footer />
+        {/* <Subscribe /> */}
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   )
 }

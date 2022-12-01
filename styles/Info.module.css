@@ -1,9 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@200;300;400;500;600;700&display=swap');
-.info{
-    padding: 2rem 3rem;
-    margin-top: 3rem;
+
+@font-face {
+    font-family: 'cabinet';
+    src: url('../public/Fonts/CabinetGrotesk-Bold.otf');
+    /* font-weight: 400; */
+    font-style: normal;
 }
-.noise{
+.info{
+    padding: 2rem 0rem;
+    margin: 3rem auto;
+    width: 1200px;
+}
+/* .noise{
     position: fixed;
     top: 0;
     left: 0;
@@ -15,76 +22,78 @@
     z-index: -1;
     background: url(/noise.gif);
    
-}
+} */
 .wrapper{
     display: flex;
+    justify-content: space-between;
     gap: 2.5rem;
-    margin-bottom: 8rem;
+    /* margin-bottom: 8rem; */
 }
 .content{
     flex: .5;
 }
 .content h2{
-    font-weight: 400;
-    font-size: 2.8rem;
+    font-weight: 800;
+    font-size: 2.1rem;
+    font-family: 'carbinet', sans-serif;
 }
 .content p{
     font-weight: 400;
-    font-family: 'IBM Plex Mono', monospace;
-    line-height: 26px;
-}
-.content button{
-    padding: 1.5rem 10px;
-    border: 2px solid white;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 16px;
-    font-weight: 500;
-    text-transform: uppercase;
-    cursor: pointer;
-    position: relative;
-    width: 231px;
-    margin-top: 2rem;
-}
-.content button::before{
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 234px;
-    z-index: -1;
-    height: 75px;
-    background: rebeccapurple;
+    font-family: 'Firs', monospace;
+    font-size: 21px;
+    line-height: 1.6;
 }
 .image{
+    flex: .4;
+    align-self: center;
+    justify-self: center;
+}
+.headset{
     flex: .5;
 }
 .image img{
-    width: 100%;
-    height: 600px;
+    width: 300px;
+    height: auto;
     object-fit: cover;
-    transition: filter 0.03s;
+    /* transition: filter 0.03s;
     -webkit-filter: grayscale(100%); 
-    filter: grayscale(100%);
+    filter: grayscale(100%); */
 }
-.image img:hover{
+.headset img{
+    width: 800px;
+    height: 700px;
+}
+/* .image img:hover{
     -webkit-filter: grayscale(0%);
   filter: grayscale(0%);
-}
+} */
 
-@media screen and (max-width : 990px) {
+@media screen and (max-width : 1020px) {
+    .info{
+        padding: 2rem;
+        width: 100%;
+    }
     .wrapper{
         width: 100%;
         display: block;
+    }
+    .image{
+        flex: 1;
+        text-align: center;
     }
     .content button{
         margin-bottom: 2rem;
     }
 }
-@media screen and (max-width : 490px) {
+@media screen and (max-width : 480px) {
     .info{
         padding: 2rem 1.5rem;
+        margin-bottom: 0;
     }
     .content h2{
-        font-size: 2rem;
+        font-size: 1.6em;
+    }
+    .content p{
+        font-size: 1em;
     }
 }

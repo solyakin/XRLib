@@ -1,0 +1,114 @@
+.recent{
+    font-family: 'carbinet', sans-serif;
+    position: relative;
+    margin-top: 10rem;
+}
+.recent .grid_bg{
+    position: absolute;
+    top: -20rem;
+    right: 0;
+    z-index: 1;
+}
+.recent_wrapper{
+    max-width: 1200px;
+    margin: 20px auto;
+    z-index: 10;
+    margin-top: 5rem;
+}
+.recent .dflex{
+    display: flex;
+    gap: 2em;
+}
+.recent h3{
+    font-size: 1.5em;
+    color: white;
+}
+.recent .item{
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2em;
+    border: 1px solid #3F4753;
+    padding: 1.2em 1em;
+    border-radius: 10px;
+    background-color: black;
+    z-index: 10;
+}
+.item p{
+   color : #7D7D7D;
+   font-size: 14px;
+   line-height: 1.5;
+   font-family: "Firs";
+   font-weight: 400;
+}
+.item h5{
+    margin-top: 0;
+    margin-bottom: 1em;
+    font-size: 1.2em;
+}
+.item .content img{
+    width: 100%;
+}
+.recent .button{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.recent button{
+    background: linear-gradient(89.76deg, #FB047B 3.64%, #130EFF 99.88%);
+    padding: 1.5em;
+    border-radius: 40px;
+    color: white;
+    border: 1px solid white;
+    margin-top: 4em;
+    cursor: pointer;
+    width: 300px;
+    font-family: 'Firs';
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+@media screen and (max-width : 1020px) {
+    .recent{
+        padding: 2em;
+    }
+    .recent_wrapper{
+        max-width: 100%;
+    }
+    .recent .dflex{
+        display: block;
+    }
+    .recent .item{
+        margin-bottom: 10px;
+        background: black;
+        z-index: 1050;
+    }
+    .recent .grid_bg{
+        top: -5em;
+    }
+}
+@media screen and (max-width : 580px) {
+    .item h5{
+        font-size: 1em;
+        margin-bottom: 0;
+    }
+    .item p{
+        margin-top: 5px;
+    }
+}
+@media screen and (max-width : 480px) {
+    .recent{
+        margin-top: 0;
+    }
+    .recent_wrapper{
+        margin-top: 0;
+    }
+    .recent .grid_bg{
+        display: none;
+    }
+    .recent .item{
+        display: block;
+    }
+    .recent .post_img{
+        width: 70px;
+        height: 70px;
+    }
+}
