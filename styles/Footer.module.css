@@ -107,6 +107,9 @@
     }
 }
 @media screen and (max-width : 480px) {
+    .footer_wrapper{
+        padding: 0;
+    }
     .footer_wrapper h3{
         font-size: 1.6em;
     }

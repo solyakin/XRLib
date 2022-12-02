@@ -58,7 +58,6 @@
     margin-bottom: 2.3rem;
     cursor: pointer;
     border: 1px solid linear-gradient(228.09deg, #FF2CF7 -9.95%, rgba(251, 4, 123, 0.796875) 12.47%, rgba(255, 126, 188, 0.81) 30.87%, rgba(255, 255, 255, 0) 53.87%, rgba(73, 255, 233, 0.65) 70.34%, #130EFF 100.44%);
-    
 }
 
 .newsletter h3{
@@ -115,9 +114,12 @@
     line-height: 1.7;
     font-family: 'Firs';
 }
-
-
-
+@media only screen and (max-width : 1250px) {
+    .main_content{
+        width: 100%;
+        padding: 2rem;
+    }
+}
 @media only screen and (max-width : 990px) {
     .nav{
         display: none;
@@ -132,6 +134,34 @@
         width: 100%;
     }
 }
+@media only screen and (max-width : 768px) {
+    .heading h2{
+        font-size: 3.5em;
+    }
+    .newsletter{
+        gap: 2em;
+    }
+}
+@media only screen and (max-width : 590px) {
+    .heading h2{
+        font-size: 2.5em;
+    }
+    .photo img{
+        width: 80px;
+        height: 80px;
+    }
+    .main_content{
+        padding: 0;
+    }
+    .newsletter{
+        flex-direction: column-reverse;
+        gap: 0;
+    }
+    .photo{
+        align-self: flex-start;
+    }
+}
+
 @media only screen and (max-width : 480px) {
     .container{
         padding: 2em 1em;
@@ -152,18 +182,7 @@
     .preview p{
         font-size: 16px;
     }
-    .text p{
-        display: none;
-    }
     .text h3{
         font-size: 1em;
-    }
-    .newsletter{
-        gap: 1.2rem;
-        padding: 1rem;
-    }
-    .photo img{
-        width: 80px;
-        height: 80px;
     }
 }
