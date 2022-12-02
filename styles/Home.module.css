@@ -1,8 +1,8 @@
 .container {
   width: 100%;
   /* font-family: 'Bungee', cursive; */
-  /* background: black; */
-  /* color: white; */
+  background: black;
+  color: white;
 }
 @font-face {
   font-family: 'Isabov';

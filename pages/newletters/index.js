@@ -39,7 +39,7 @@ const Newsletters = () => {
                                         </div>
                                     </div>
                                     <div className={styles.photo}>
-                                        <Image src='/profile_3 (1).svg' width={140} height={140}/>
+                                        <Image src='/profile_3 (1).svg' width={140} height={140} alt=""/>
                                     </div>
                                 </div>
                             </Link>
@@ -56,7 +56,7 @@ const Newsletters = () => {
                                         </div>
                                     </div>
                                     <div className={styles.photo}>
-                                        <Image src='/Aran Jamison.svg' width={140} height={140}/>
+                                        <Image src='/Aran Jamison.svg' width={140} height={140} alt=""/>
                                     </div>
                                 </div>
                             </Link>
@@ -73,7 +73,7 @@ const Newsletters = () => {
                                         </div>
                                     </div>
                                     <div className={styles.photo}>
-                                        <Image src='/profile_3 (1).svg' width={140} height={140}/>
+                                        <Image src='/profile_3 (1).svg' width={140} height={140} alt=""/>
                                     </div>
                                 </div>
                             </Link>
@@ -90,7 +90,7 @@ const Newsletters = () => {
                                         </div>
                                     </div>
                                     <div className={styles.photo}>
-                                        <Image src='/profile_3 (1).svg' width={140} height={140}/>
+                                        <Image src='/profile_3 (1).svg' width={140} height={140} alt=""/>
                                     </div>
                                 </div>
                             </Link>
@@ -107,7 +107,7 @@ const Newsletters = () => {
                                         </div>
                                     </div>
                                     <div className={styles.photo}>
-                                        <Image src='/profile_3 (1).svg' width={140} height={140}/>
+                                        <Image src='/profile_3 (1).svg' width={140} height={140} alt=""/>
                                     </div>
                                 </div>
                             </Link>

@@ -18,7 +18,7 @@ const Preview = () => {
     damping: 30,
     restDelta: 0.001
   });
-  
+
   return (
     <div className={styles.newletters}>
       <Head>
@@ -29,7 +29,7 @@ const Preview = () => {
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='true'/>
           <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet"/>
       </Head>
-      <main>
+      <main className={styles.preview_wrapper}>
         <motion.div className={styles.progress_bar} style={{ scaleX }} />
         <Header />
         <div className={styles.container}>

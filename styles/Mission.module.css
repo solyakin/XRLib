@@ -12,9 +12,11 @@
     font-style: normal;
 }
 .mission{
+    position: relative;
     padding: 3rem;
     background: black;
     z-index: 1050;
+    color: white;
 }
 .mission_wrapper{
     width: 1000px;

@@ -34,11 +34,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/newletters.js"
-    ],
-    "/newletters/preview": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/newletters/preview.js"
     ]
   },
   "ampFirstPages": []

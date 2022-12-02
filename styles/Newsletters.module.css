@@ -14,8 +14,14 @@
     font-weight: 400;
     font-style: normal;
 }
+.preview_wrapper{
+    background: black;
+    color: white;
+}
 .main{
     position: relative;
+    background: black;
+    color: white;
 }
 .star_bg{
     position: fixed;
@@ -64,6 +70,7 @@
     margin-top: 10px;
     margin-bottom: 0;
     font-family: 'cabinet';
+    color: white;
 }
 .author{
     display: flex;
@@ -72,6 +79,9 @@
 }
 .author img{
     border-radius: 50%;
+}
+.author p{
+    color: white;
 }
 .author span{
     color: rgba(244, 5, 128, 1);
@@ -95,6 +105,9 @@
     border-radius: 50%;
     cursor: pointer;
     margin-top: 3rem;
+}
+.pagination span{
+    color: white;
 }
 .preview{
     width: 800px;

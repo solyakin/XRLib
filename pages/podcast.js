@@ -16,7 +16,7 @@ const Podcast = () => {
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='true'/>
         </Head>
-        <mian className={styles.main}>
+        <main className={styles.main}>
             <Header />
             <div className={styles.wrapper}>
                 <h1>Podcast</h1>
@@ -83,7 +83,7 @@ const Podcast = () => {
                 </div>
             </div>
             <Footer />
-        </mian>
+        </main>
     </div>
   )
 }
