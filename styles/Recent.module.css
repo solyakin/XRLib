@@ -83,7 +83,7 @@
         display: block;
     }
     .recent .item{
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         background: black;
         z-index: 1050;
     }

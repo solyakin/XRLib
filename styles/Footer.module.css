@@ -114,7 +114,8 @@
 }
 @media screen and (max-width : 480px) {
     .footer_wrapper{
-        padding: 0;
+        padding: 2em;
+        padding-top: 3rem;
     }
     .footer_wrapper h3{
         font-size: 1.6em;
@@ -130,8 +131,11 @@
         height: 25px;
     }
     .footer .copyright{
-        display: block;
+        flex-direction: column-reverse;
         text-align: center;
+    }
+    .copyright ul{
+        padding-left: 0;
     }
     .copyright p{
         font-size: .8em;

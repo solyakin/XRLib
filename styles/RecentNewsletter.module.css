@@ -83,11 +83,12 @@
         margin-bottom: 10px;
     }
 }
-@media screen and (max-width : 480px) {
-    /* .item h4{
-        font-size: 1.6em;
+@media screen and (max-width : 678px) {
+    .readmore{
+        margin-top: 0;
     }
-    .item p{
-        font-size: 1.3em;
-    } */
+    .newletters{
+        padding: 0 1.5rem;
+    }
 }
+

@@ -35,10 +35,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/newletters.js"
     ],
-    "/podcast": [
+    "/newletters/preview": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/podcast.js"
+      "static/chunks/pages/newletters/preview.js"
     ]
   },
   "ampFirstPages": []
