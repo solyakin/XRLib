@@ -27,21 +27,20 @@
     display: flex;
     justify-content: space-between;
     gap: 2.5rem;
-    /* margin-bottom: 8rem; */
 }
 .content{
     flex: .5;
 }
 .content h2{
-    font-weight: 800;
+    font-weight: 900;
     font-size: 2.1rem;
-    font-family: 'carbinet', sans-serif;
+    font-family: 'carbinet';
 }
 .content p{
     font-weight: 400;
-    font-family: 'Firs', monospace;
+    font-family: 'Firs';
     font-size: 21px;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 .image{
     flex: .4;
@@ -55,18 +54,11 @@
     width: 300px;
     height: auto;
     object-fit: cover;
-    /* transition: filter 0.03s;
-    -webkit-filter: grayscale(100%); 
-    filter: grayscale(100%); */
 }
 .headset img{
     width: 800px;
     height: 700px;
 }
-/* .image img:hover{
-    -webkit-filter: grayscale(0%);
-  filter: grayscale(0%);
-} */
 
 @media screen and (max-width : 1020px) {
     .info{

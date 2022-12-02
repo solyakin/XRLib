@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 4rem;
-    font-family: 'Firs', sans-serif;
+    font-family: 'Firs';
     z-index: 1050;
 }
 .header .active{

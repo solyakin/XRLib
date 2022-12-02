@@ -15,7 +15,9 @@ const Hero = () => {
 
   return (
     <div className={styles.hero}>
-        <Header />
+        <div className={styles.header}>
+          <Header />
+        </div>
         <div className={styles.herosection}>
           <img src='/Map hero.svg' width={1300} height={900} alt="" className={styles.map}/>
           <div className={styles.herotext}>
@@ -44,9 +46,9 @@ const Hero = () => {
         <div className={style.mission} ref={ref}>
           <div className={style.mission_wrapper}>
             <div style={{
-                transform: isInView ? "none" : "translateX(-200px)",
+                transform: isInView ? "none" : "translateY(100px)",
                 opacity: isInView ? 1 : 0,
-                transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
+                transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.8s"
               }}>
               <h3>A MORE UNITED AND <span>USER-FRIENDLY</span> XR ENGINEERING IS INEVITABLE.</h3>
               <div className={style.textwrapper}>

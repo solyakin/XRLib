@@ -10,13 +10,16 @@
     font-style: normal;
 }
 .hero{
-    position: relative;
     width: 100%;
     min-height: 100vh;
     background: url(../public/Stars\ hero\ bg.svg);
     background-repeat: no-repeat;
     background-size: cover;
     overflow-x: 0;
+}
+.hero .header{
+    position: relative;
+    z-index: 1050;
 }
 .herosection{
     position: relative;
@@ -32,12 +35,6 @@
     width: 100%;
     height: 100vh;
 }
-/* .herosection .light{
-    position: absolute;
-    top: 10em;
-    right: -14rem;
-    z-index: 10;
-} */
 .herotext{
     position: absolute;
     top: -5em;
@@ -45,12 +42,11 @@
     right: 0;
     bottom: 0;
     text-align: center;
-    z-index: 1050;
+    z-index: 10;
     height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* margin-bottom: 8em; */
 }
 .herosection h1{
     font-family: 'Isabov', sans-serif;
@@ -139,7 +135,4 @@
     .herosection h1{
         font-size: 3rem;
     }
-    /* .herosection .map{
-        right: -5rem;
-    } */
 }
