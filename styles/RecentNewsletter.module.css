@@ -15,6 +15,9 @@
     font-family: 'carbinet';
     margin: 5rem auto;
 }
+.newletters h3{
+    font-size: 1.5em;
+}
 .newletterList{
     display: flex;
     align-items: center;
@@ -29,6 +32,7 @@
 .item h4{
     font-family: 'carbinet';
     margin-bottom: 0px;
+    margin-top: .6em;
 }
 .item p{
     color: #7D7D7D;
@@ -40,6 +44,7 @@
 .newletterList .author{
     display: flex;
     align-items: center;
+    margin-top: 1em;
 }
 .author img{
     margin-right: 1rem;

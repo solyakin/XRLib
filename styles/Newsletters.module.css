@@ -126,6 +126,11 @@
     font-size: 18px;
     line-height: 1.7;
     font-family: 'Firs';
+    margin-bottom: 1.2em;
+}
+.articleimg{
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 @media only screen and (max-width : 1250px) {
     .main_content{
@@ -142,6 +147,7 @@
     }
     .preview{
         width: 100%;
+        padding: 2em 4em;
     }
     .articleimg{
         width: 100%;
@@ -173,14 +179,18 @@
     .photo{
         align-self: flex-start;
     }
+    .preview{
+        padding: 2em 1.5em;
+    }
 }
 
 @media only screen and (max-width : 480px) {
-    .container{
+    /* .container{
         padding: 2em 1.5em;
-    }
+    } */
     .newsletter{
         padding: 1em 1.2em;
+        margin: 2em 1.5em;
     }
     .heading h2{
         font-size: 2em;

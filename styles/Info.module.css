@@ -73,7 +73,8 @@
     }
     .wrapper{
         width: 100%;
-        display: block;
+        flex-direction: column-reverse;
+        /* display: block; */
     }
     .image{
         flex: 1;

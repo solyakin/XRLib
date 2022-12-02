@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { ChakraProvider } from '@chakra-ui/react'
 import Community from '../components/Community'
 import Footer from '../components/Footer'
 import Glimpse from '../components/Glimpse'
@@ -17,7 +16,6 @@ const data = {
 
 export default function Home() {
   return (
-    <ChakraProvider>
       <div className={styles.container}>
         <Head>
           <title>XRAtlas</title>
@@ -38,6 +36,5 @@ export default function Home() {
           {/* <Subscribe /> */}
         </main>
       </div>
-    </ChakraProvider>
   )
 }

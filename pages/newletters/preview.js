@@ -27,12 +27,11 @@ const Preview = () => {
           <link rel="icon" href="/xr.jpeg" />
           <link rel="preconnect" href="https://fonts.googleapis.com"/>
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='true'/>
-          <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet"/>
       </Head>
       <main className={styles.preview_wrapper}>
         <motion.div className={styles.progress_bar} style={{ scaleX }} />
         <Header />
-        <div className={styles.container}>
+        <div className={styles.c}>
           <div className={styles.preview}>
             <div className={styles.author}>
                 <Image src='/wepik2.png' width={30} height={30} alt="avatar"/>
