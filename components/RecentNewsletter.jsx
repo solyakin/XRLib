@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import styles from '../styles/RecentNewsletter.module.css'
 
@@ -35,7 +36,9 @@ const RecentNewsletter = ({data}) => {
             </div>
         </div>
         <div className={styles.readmore}>
-            <button>Read Newsletters</button>
+            <button>
+                <Link href='/newletters'>Read Newsletters</Link>
+            </button>
         </div>
     </div>
   )

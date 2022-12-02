@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import styles from '../styles/Recent.module.css'
 
@@ -26,7 +27,9 @@ const RecentPodcast = () => {
                 </div>
             </div>
             <div className={styles.button}>
-                <button>Listen to Podcast</button>
+                <button>
+                    <Link href='/podcast'>Listen to Podcast</Link>
+                </button>
             </div>
         </div>
     </div>

@@ -4,6 +4,12 @@
     font-weight: 400;
     font-style: normal;
 }
+@font-face {
+    font-family: 'Firs';
+    src: url('../public/Fonts/TT\ Firs\ Neue\ Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
 .newletters{
     max-width: 1200px;
     font-family: 'carbinet';
@@ -29,6 +35,7 @@
     font-size: 14px;
     line-height: 1.6;
     margin-top: 5px;
+    font-family: 'Firs';
 }
 .newletterList .author{
     display: flex;
