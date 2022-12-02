@@ -1,6 +1,12 @@
+@font-face {
+    font-family: 'carbinet';
+    src: url('../public/Fonts/CabinetGrotesk-Black.otf');
+    font-weight: 400;
+    font-style: normal;
+}
 .newletters{
     max-width: 1200px;
-    font-family: 'carbinet', sans-serif;
+    font-family: 'carbinet';
     margin: 5rem auto;
 }
 .newletterList{
@@ -15,7 +21,7 @@
     border-radius: 10px;
 }
 .item h4{
-    font-family: 'carbinet', sans-serif;
+    font-family: 'carbinet';
     margin-bottom: 0px;
 }
 .item p{
