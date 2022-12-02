@@ -13,6 +13,7 @@ import {
 import { HamburgerIcon } from '@chakra-ui/icons'
 import { useRouter } from "next/router";
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from '../styles/Header.module.css'
 
 const Header = () => {
@@ -25,7 +26,7 @@ const Header = () => {
     <header className={styles.header}>
         <Link href='/'>
             <div className={styles.logo}>
-                <img src="/Product Description.svg" width="140px" height="auto" alt="" />
+                <Image src="/Product Description.svg" width={140} height={100} alt="" />
             </div>
         </Link>
         <nav className={styles.nav}>
@@ -54,18 +55,18 @@ const Header = () => {
                 <DrawerContent>
                     <DrawerCloseButton />
                     <DrawerHeader>
-                        <img src="/Product Description.svg" width="120px" height="auto" alt="" />
+                        <Image src="/Product Description.svg"  width={140} height={100} alt="" />
                     </DrawerHeader>
                     <DrawerBody>
                         <ul className={styles.menu_list}>
                             <li className={styles.menu}>
-                                <a href="/">Home</a>
+                                <Link href="/">Home</Link>
                             </li>
                             <li className={styles.menu}>
-                                <a href="/newletters">Newletter</a>
+                                <Link href="/newletters">Newletter</Link>
                             </li>
                             <li className={styles.menu}>
-                                <a href="/podcast">Podcast</a>
+                                <Link href="/podcast">Podcast</Link>
                             </li>
                         </ul>
                     </DrawerBody>
