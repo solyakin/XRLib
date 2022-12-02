@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from '../styles/Recent.module.css'
-// import seach from '../public'
 
 const RecentPodcast = () => {
   return (
