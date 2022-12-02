@@ -1,46 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@200;300;400;500;600;700&display=swap');
-.container{
-    width: 990px;
-    margin: 10px auto;
-    padding: 0 2em;
+@font-face {
+    font-family: 'Isabov';
+    src: url('../public/Fonts/ISABOV-Bold.otf');
+}
+@font-face {
+    font-family: 'cabinet';
+    src: url('../public/Fonts/CabinetGrotesk-Bold.otf');
+    /* font-weight: 400; */
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Firs';
+    src: url('../public/Fonts/TT\ Firs\ Neue\ Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+.main{
+    position: relative;
+}
+.star_bg{
+    position: fixed;
+    top: 0;
+    z-index: -1;
+    width: 100%;
+    min-height: 100vh;
+    background: url(../public/Stars\ footer\ bg.svg);
+}
+.main_content{
+    width: 1050px;
+    margin: 50px auto;
 }
 .heading{
     text-align: center;
 }
 .heading h2{
-    font-size: 4em;
+    font-size: 4.9em;
     font-weight: 500;
     text-align: center;
     align-self: flex-start;
     background-image: linear-gradient(194deg,#ff00d2 33%,#7657ea 74%);
     color: #fff;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Isabov';
+    text-transform: uppercase;
     line-height: 100%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    margin-bottom: 40px;
 }
-/* .heading input{
-    padding: 1.2rem;
-    width: 500px;
-    border: 1px solid #a1a1a1;
-    border-radius: 40px;
-    margin-bottom: 1.3rem;
-    outline: none;
-} */
 .newsletter{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 3rem;
-    border: 1px solid #727070 ;
-    border-radius: 10px;
+    gap: 5rem;
+    border: 1px solid #727070;
+    border-radius: 20px;
     padding: 1rem 1.5rem;
     margin-bottom: 2.3rem;
     cursor: pointer;
+    border: 1px solid linear-gradient(228.09deg, #FF2CF7 -9.95%, rgba(251, 4, 123, 0.796875) 12.47%, rgba(255, 126, 188, 0.81) 30.87%, rgba(255, 255, 255, 0) 53.87%, rgba(73, 255, 233, 0.65) 70.34%, #130EFF 100.44%);
 }
+
 .newsletter h3{
     margin-top: 10px;
+    margin-bottom: 0;
+    font-family: 'cabinet';
 }
 .author{
     display: flex;
@@ -51,11 +74,27 @@
     border-radius: 50%;
 }
 .author span{
-    color: #8f8e8e;
-    
+    color: rgba(244, 5, 128, 1);
 }
 .text p{
     line-height: 1.6;
+    color: rgba(125, 125, 125, 1);
+    font-family: 'Firs';
+    font-size: 16px;
+    margin-top: 0;
+}
+.list .pagination{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+}
+.list .pagination span{
+    border: 1px solid #ff00d2;
+    padding: 1em 1.2em;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: 3rem;
 }
 .preview{
     width: 800px;
@@ -64,20 +103,28 @@
 .preview h3{
     font-size: 2.3em;
     margin-top: 0em;
+    font-family: 'Firs';
 }
 .writeup h4{
     font-size: 1.5em;
+    font-family: 'Firs';
 }
 .preview p{
     font-size: 18px;
-    line-height: 2;
-    text-align: justify;
+    line-height: 1.7;
+    font-family: 'Firs';
+}
+@media only screen and (max-width : 1250px) {
+    .main_content{
+        width: 100%;
+        padding: 2rem;
+    }
 }
 @media only screen and (max-width : 990px) {
     .nav{
         display: none;
     }
-    .container{
+    .container, .list{
         width: 100%;
     }
     .preview{
@@ -87,6 +134,34 @@
         width: 100%;
     }
 }
+@media only screen and (max-width : 768px) {
+    .heading h2{
+        font-size: 3.5em;
+    }
+    .newsletter{
+        gap: 2em;
+    }
+}
+@media only screen and (max-width : 590px) {
+    .heading h2{
+        font-size: 2.5em;
+    }
+    .photo img{
+        width: 80px;
+        height: 80px;
+    }
+    .main_content{
+        padding: 0;
+    }
+    .newsletter{
+        flex-direction: column-reverse;
+        gap: 0;
+    }
+    .photo{
+        align-self: flex-start;
+    }
+}
+
 @media only screen and (max-width : 480px) {
     .container{
         padding: 2em 1em;
@@ -107,18 +182,7 @@
     .preview p{
         font-size: 16px;
     }
-    .text p{
-        display: none;
-    }
     .text h3{
         font-size: 1em;
-    }
-    .newsletter{
-        gap: 1.2rem;
-        padding: 1rem;
-    }
-    .photo img{
-        width: 80px;
-        height: 80px;
     }
 }

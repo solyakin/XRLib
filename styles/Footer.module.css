@@ -1,0 +1,133 @@
+.footer{
+    background: url(../public/Stars\ footer\ bg.svg);
+    height: 100vh;
+    background-position: center;
+    background-repeat: none;
+}
+.footer_wrapper{
+    width: 1200px;
+    margin: 0px auto;
+    padding-top: 3rem;
+}
+.footer_wrapper h3{
+    font-size: 50px;
+    font-weight: 400;
+    font-family: 'Firs';
+}
+.footer_wrapper p{
+    color: #CFD1D4;
+    font-size: 20px;
+    line-height: 1.5;
+}
+.email_wrapper{
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid rgba(125, 125, 125, 1);
+    padding-bottom: 1em;
+    margin-bottom: 2rem;
+    margin-top: 3rem;
+}
+.email_wrapper input{
+    border: none;
+    width: calc(100% - 50px);
+    background: none;
+    font-size: 1.5em;
+    padding-left: 1em;
+    font-family: "Firs";
+    outline: none;
+}
+.email_wrapper img{
+    width: 40px;
+    cursor: pointer;
+}
+.footer button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+    width: 220px;
+    border: 1px solid white;
+    background: transparent;
+    padding: 1em 2em;
+    margin: 30px auto;
+    margin-top: 4rem;
+}
+.footer button span{
+    font-family: "Firs";
+    font-size: 1em;
+    color: white;
+    font-weight: 400;
+}
+.footer button img{
+    width: 35px;
+}
+.footer .copyright{
+    margin-top: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.copyright ul{
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 2rem;
+}
+.copyright li{
+    font-family: 'Firs';
+    font-weight: 400;
+    font-size: 14px;
+}
+.copyright li:first-child{
+    background-image: linear-gradient(194deg,#ff00d2 33%,#7657ea 74%);
+    color: #fff;
+    line-height: 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.copyright p{
+    font-size: 1em;
+}
+@media screen and (max-width : 1020px) {
+    .footer_wrapper{
+        width: 100%;
+        padding: 2rem;
+    }
+}
+@media screen and (max-width : 768px) {
+    .footer_wrapper h3{
+        font-size: 2em;
+    }
+    .footer_wrapper p{
+        font-size: 1.2em;
+    }
+    .email_wrapper input{
+        font-size: 1.2em;
+    }
+}
+@media screen and (max-width : 480px) {
+    .footer_wrapper{
+        padding: 0;
+    }
+    .footer_wrapper h3{
+        font-size: 1.6em;
+    }
+    .footer_wrapper p{
+        font-size: 1em;
+    }
+    .email_wrapper input{
+        font-size: 1em;
+    }
+    .email_wrapper img{
+        width: 25px;
+        height: 25px;
+    }
+    .footer .copyright{
+        display: block;
+        text-align: center;
+    }
+    .copyright p{
+        font-size: .8em;
+    }
+}

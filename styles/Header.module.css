@@ -1,9 +1,18 @@
 .header{
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2rem;
-    font-family: 'Bungee', cursive;
+    padding: 0 4rem;
+    font-family: 'Firs', sans-serif;
+    z-index: 1050;
+}
+.header .active{
+    background: linear-gradient(89.86deg, #FB047B 3.54%, #130EFF 222.81%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: white;
 }
 .logo{
     display: flex;
@@ -16,9 +25,10 @@
 }
 .logo p{
     color: white;
+    font-size: 1.4rem;
 }
 .nav{
-    flex: .3;
+    flex: .35;
 }
 .nav ul{
     display: flex;
@@ -28,13 +38,19 @@
 .nav li{
     list-style: none;
     color: white;
+    font-size: 1.4rem;
+    font-weight: 500;
+    font-family: 'Firs';
 }
 @media screen and (max-width : 990px) {
     .nav{
         display: none;
     }
 }
-@media screen and (max-width : 490px) {
+@media screen and (max-width : 480px) {
+    .header{
+        padding: 0 2rem;
+    }
     .nav{
         display: none;
     }

@@ -1,11 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@200;300;400;500;600;700&display=swap');
-
+@font-face {
+    font-family: 'cabinet';
+    src: url('../public/Fonts/CabinetGrotesk-Bold.otf');
+    /* font-weight: 400; */
+    font-style: normal;
+}
 .mission{
     padding: 3rem;
+    background: black;
+    z-index: 1050;
+}
+.mission_wrapper{
+    width: 1000px;
+    margin: 10px auto;
+    z-index: 1050;
 }
 .mission h3{
-    font-size: 3rem;
+    font-size: 45px;
+    font-weight: 700;
     width: 56rem;
+    font-family: 'cabinet';
+    margin-bottom: 1.2rem;
 }
 .mission h3 span{
     align-self: flex-start;
@@ -17,24 +31,28 @@
     -webkit-text-fill-color: transparent;
 }
 .mission p{
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Firs';
     line-height: 26px;
     font-weight: 400;
+    font-size: 22px;
+    line-height: 1.6;
 }
-.textwrapper{
-    display: flex;
-    justify-content: flex-end;
-}
-.mission .text{
-    text-align: left;
-    flex: .5;
+@media screen and (max-width : 1020px) {
+    .mission_wrapper{
+        width: 100%;
+    }
 }
 @media screen and (max-width : 990px) {
     .mission h3{
         width: 100%;
     }
-    .mission .text{
-        flex: .6;
+}
+@media screen and (max-width : 768px) {
+    .mission h3{
+        font-size: 2em;
+    }
+    .mission p{
+        font-size: 1.3em;
     }
 }
 @media screen and (max-width : 490px) {
@@ -42,8 +60,11 @@
         padding: 3rem 1.5rem;
     }
     .mission h3{
-        font-size: 2.3rem;
+        font-size: 1.7em;
         line-height: 1.4;
+    }
+    .mission p{
+        font-size: 1em;
     }
     .mission .text{
         flex: 1;

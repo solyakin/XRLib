@@ -1,0 +1,65 @@
+.glimpse{
+ display: flex;
+ font-family: 'carbinet', sans-serif;
+ align-items: center; 
+ width: 1300px;
+ margin-top: 7rem;
+ margin-bottom: 7rem;  
+ position: relative;
+}
+.headset img{
+    width: 900px;
+    height: 650px;
+}
+.secondcontent{
+    position: absolute;
+    /* top: 5em; */
+    right: 0;
+    width: 550px;
+}
+.secondcontent h2{
+    margin-top: 7rem;
+    font-weight: 800;
+    font-size: 2.1rem;
+    font-family: 'carbinet', sans-serif;
+}
+.secondcontent p{
+    font-weight: 400;
+    font-family: 'Firs', monospace;
+    font-size: 21px;
+    line-height: 1.6;
+}
+@media screen and (max-width : 1020px) {
+    .glimpse{
+        display: block;
+        width: 100%;
+        padding: 0 2rem;
+    }
+    .secondcontent{
+        position: unset;
+        width: 100%;
+    }
+}
+@media screen and (max-width : 768px) {
+    .glimpse{
+        margin-top: 0em;
+    }
+    .headset img{
+        width: 100%;
+        height: 100%;
+    }
+    .secondcontent h2{
+        font-size: 2em;
+    }
+    .secondcontent p{
+        font-size: 1.3em;
+    }
+}
+@media screen and (max-width : 480px) {
+    .secondcontent h2{
+        font-size: 1.6em;
+    }
+    .secondcontent p{
+        font-size: 1em;
+    }
+}
