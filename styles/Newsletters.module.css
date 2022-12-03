@@ -32,7 +32,7 @@
     background: url(../public/Stars\ footer\ bg.svg);
 }
 .main_content{
-    width: 1050px;
+    width: 1000px;
     margin: 50px auto;
 }
 .heading{
@@ -57,7 +57,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 5rem;
+    gap: 3rem;
     border: 1px solid #727070;
     border-radius: 20px;
     padding: 1rem 1.5rem;
@@ -91,7 +91,8 @@
     color: rgba(125, 125, 125, 1);
     font-family: 'Firs';
     font-size: 16px;
-    margin-top: 0;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 .list .pagination{
     display: flex;
@@ -131,6 +132,18 @@
 .articleimg{
     margin-top: 2em;
     margin-bottom: 2em;
+}
+.content{
+    flex: .8;
+}
+.photo{
+    flex: .2;
+    display: flex;
+    justify-content: flex-end;
+}
+.photo img{
+    width: 140px;
+    height: 140px;
 }
 @media only screen and (max-width : 1250px) {
     .main_content{

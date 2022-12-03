@@ -84,6 +84,7 @@
 }
 .item p{
     margin-top: 10px;
+    margin-bottom: 10px;
     font-size: 14px;
     line-height: 1.3;
     color: rgba(125, 125, 125, 1);

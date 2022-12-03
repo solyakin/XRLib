@@ -6,8 +6,6 @@ import theme from '../utils/theme';
 
 function MyApp({ Component, pageProps }) {
 
-  console.log(theme)
-
   const router = useRouter()
   return<AnimatePresence mode='wait'>
       <motion.div

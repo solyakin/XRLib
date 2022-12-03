@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import Subscribe from '../../components/Subscribe';
+// import Subscribe from '../../components/Subscribe';
 import styles from '../../styles/Newsletters.module.css';
 
 const Newsletters = () => {

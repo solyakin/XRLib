@@ -4,10 +4,10 @@ import Footer from '../components/Footer'
 import Glimpse from '../components/Glimpse'
 import Hero from '../components/Hero'
 import Information from '../components/Information'
-import Mission from '../components/Mission'
+// import Mission from '../components/Mission'
 import RecentNewsletter from '../components/RecentNewsletter'
 import RecentPodcast from '../components/RecentPodcast'
-import Subscribe from '../components/Subscribe'
+// import Subscribe from '../components/Subscribe'
 import styles from '../styles/Home.module.css'
 
 const data = {
@@ -33,7 +33,6 @@ export default function Home() {
           <RecentNewsletter data={data}/>
           <Community />
           <Footer />
-          {/* <Subscribe /> */}
         </main>
       </div>
   )

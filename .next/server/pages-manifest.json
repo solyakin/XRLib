@@ -2,5 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/newletters/preview": "pages/newletters/preview.js"
+  "/podcast": "pages/podcast.js",
+  "/": "pages/index.js",
+  "/newletters/preview": "pages/newletters/preview.js",
+  "/newletters": "pages/newletters.js"
 }
