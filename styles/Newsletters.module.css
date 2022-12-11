@@ -54,8 +54,8 @@
     margin-bottom: 40px;
 }
 .heading p{
-    font-size: 1.4em;
-    line-height: 1.6;
+    font-size: 1.2em;
+    line-height: 1.8;
     font-family: 'Firs';
     margin-bottom: 2em;
     text-align: left;
@@ -197,8 +197,15 @@
     }
 }
 @media only screen and (max-width : 768px) {
+    .author{
+        display: block;
+    }
     .heading h2{
         font-size: 3.5em;
+    }
+    .heading p{
+        padding: 2em;
+        font-size: 1em;
     }
     .newsletter{
         gap: 2em;
@@ -207,10 +214,11 @@
 @media only screen and (max-width : 590px) {
     .heading h2{
         font-size: 2.5em;
+        margin-bottom: 0;
     }
     .photo img{
-        width: 80px;
-        height: 80px;
+        width: 100%;
+        height: auto;
     }
     .main_content{
         padding: 0;

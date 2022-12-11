@@ -63,12 +63,12 @@ const Preview = ({ post }) => {
                       !postUrl && <Image src='/femalegoogle.svg'width={800} height={300} alt="figure" className={styles.articleimg}/>
                     }
                     <div className={styles.writeup}>
-                      {/* <h4>Intro</h4> */}
                       <div>
                         {
-                          newWord.map(element => {
+                          newWord.map((element, id) => {
+                            console.log(id)
                             return(
-                              <p>{element}</p>
+                              <p key={id}>{element}</p>
                             )
                           })
                         }
