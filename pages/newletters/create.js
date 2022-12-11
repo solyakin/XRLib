@@ -94,7 +94,7 @@ const Create = () => {
             <link rel="icon" href="/xr.jpeg" />
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='true'/>
-            <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+            <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript" defer></script>
         </Head>
         <main className={styles.main}>
             <div className={styles.container}>
