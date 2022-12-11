@@ -13,7 +13,7 @@ import RecentPodcast from '../components/RecentPodcast'
 import styles from '../styles/Home.module.css'
 
 const data = {
-  title : "Read Newsletters",
+  title : "Recent Newsletters",
 }
 
 export default function Home() {
@@ -25,8 +25,6 @@ export default function Home() {
 
     fetching()
   },[])
-
-  // console.log()
 
   return (
       <div className={styles.container}>

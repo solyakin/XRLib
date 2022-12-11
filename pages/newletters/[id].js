@@ -45,6 +45,7 @@ const Preview = ({ post }) => {
               const newDate = new Date(createdAt);
               const [month, day, year, dy] = [newDate.getMonth(), newDate.getDate(), newDate.getFullYear(), newDate.getDay()];
 
+              const newWord = postContent.split("\n");
               return(
                   <div className={styles.preview} key={_id}>
                     <div className={styles.author}>
@@ -62,8 +63,16 @@ const Preview = ({ post }) => {
                       !postUrl && <Image src='/femalegoogle.svg'width={800} height={300} alt="figure" className={styles.articleimg}/>
                     }
                     <div className={styles.writeup}>
-                      <h4>Intro</h4>
-                      <p>{postContent}</p>
+                      {/* <h4>Intro</h4> */}
+                      <div>
+                        {
+                          newWord.map(element => {
+                            return(
+                              <p>{element}</p>
+                            )
+                          })
+                        }
+                        </div>
                     </div>
                   </div>
               )

@@ -6,7 +6,7 @@ const Footer = () => {
     <div className={styles.footer}>
         <div className={styles.footer_wrapper}>
             <h3>Sign up for <br></br>the XR Atlas newsletter</h3>
-            <p>We’ll only send you relevant information on new innovations and technologies in the VR space, updates to exisiting discoveries, interviews, tools or other initiatives associated with XR community.</p>
+            <p>Are you curious about the latest trends and developments in the world of XR, AI, and other emerging technologies? Then sign up for our newsletter and get a regular dose of insights, news, and inspiration delivered straight to your inbox. We’ll not spam you we promise.</p>
             <div className={styles.email_wrapper}>
                 <input type="text" placeholder='Enter your email address.' />
                 <img src="/Vector (8).svg" alt="" />

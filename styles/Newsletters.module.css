@@ -53,6 +53,13 @@
     -webkit-text-fill-color: transparent;
     margin-bottom: 40px;
 }
+.heading p{
+    font-size: 1.4em;
+    line-height: 1.6;
+    font-family: 'Firs';
+    margin-bottom: 2em;
+    text-align: left;
+}
 .newsletter{
     display: flex;
     align-items: center;
@@ -148,7 +155,7 @@
 .photo img{
     width: 140px;
     height: 140px;
-    border-radius: 50%;
+    border-radius: 5px;
     object-fit: cover;
 }
 .create_btn{

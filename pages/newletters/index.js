@@ -24,6 +24,7 @@ const Newsletters = ({ post }) => {
                 <div className={styles.main_content}>
                     <div className={styles.heading}>
                         <h2>Newsletters</h2>
+                        <p>Welcome to the XRAtlas Newsletter, where we keep you up to date on the latest news, insights, and events in the world of virtual and augmented reality, and other emerging technologies that are shaping the future of the metaverse. From industry updates and cutting-edge innovations to fascinating applications and inspiring stories, we bring you a curated selection of the most relevant and interesting developments in the metaverse. Subscribe now and stay ahead of the curve in the exciting realm of the metaverse.</p>
                     </div>
                     <div className={styles.wrapper}>
                         <div className={styles.list}>
@@ -35,7 +36,7 @@ const Newsletters = ({ post }) => {
                                                 <div className={styles.content}>
                                                     <div className={styles.text}>
                                                         <h3>{postName}</h3>
-                                                        <p>{`${postContent.substr(0, 160)}...`}</p>
+                                                        <p>{`${postContent.substr(0, 280)}...`}</p>
                                                     </div>
                                                     <div className={styles.author}>
                                                         <img src="/AVATAR.svg" alt="" />
@@ -55,11 +56,11 @@ const Newsletters = ({ post }) => {
                                 <span>2</span>
                                 <span>3</span>
                             </div>
-                            <div className={styles.create_btn}>
+                            {/* <div className={styles.create_btn}>
                                 <button>
                                     <Link href='newletters/create'>Post Newsletters</Link>
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>  
                 </div>

@@ -25,10 +25,11 @@
 }
 .mission h3{
     font-size: 42px;
-    font-weight: 900;
+    font-weight: 800;
     width: 56rem;
     font-family: 'cabinet';
     margin-bottom: 1.2rem;
+    text-transform: uppercase;
 }
 .mission h3 span{
     align-self: flex-start;

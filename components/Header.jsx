@@ -49,7 +49,7 @@ const Header = () => {
                 placement='left'
                 onClose={onClose}
                 finalFocusRef={btnRef}
-                // styleConfig={{background : "black"}}
+                // styleConfig={{background : "rgba(255, 255, 255, 0.1)"}}
             >
                 <DrawerOverlay />
                 <DrawerContent>

@@ -108,7 +108,7 @@
     cursor: pointer;
     margin-top: 3rem;
 }
-.rhap_container{
+.audio .rhap_container{
     border-radius: 30px;
 }
 @media only screen and (max-width : 790px) {
