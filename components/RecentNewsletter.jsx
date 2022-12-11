@@ -1,39 +1,50 @@
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import Link from 'next/link'
 import React from 'react'
 import styles from '../styles/RecentNewsletter.module.css'
 
-const RecentNewsletter = ({data}) => {
+const RecentNewsletter = ({ data }) => {
+
+    const [recent, setRecent] = useState([])
+    
+    useEffect(() => {
+    const fetching = async () => {
+        try {
+            const data = await axios.get('https://xr-speeds-production.up.railway.app/recent')
+            const result = data.data; 
+            setRecent(result)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    fetching()
+    }, [])
+
+    const renderList = recent?.slice(0, 3)
+    
   return (
     <div className={styles.newletters}>
         <h3>{data.title}</h3>
         <div className={styles.newletterList}>
-            <div className={styles.item}>
-                <img src="/profile_3.svg" alt="" />
-                <h4>🔥 5 Reasons Why Web 3.0 will Fail?</h4>
-                <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype. For others — it is decentralized web applications where…</p>
-                <div className={styles.author}>
-                    <img src="/AVATAR.svg" alt="" />
-                    <p>Author’s Name <span>· 2 min read</span></p>
-                </div>
-            </div>
-            <div className={styles.item}>
-                <img src="/profile_3.svg" alt="" />
-                <h4>🔥 5 Reasons Why Web 3.0 will Fail?</h4>
-                <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype. For others — it is decentralized web applications where…</p>
-                <div className={styles.author}>
-                    <img src="/AVATAR.svg" alt="" />
-                    <p>Author’s Name <span>· 2 min read</span></p>
-                </div>
-            </div>
-            <div className={styles.item}>
-                <img src="/profile_3.svg" alt="" />
-                <h4>🔥 5 Reasons Why Web 3.0 will Fail?</h4>
-                <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype. For others — it is decentralized web applications where…</p>
-                <div className={styles.author}>
-                    <img src="/AVATAR.svg" alt="" />
-                    <p>Author’s Name <span>· 2 min read</span></p>
-                </div>
-            </div>
+            {
+                renderList && renderList.map(({_id, postUrl, postName, postAuthor, postContent, postLength}) => {
+                    return(
+                        <Link href={`/newletters/${_id}`} key={_id}>
+                            <div className={styles.item}>
+                                <img src={postUrl} alt="" className={styles.postImg} />
+                                <h4>{`${postName.substr(0, 80)}`}</h4>
+                                <p>{`${postContent.substr(0, 160)}...`}</p>
+                                <div className={styles.author}>
+                                    <img src="/AVATAR.svg" alt="" />
+                                    <p>{postAuthor} <span>{`· ${postLength} min read`}</span></p>
+                                </div>
+                            </div>
+                        </Link>
+                    )
+                })
+            }
         </div>
         <div className={styles.readmore}>
             <button>
@@ -45,3 +56,4 @@ const RecentNewsletter = ({data}) => {
 }
 
 export default RecentNewsletter
+

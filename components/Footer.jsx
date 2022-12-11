@@ -12,7 +12,7 @@ const Footer = () => {
                 <img src="/Vector (8).svg" alt="" />
             </div>
 
-            <button>
+            <button onClick={() => window.scrollTo(0,0)}>
                 <span>Back to the top</span>
                 <img src="/Frame (1).svg" alt="" />
             </button>

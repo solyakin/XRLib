@@ -71,6 +71,7 @@
     margin-bottom: 0;
     font-family: 'cabinet';
     color: white;
+    font-size: 1.4em;
 }
 .author{
     display: flex;
@@ -82,6 +83,7 @@
 }
 .author p{
     color: white;
+    margin-bottom: 0!important;
 }
 .author span{
     color: rgba(244, 5, 128, 1);
@@ -91,7 +93,7 @@
     color: rgba(125, 125, 125, 1);
     font-family: 'Firs';
     font-size: 16px;
-    margin-top: 1em;
+    margin-top: .3em;
     margin-bottom: 1em;
 }
 .list .pagination{
@@ -113,6 +115,7 @@
 .preview{
     width: 800px;
     margin: auto;
+    margin-top: 3rem;
 }
 .preview h3{
     font-size: 2.3em;
@@ -141,9 +144,29 @@
     display: flex;
     justify-content: flex-end;
 }
+
 .photo img{
     width: 140px;
     height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.create_btn{
+    display: flex;
+    justify-content: center;
+}
+.create_btn button{
+    background: linear-gradient(89.76deg, #FB047B 3.64%, #130EFF 99.88%);
+    padding: 1.5em;
+    border-radius: 40px;
+    color: white;
+    border: 1px solid white;
+    margin-top: 4em;
+    cursor: pointer;
+    width: 300px;
+    font-family: 'Firs';
+    font-weight: 500;
+    font-size: 1.1rem;
 }
 @media only screen and (max-width : 1250px) {
     .main_content{

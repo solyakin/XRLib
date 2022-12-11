@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import Link from 'next/link'
+import { useEffect } from 'react'
 import Community from '../components/Community'
 import Footer from '../components/Footer'
 import Glimpse from '../components/Glimpse'
@@ -15,6 +17,17 @@ const data = {
 }
 
 export default function Home() {
+
+  useEffect(() => {
+    const fetching = async () => {
+      await fetch('http://localhost:3000/api/hello').then(res => res.json()).then(data => console.log(data))
+    }
+
+    fetching()
+  },[])
+
+  // console.log()
+
   return (
       <div className={styles.container}>
         <Head>
@@ -25,7 +38,7 @@ export default function Home() {
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='true'/>
         </Head>
 
-        <main className={styles.main}>
+        <main className={styles.main} id="top">
           <Hero />
           <Information />
           <RecentPodcast />

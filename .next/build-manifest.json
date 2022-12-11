@@ -35,10 +35,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/newletters.js"
     ],
-    "/newletters/preview": [
+    "/newletters/create": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/newletters/preview.js"
+      "static/chunks/pages/newletters/create.js"
     ],
     "/podcast": [
       "static/chunks/webpack.js",
