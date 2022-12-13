@@ -5,7 +5,6 @@ import 'react-h5-audio-player/lib/styles.css';
 import styles from '../styles/Recent.module.css'
 
 const RecentPodcast = ({podcasts}) => {
-
   return (
     <div className={styles.recent}>
         <img src="/grid bg.svg" alt="" className={styles.grid_bg} />
@@ -13,9 +12,9 @@ const RecentPodcast = ({podcasts}) => {
             <h3>Recent Podcasts</h3>
             <div className={styles.dflex}>
                 {
-                    podcasts && podcasts.slice(0, 2).map(({title, contentSnippet, enclosure}) => {
+                    podcasts && podcasts.slice(0, 2).map(({title, contentSnippet, enclosure}, id) => {
                         return(
-                            <div className={styles.item}>
+                            <div className={styles.item} key={id}>
                                 <img src="/profile_3.svg" alt="" className={styles.post_img} />
                                 <div className={styles.content}>
                                     <h5>{title}</h5>
