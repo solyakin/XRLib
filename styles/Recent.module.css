@@ -45,6 +45,7 @@
    line-height: 1.5;
    font-family: "Firs";
    font-weight: 400;
+   margin-bottom: 1em;
 }
 .item h5{
     margin-top: 0;
@@ -59,7 +60,7 @@
     justify-content: center;
     width: 100%;
 }
-.recent button{
+.recent .button button{
     background: linear-gradient(89.76deg, #FB047B 3.64%, #130EFF 99.88%);
     padding: 1.5em;
     border-radius: 40px;
