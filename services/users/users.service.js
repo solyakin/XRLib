@@ -2,6 +2,10 @@ import { collection } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
 const usersCollection = collection(db, "users")
+
+/**
+ * This class holds utility functions for API calls related to users.
+ */
 class UserService {
 
     /**
