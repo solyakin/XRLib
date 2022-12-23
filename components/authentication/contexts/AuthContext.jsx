@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { db, firebaseAuth } from "../../../config/firebase"
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut as fbSignOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut as fbSignOut, sendPasswordResetEmail, sendEmailVerification } from "firebase/auth";
 import { useToast } from "@chakra-ui/react";
 import UserService from "../../../services/users/users.service";
 import { collection, doc, setDoc } from "firebase/firestore";
@@ -41,6 +41,10 @@ export const AuthProvider = ({ children }) => {
         setSignUpLoading(true)
         createUserWithEmailAndPassword(firebaseAuth, email, password)
             .then(async (userCredential) => {
+                sendEmailVerification(userCredential.user, {
+                    // Conditionally set return url to localhost or main production url based on env variable.
+                    url: process.env.NEXT_PUBLIC_DEVELOPMENT_MODE ? "http://localhost:3000/reset-password" : "https://xratlas.com/reset-password"
+                })
                 // Signed in and save user to firestore
                 const { user } = userCredential;
                 setCurrentUser(user);
@@ -99,8 +103,18 @@ export const AuthProvider = ({ children }) => {
                 });
             });
     };
-
-    const resetPassword = async (email) => {
+    
+    /**
+     * 
+     * @param {string} email 
+     * @param {React.Dispatch<React.SetStateAction<boolean>>} setDone : SetStateAction that sets a state variable which determines if success popup should show
+     */
+    const resetPassword = async (email, setDone) => {
+        setResetPasswordLoading(true);
+        sendPasswordResetEmail(firebaseAuth, email)
+            .then(() => {
+                setDone(true)
+            })
 
     };
 
