@@ -2,5 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/profile/published": "pages/profile/published.js",
+  "/podcast": "pages/podcast.js",
+  "/newletters": "pages/newletters.js",
   "/": "pages/index.js"
 }

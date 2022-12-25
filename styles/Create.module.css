@@ -19,3 +19,16 @@
     color: white;
     font-size: 1.1em;
 }
+.publish_btn{
+    display: flex;
+    align-items: center;
+    background: #F40580;
+    border: 1px solid white;
+    color : white;
+    border-radius: 25px;
+    padding: .5em 1em;
+    font-size: 14px;
+}
+.publish_btn img{
+    margin-right: .5em;
+}

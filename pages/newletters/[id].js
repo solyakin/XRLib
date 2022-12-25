@@ -91,34 +91,26 @@ const Preview = ({ post }) => {
 export default Preview
 
 export async function getStaticPaths(){
+
+  const data = await axios.get('https://xr-speeds-production.up.railway.app')
+  const result = data.data; 
+  const paths = result.map(({_id}) => {
+    return{
+      params : {
+        id : `${_id}`
+      }
+    }
+  })
   return{
-    paths : [
-      {
-        params : { id : '6394f64794f20e001e344486'}
-      },
-      {
-        params : { id : '6393b80470c23f001efc597c'}
-      },
-      {
-        params : { id : '6394cd0470c23f001efc59d9'}
-      },
-      {
-        params : { id : '6394d03170c23f001efc59ea'}
-      },
-      {
-        params : { id : '6394d16370c23f001efc59f2'}
-      },
-      {
-        params : { id : '6394d27a70c23f001efc59f8'}
-      },
-    ],
+    paths : paths,
     fallback : false
   }
 }
 
-export async function getStaticProps(){
+export async function getStaticProps(context){
+  const { params } = context
   try {
-      const data = await axios.get('https://xr-speeds-production.up.railway.app')
+      const data = await axios.get(`https://xr-speeds-production.up.railway.app/`)
       const result = data.data; 
       return { 
           props : { post : result }

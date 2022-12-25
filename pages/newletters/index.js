@@ -1,5 +1,4 @@
 import Head from 'next/head'
-// import Image from 'next/image';
 import Link from 'next/link';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
@@ -8,6 +7,8 @@ import axios from 'axios';
 
 const Newsletters = ({ post }) => {
 
+    const postList = post?.docs
+    
   return (
     <div className={styles.newletters}>
         <Head>
@@ -29,7 +30,7 @@ const Newsletters = ({ post }) => {
                     <div className={styles.wrapper}>
                         <div className={styles.list}>
                             {
-                                post && post.map(({_id, postTags, postAuthor, postUrl, postContent, postName, postLength}) => {
+                                postList && postList.map(({_id, postTags, postAuthor, postUrl, postContent, postName, postLength}) => {
                                     return(
                                         <Link href={`/newletters/${_id}`} key={_id}>
                                             <div className={styles.newsletter}>
@@ -56,15 +57,12 @@ const Newsletters = ({ post }) => {
                                 <span>2</span>
                                 <span>3</span>
                             </div>
-                            {/* <div className={styles.create_btn}>
-                                <button>
-                                    <Link href='newletters/create'>Post Newsletters</Link>
-                                </button>
-                            </div> */}
+                            
                         </div>
                     </div>  
                 </div>
                 <Footer />
+                
             </div>
         </main>
     </div>
@@ -75,8 +73,17 @@ export default Newsletters;
 
 
 export async function getStaticProps(){
+
+    const options = {
+        method : "GET",
+        url : "https://xr-speeds-production.up.railway.app/pagination",
+        params : {
+            page : 1,
+            limit : 3
+        }
+    }
     try {
-        const data = await axios.get('https://xr-speeds-production.up.railway.app')
+        const data = await axios.request(options)
         const result = data.data; 
         return { 
             props : { post : result }
