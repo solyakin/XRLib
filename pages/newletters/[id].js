@@ -24,7 +24,7 @@ const Preview = ({ post }) => {
     restDelta: 0.001
   });
 
-  const currentPost = post.filter(item => item._id === id);
+  const currentPost = post?.filter(item => item._id === id);
 
   return (
     <div className={styles.newletters}>
