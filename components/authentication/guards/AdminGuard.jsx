@@ -13,10 +13,9 @@ import useAuth from "../hooks/use-auth";
  * @returns 
  */
 
-const color = useColorModeValue("white", "gray.700");
-
 const AdminGuard = ({ children }) => {
 
+    const color = useColorModeValue("white", "gray.700");
     const { userData, authLoading } = useAuth() || {};
     const toast = useToast();
     const router = useRouter();
