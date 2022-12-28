@@ -20,8 +20,6 @@ const AppInner = ({ Component, ...rest }) => {
         // Popup that says you cannot access all the features of this app without a fully verified account
       }
     }
-
-
   }, [currentUser])
   return (
     <>

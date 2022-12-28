@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { db, firebaseAuth } from "../../../config/firebase"
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut as fbSignOut, sendPasswordResetEmail, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut as fbSignOut, sendPasswordResetEmail, sendEmailVerification, signInWithRedirect } from "firebase/auth";
 import { useToast } from "@chakra-ui/react";
 import UserService from "../../../services/users/users.service";
 import { collection, doc, setDoc } from "firebase/firestore";
+import { googleProvider } from "../../../config/firebase/auth.config";
 
 
 export const AuthContext = React.createContext(null);
@@ -30,7 +31,33 @@ export const AuthProvider = ({ children }) => {
 
     const [userData, setUserData] = useState(null)
 
+    const signUpWithGoogle = async () => {
+        setSignUpLoading(true)
+        signInWithRedirect(firebaseAuth, googleProvider).then(async function (result) {
+            if (result?.credential) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                let token = result?.credential.accessToken;
+            }
+            // The signed-in user info.
+            var user = result.user;
+            await setDoc(doc(usersCollection, user.uid), {
+                id: user.uid,
+                //username: username,
+                email: user.email,
+            }).then(() => {
+                setCurrentUser(user)
+                setSignUpLoading(false);
+            });
 
+
+        }).catch(function (error) {
+            // Handle Errors here.
+            var errorMessage = error.message;
+            setError(errorMessage)
+            throw new Error(errorMessage)
+        })
+
+    };
     /**
      * Function called to sign up a new account
      * @param email 
