@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { db, firebaseAuth } from "../../../config/firebase"
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut as fbSignOut, sendPasswordResetEmail, sendEmailVerification, signInWithRedirect } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut as fbSignOut, sendPasswordResetEmail, sendEmailVerification, signInWithRedirect, signInWithPopup } from "firebase/auth";
 import { useToast } from "@chakra-ui/react";
 import UserService from "../../../services/users/users.service";
 import { collection, doc, setDoc } from "firebase/firestore";
@@ -33,13 +33,14 @@ export const AuthProvider = ({ children }) => {
 
     const signUpWithGoogle = async () => {
         setSignUpLoading(true)
-        signInWithRedirect(firebaseAuth, googleProvider).then(async function (result) {
+        signInWithPopup(firebaseAuth, googleProvider).then(async function (result) {
             if (result?.credential) {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 let token = result?.credential.accessToken;
             }
             // The signed-in user info.
             var user = result.user;
+            console.log("googleUser", user)
             await setDoc(doc(usersCollection, user.uid), {
                 id: user.uid,
                 //username: username,
@@ -48,9 +49,8 @@ export const AuthProvider = ({ children }) => {
                 setCurrentUser(user)
                 setSignUpLoading(false);
             });
-
-
-        }).catch(function (error) {
+        })
+        .catch(function (error) {
             // Handle Errors here.
             var errorMessage = error.message;
             setError(errorMessage)
@@ -199,6 +199,7 @@ export const AuthProvider = ({ children }) => {
         signUp,
         signOut,
         signIn,
+        signUpWithGoogle,
         signInLoading,
         signUpLoading,
         signOutLoading,
