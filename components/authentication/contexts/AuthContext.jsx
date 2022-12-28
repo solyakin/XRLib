@@ -49,11 +49,20 @@ export const AuthProvider = ({ children }) => {
                 setSignUpLoading(false);
             });
         })
-        .catch(function (error) {
-            // Handle Errors here.
-            var errorMessage = error.message;
-            throw new Error(errorMessage)
-        })
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorMessage = error.message;
+                toast({
+                    title: "Error",
+                    status: "error",
+                    description: `${errorMessage.replace(
+                        "Firebase",
+                        ""
+                    )}`,
+                    isClosable: true,
+                    duration: 3000,
+                });
+            })
 
     };
     /**

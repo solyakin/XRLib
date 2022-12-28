@@ -60,7 +60,7 @@ const RouteGuard = ({ children }) => {
 
     if (authLoading) {
         return (
-            <Center w={"100%"} h={"100vh"} bg={useColorModeValue("white", "gray.700")}>
+            <Center w={"100%"} h={"100vh"}>
                 <Spinner color="black" />
             </Center>
         )
@@ -71,7 +71,7 @@ const RouteGuard = ({ children }) => {
     } else {
         // redirect to login and store the current url for redirecting back to after successful login
         return (
-            <Center w={"100%"} h={"100vh"} bg={useColorModeValue("white", "gray.700")}>
+            <Center w={"100%"} h={"100vh"}>
 
             </Center>)
 
