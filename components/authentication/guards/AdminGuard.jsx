@@ -12,6 +12,9 @@ import useAuth from "../hooks/use-auth";
  * @param {*} children: React children that consume the useEffect in this component 
  * @returns 
  */
+
+const color = useColorModeValue("white", "gray.700");
+
 const AdminGuard = ({ children }) => {
 
     const { userData, authLoading } = useAuth() || {};
@@ -85,7 +88,7 @@ const AdminGuard = ({ children }) => {
     }
     if (authLoading) {
         return (
-            <Center w={"100%"} h={"100vh"} bg={useColorModeValue("white", "gray.700")}>
+            <Center w={"100%"} h={"100vh"} bg={color}>
                 <Spinner color="black" />
             </Center>
         )
@@ -96,7 +99,7 @@ const AdminGuard = ({ children }) => {
         return <>{children}</>;
     }
     return (
-        <Center w={"100%"} h={"100vh"} bg={useColorModeValue("white", "gray.700")}>
+        <Center w={"100%"} h={"100vh"} bg={color}>
 
         </Center>
     )
