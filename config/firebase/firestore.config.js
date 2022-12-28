@@ -1,5 +1,4 @@
 import { initializeFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
 import app from "./app.config";
 
 
