@@ -1,0 +1,97 @@
+@font-face {
+    font-family: 'Firs';
+    src: url('../public/Fonts/TT\ Firs\ Neue\ Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+.profile{
+    background: black;
+}
+.profile .title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.title button{
+    background : #F40580;
+    border-radius: 25px;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: .5em 1em;
+    font-family: "Firs";
+}
+.title button img{
+    margin-right: .5em;
+}
+.title h2{
+    color: white;
+    font-size: 43px;
+    font-weight: 600;
+    font-family: "Firs";
+}
+.list{
+    margin-top: 2em;
+}
+.newsletter{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    border: 1px solid #727070;
+    border-radius: 20px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2.3rem;
+    cursor: pointer;
+    border: 1px solid linear-gradient(228.09deg, #FF2CF7 -9.95%, rgba(251, 4, 123, 0.796875) 12.47%, rgba(255, 126, 188, 0.81) 30.87%, rgba(255, 255, 255, 0) 53.87%, rgba(73, 255, 233, 0.65) 70.34%, #130EFF 100.44%);
+}
+
+.newsletter h3{
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-family: 'cabinet';
+    color: white;
+    font-size: 1.4em;
+}
+.author{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.author img{
+    border-radius: 50%;
+}
+.author p{
+    color: white;
+    margin-bottom: 0!important;
+}
+.author span{
+    color: rgba(244, 5, 128, 1);
+}
+.text p{
+    line-height: 1.6;
+    color: rgba(125, 125, 125, 1);
+    font-family: 'Firs';
+    font-size: 16px;
+    margin-top: .3em;
+    margin-bottom: 1em;
+}
+.list .photo{
+    min-width: 140px;
+}
+.list .pagination{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+}
+.list .pagination span{
+    border: 1px solid #ff00d2;
+    padding: 1em 1.2em;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: 3rem;
+}
+.pagination span{
+    color: white;
+}

@@ -2,7 +2,6 @@ import React from 'react'
 import {
     Drawer,
     DrawerBody,
-    DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
     DrawerContent,
@@ -15,11 +14,19 @@ import { useRouter } from "next/router";
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from '../styles/Header.module.css'
+import Login from './Login';
+import SignupWithEmail from './SignupWithEmail';
+import SignUp from './SignUp';
+import ForgotPassword from './ForgotPassword';
 
 const Header = () => {
 
     const router = useRouter();
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen:hamISopen, onOpen: hamOpen, onClose: hamClose } = useDisclosure()
+    const { isOpen: loginIsOpen, onOpen: loginOpen, onClose : loginClose } = useDisclosure()
+    const { isOpen: emailIsOpen, onOpen: emailOpen, onClose : emailClose } = useDisclosure()
+    const { isOpen: signupIsOpen, onOpen: signupOpen, onClose : signupClose } = useDisclosure()
+    const { isOpen: forgetIsOpen, onOpen: forgetOpen, onClose : forgetClose } = useDisclosure()
     const btnRef = React.useRef()
 
   return (
@@ -40,14 +47,33 @@ const Header = () => {
             <li className={router.pathname == "/podcast" ? `${styles.active}` : ""}>
                 <Link href='/podcast'>Podcast</Link>
             </li>
+            <li>
+                <Button 
+                border="1px" 
+                borderColor="white" 
+                bg={"transparent"} 
+                bgGradient="linear(89.76deg, #FB047B 3.64%, #130EFF 99.88%)"
+                borderRadius="full"
+                _hover={{
+                    color: "black",
+                }}
+                onClick={loginOpen}
+                >
+                    Login
+                </Button>
+                <Login loginClose={loginClose} loginIsOpen={loginIsOpen} signupOpen={signupOpen} forgetOpen={forgetOpen}/>
+                <ForgotPassword forgetClose={forgetClose} forgetIsOpen={forgetIsOpen} forgetOpen={forgetOpen}/>
+                <SignUp signupClose={signupClose} signupIsOpen={signupIsOpen} emailOpen={emailOpen} loginOpen={loginOpen}/>
+                <SignupWithEmail emailClose={emailClose} emailIsOpen={emailIsOpen}/>
+            </li>
         </ul>
         </nav>
         <div className={styles.hamburger}>
-            <HamburgerIcon boxSize={6} ref={btnRef} onClick={onOpen}/>
+            <HamburgerIcon boxSize={6} ref={btnRef} onClick={hamOpen}/>
             <Drawer
-                isOpen={isOpen}
+                isOpen={hamISopen}
                 placement='left'
-                onClose={onClose}
+                onClose={hamClose}
                 finalFocusRef={btnRef}
                 // styleConfig={{background : "rgba(255, 255, 255, 0.1)"}}
             >

@@ -29,6 +29,7 @@
 .email_wrapper{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     border-bottom: 2px solid rgba(125, 125, 125, 1);
     padding-bottom: 1em;
     margin-bottom: 2rem;
@@ -39,9 +40,15 @@
     width: calc(100% - 50px);
     background: none;
     font-size: 1.5em;
-    padding-left: 1em;
+    padding-left: .5em;
     font-family: "Firs";
     outline: none;
+}
+.footer .email_wrapper button{
+    padding: 0;
+    border: 0;
+    margin: 0;
+    justify-content: flex-end;
 }
 .email_wrapper img{
     width: 40px;

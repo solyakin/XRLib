@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, forwardRef } from 'react'
+import PropTypes from "prop-types";
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Header from '../../components/Header'
@@ -18,8 +19,23 @@ import {
     Button
 } from '@chakra-ui/react'
 import axios from 'axios'
+import dynamic from 'next/dynamic';
 
-const Create = () => {
+import 'react-markdown-editor-lite/lib/index.css';
+import MarkdownIt from 'markdown-it';
+// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+// const Editor = dynamic(() => import('../../utils/WrappedEditor'), { ssr: false });
+// const ForwardRefEditor = forwardRef((props, ref) => 
+//   <Editor {...props} editorRef={ref}/>
+// )
+// import { EditorState, convertToRaw, ContentState } from 'draft-js';
+// import { Editor } from 'react-draft-wysiwyg';
+
+const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
+    ssr: false,
+});
+  
+const Create = ({ onChange }) => {
 
     const navigate = useRouter();
     const cloudinaryRef = useRef()
@@ -36,20 +52,38 @@ const Create = () => {
     const [loading, setLoading] = useState(false)
     const [alert, setAlert] = useState(false)
     const [error, setError] = useState(false)
+    // const [value, setValue ] = useState()
+    // const [editorState, setEditorstate ] = useState()
 
-    useEffect(() => {
-    
-        cloudinaryRef.current = window.cloudinary;
-        widgetRef.current =  cloudinaryRef.current.createUploadWidget({
-            cloudName : "duhkz21x4",
-            uploadPreset : "ytnfminr"
-        }, function (error, result){
-            if(result.event === "success"){
-                setImageurl(result.info.url)
-            }
-        });
-    }, [])
-    
+    const editorRef = useRef(null);
+    const [content, setContent] = useState("");
+
+    console.log("editorRef", editorRef.current);
+
+    // useEffect(() => {
+    //     cloudinaryRef.current = window.cloudinary;
+    //     widgetRef.current =  cloudinaryRef?.current?.createUploadWidget({
+    //         cloudName : "duhkz21x4",
+    //         uploadPreset : "ytnfminr"
+    //     }, function (error, result){
+    //         if(result.event === "success"){
+    //             setImageurl(result.info.url)
+    //         }
+    //     });
+    // }, [])
+
+    // useEffect(() => {
+    //     const importModule = async () => {
+    //       const module = await import("react-rte");
+    //       setValue(module.createEmptyValue());
+    //     };
+    //     importModule();  
+    // }, []);
+
+    const onhandleChange = (value) => {
+        console.log(value)
+    }
+  
     const handleInputChange = (e) => {
         setInput({...input, [e.target.name] : e.target.value})
     }
@@ -72,8 +106,7 @@ const Create = () => {
 
         try {
             const posting = await axios.post('https://xr-speeds-production.up.railway.app/insert', jsonData)
-            const response = posting.data;
-            console.log(response)  
+            const response = posting.data; 
             if(response){
                 setAlert(true)
             } 
@@ -85,7 +118,12 @@ const Create = () => {
         }
     }
 
-    console.log(input)
+    const mdParser = new MarkdownIt(/* Markdown-it options */);
+
+    function handleEditorChange({ html, text }) {
+        console.log('handleEditorChange', html, text);
+        }
+    console.log(content)
   return (
     <div className={styles.create}>
         <Head>
@@ -100,6 +138,33 @@ const Create = () => {
             <div className={styles.container}>
                 <Header />
                 <div className={styles.main_content}>
+                <Container maxW={'2xl'}>
+                    {/* <RichTextEditor
+                        value={value}
+                        onChange={onhandleChange}
+                    /> */}
+                    {/* <ForwardRefEditor
+                        ref={editorRef}
+                        value={content}
+                        
+                        onChange={({ text }) => setContent(text)}
+                        onChange={onhandleChange}
+                        /> */}
+                        <MdEditor 
+                        style={{ height: '500px' }}
+                        renderHTML={text => mdParser.render(text)} 
+                        onChange={handleEditorChange}
+                        />
+                </Container>
+                {/* {
+                    (typeof window !== 'undefined') && <Editor
+                    editorState={editorState}
+                    wrapperClassName="demo-wrapper"
+                    editorClassName="demo-editor"
+                    onEditorStateChange={onEditorStateChange}
+                    />
+                } */}
+                
                     {
                         !alert && <Container maxW='2xl'>
                             <form onSubmit={handleSubmit}>
@@ -119,13 +184,13 @@ const Create = () => {
                                     <FormLabel>Post Length</FormLabel>
                                     <Input type='number' name="postLength" color="white" size='lg' value={input.postLength} onChange={handleInputChange} placeholder="e.g 5 minutes" borderColor="GrayText"/>
                                 </FormControl>
-                                <FormControl isRequired mb={4}>
+                                {/* <FormControl isRequired mb={4}>
                                     <FormLabel>Image</FormLabel>
                                     <Button onClick={() => widgetRef.current.open()} mb={3}> Upload</Button>
                                     {
                                         imageUrl && <Input type='text' name="image" color="white" size='lg' value={imageUrl} onChange={handleInputChange} disabled  borderColor="GrayText"/>
                                     }
-                                </FormControl>
+                                </FormControl> */}
                                 <FormControl isRequired mb={4}>
                                     <FormLabel>Content</FormLabel>
                                     <Textarea type='text' name="content" color="white" size='lg' height="200px" placeholder='enter content here' value={input.content} onChange={handleInputChange}  borderColor="GrayText" />
@@ -180,4 +245,7 @@ const Create = () => {
   )
 }
 
+Create.propTypes = {
+    onChange: PropTypes.func
+};
 export default Create

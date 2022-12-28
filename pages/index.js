@@ -10,6 +10,7 @@ import Information from '../components/Information'
 import RecentNewsletter from '../components/RecentNewsletter'
 import RecentPodcast from '../components/RecentPodcast'
 import styles from '../styles/Home.module.css'
+import SubscribeForm from '../components/SubscribeForm';
 
 const data = {
   title : "Recent Newsletters",
@@ -56,6 +57,7 @@ export default function Home() {
           <RecentNewsletter data={data}/>
           <Community />
           <Footer />
+          {/* <SubscribeForm /> */}
         </main>
       </div>
   )
