@@ -4,7 +4,7 @@ import { db, firebaseAuth } from "../../../config/firebase"
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut as fbSignOut, sendPasswordResetEmail, sendEmailVerification, signInWithRedirect, signInWithPopup } from "firebase/auth";
 import { useToast } from "@chakra-ui/react";
 import UserService from "../../../services/users/users.service";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { googleProvider } from "../../../config/firebase/auth.config";
 
 
@@ -32,7 +32,6 @@ export const AuthProvider = ({ children }) => {
     const [userData, setUserData] = useState(null)
 
     const signUpWithGoogle = async () => {
-        setSignUpLoading(true)
         signInWithPopup(firebaseAuth, googleProvider).then(async function (result) {
             if (result?.credential) {
                 // This gives you a Google Access Token. You can use it to access the Google API.
@@ -41,13 +40,15 @@ export const AuthProvider = ({ children }) => {
             // The signed-in user info.
             var user = result.user;
             console.log("googleUser", user)
-            await setDoc(doc(usersCollection, user.uid), {
-                id: user.uid,
-                email: user.email,
-            }).then(() => {
-                setCurrentUser(user)
-                setSignUpLoading(false);
-            });
+            let userDoc = await getDoc(doc(usersCollection, user.uid))
+            if (!userDoc.exists()) {
+                await setDoc(doc(usersCollection, user.uid), {
+                    id: user.uid,
+                    email: user.email,
+                }).then(() => {
+                    setCurrentUser(user)
+                });
+            }
         })
             .catch(function (error) {
                 // Handle Errors here.
