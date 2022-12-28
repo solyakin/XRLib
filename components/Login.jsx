@@ -23,7 +23,7 @@ const Login = ({ loginClose, loginIsOpen, signupOpen, forgetOpen }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     // Auth
-    const { signIn, signInLoading } = useAuth()
+    const { signIn, signInLoading, signUpWithGoogle } = useAuth()
 
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
@@ -69,7 +69,7 @@ const Login = ({ loginClose, loginIsOpen, signupOpen, forgetOpen }) => {
                         </Button>
                         <Text fontSize="small" textAlign="center" color="whiteAlpha.700" mb="6">or continue with</Text>
                         <HStack spacing="4" textAlign="center">
-                            <Box as="button" background="white" borderRadius="full" p={3} w="full">
+                            <Box as="button" background="white" onClick={signUpWithGoogle} borderRadius="full" p={3} w="full">
                                 <Image src="/google.svg" width={20} height={20} alt="" style={{ margin: "auto" }} />
                             </Box>
                             <Box as="button" background="white" borderRadius="full" p={3} w="full">

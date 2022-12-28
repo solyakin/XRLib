@@ -43,7 +43,6 @@ export const AuthProvider = ({ children }) => {
             console.log("googleUser", user)
             await setDoc(doc(usersCollection, user.uid), {
                 id: user.uid,
-                //username: username,
                 email: user.email,
             }).then(() => {
                 setCurrentUser(user)
