@@ -10,9 +10,8 @@ import useAuth from "../hooks/use-auth";
  * @returns 
  */
 
-const color = useColorModeValue("white", "gray.700");
-
 const RouteGuard = ({ children }) => {
+    const color = useColorModeValue("white", "gray.700");
     const { currentUser, authLoading, userData } = useAuth() || {};
     const router = useRouter();
     const [authorized, setAuthorized] = useState(false);
