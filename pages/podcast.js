@@ -5,8 +5,10 @@ import styles from '../styles/Podcast.module.css'
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import Footer from "../components/Footer";
+import axios from "axios";
 
-const Podcast = () => {
+const Podcast = ({podcast}) => {
+    const { items } = podcast
   return (
     <div className={styles.Podcast}>
         <Head>
@@ -15,78 +17,66 @@ const Podcast = () => {
             <link rel="icon" href="/xr.jpeg" />
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='true'/>
-            <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet"/>
         </Head>
-        <mian className={styles.main}>
+        <main className={styles.main}>
             <Header />
             <div className={styles.wrapper}>
                 <h1>Podcast</h1>
                 <div className={styles.tumbutron}>
                     <Image src='/Group 73.svg' width={350} height={350} alt="flyer"/>
                     <div className={styles.about}>
-                        <h2>XRAtlas</h2>
-                        <p>XR Atlas Pod focuses on exploring XR, AI and Metaverse technologies, to better understand how these technologies are shaping the collective future of the human race. Episodes include conversations with enthusiasts, developers, designers and leaders in the XR & AI industry, to address key issues & innovations and also to better understand their unique and diverse points of view.</p>
+                        <h2>XrAtlas</h2>
+                        <p>Join us on the XRAtlas Podcast, where we explore the latest developments and trends in the world of Virtual reality, Augmented reality, Artificial Intelligence, and other emerging technologies that are shaping the future of humanity. From gaming and entertainment to education and commerce, we delve into the creative, social, and philosophical implications of the metaverse and its growing impact on our lives and society. Tune in to hear interviews with leading experts, creators, and visionaries, and get a glimpse into the exciting possibilities of the metaverse & other emerging technologies.</p>
                     </div>
                 </div>
                 <div className={styles.podcastList}>
                     <div className={styles.d_grid}>
-                        <div className={styles.item}>
-                            <img src="/profile_3.svg" alt="" className={styles.post_image} />
-                            <div className="content">
-                                <h5>How Augmented Reality is Revolutionalizing Education - Ludenso</h5>
-                                <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype.</p>
-                                <img src="/Group 70.svg" alt="" />
-                            </div>
-                        </div>
-                        <div className={styles.item}>
-                            <img src="/profile_3.svg" alt="" className={styles.post_image}/>
-                            <div className="content">
-                                <h5>How Augmented Reality is Revolutionalizing Education - Ludenso</h5>
-                                <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype.</p>
-                                <img src="/Group 70.svg" alt="" />
-                            </div>
-                        </div>
-                        <div className={styles.item}>
-                            <img src="/profile_3.svg" alt="" className={styles.post_image}/>
-                            <div className="content">
-                                <h5>How Augmented Reality is Revolutionalizing Education - Ludenso</h5>
-                                <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype.</p>
-                                <img src="/Group 70.svg" alt="" />
-                            </div>
-                        </div>
-                        <div className={styles.item}>
-                            <img src="/profile_3.svg" alt="" className={styles.post_image}/>
-                            <div className="content">
-                                <h5>How Augmented Reality is Revolutionalizing Education - Ludenso</h5>
-                                <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype.</p>
-                                <img src="/Group 70.svg" alt="" />
-                            </div>
-                        </div>
+                        {
+                            items && items.map(({title, content, contentSnippet, enclosure, pubDate}, id) => {
+                                return(
+                                    <div className={styles.item} key={id}>
+                                        <img src="/profile_3.svg" alt="" className={styles.post_image} />
+                                        <div className="content">
+                                            <h5>{title}</h5>
+                                            <p>{`${contentSnippet.substr(0, 200)}..`}</p>
+                                            <div className={styles.audio}>
+                                                <AudioPlayer
+                                                    src={enclosure.url}
+                                                    onPlay={e => console.log("onPlay")}
+                                                    // other props here
+                                                    style={{borderRadius : "45px", background : "rgba(255, 255, 255, 0.1)", border : "1px solid rgba(255, 255, 255, 0.1)"}}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
-                    <div className={styles.pagination}>
+                    {/* <div className={styles.pagination}>
                         <span>1</span>
                         <span>2</span>
                         <span>3</span>
-                    </div>
-                    {/* <div className={styles.item}>
-                        <h3>How Augmented Reality is Revolutionalizing Education - Ludenso</h3>
-                        <p>Ludenso is an educational technology company made by thinkers and makers who build simple learning tools that include all learners. So far, more than 10.000 young, creative minds have used their products to learn, create and explore through playful AR experiences.
-                        They are a small, but mighty young squad of people working hard to change education as we know it, while helping students become future-ready. They have been doing this in close collaboration with innovative teachers, leading universities, as well as experts from the tech and publishing industries. They are a passionate team of doers with strong values that convey through everything they do. I would advise you to check out their awesome solutions!</p>
-                        <div className={styles.audio}>
-                            <AudioPlayer
-                                autoPlay
-                                src="http://example.com/audio.mp3"
-                                onPlay={e => console.log("onPlay")}
-                                // other props here
-                            />
-                        </div>
                     </div> */}
                 </div>
             </div>
             <Footer />
-        </mian>
+        </main>
     </div>
   )
 }
 
 export default Podcast
+
+export async function getStaticProps(){
+    try {
+    const data = await axios.get('https://xr-speeds-production.up.railway.app/rss-feed')
+    const result = data.data; 
+    return { 
+        props : { podcast : result }
+        }
+        
+    } catch (error) {
+        console.log(error)
+    }
+}

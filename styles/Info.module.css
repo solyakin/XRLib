@@ -5,6 +5,12 @@
     /* font-weight: 400; */
     font-style: normal;
 }
+@font-face {
+    font-family: 'Firs';
+    src: url('../public/Fonts/TT\ Firs\ Neue\ Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
 .info{
     padding: 2rem 0rem;
     margin: 3rem auto;
@@ -27,21 +33,20 @@
     display: flex;
     justify-content: space-between;
     gap: 2.5rem;
-    /* margin-bottom: 8rem; */
 }
 .content{
     flex: .5;
 }
 .content h2{
-    font-weight: 800;
+    font-weight: 900;
     font-size: 2.1rem;
-    font-family: 'carbinet', sans-serif;
+    font-family: 'carbinet';
 }
 .content p{
     font-weight: 400;
-    font-family: 'Firs', monospace;
+    font-family: 'Firs';
     font-size: 21px;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 .image{
     flex: .4;
@@ -55,18 +60,11 @@
     width: 300px;
     height: auto;
     object-fit: cover;
-    /* transition: filter 0.03s;
-    -webkit-filter: grayscale(100%); 
-    filter: grayscale(100%); */
 }
 .headset img{
     width: 800px;
     height: 700px;
 }
-/* .image img:hover{
-    -webkit-filter: grayscale(0%);
-  filter: grayscale(0%);
-} */
 
 @media screen and (max-width : 1020px) {
     .info{
@@ -75,7 +73,8 @@
     }
     .wrapper{
         width: 100%;
-        display: block;
+        flex-direction: column-reverse;
+        /* display: block; */
     }
     .image{
         flex: 1;
@@ -89,6 +88,8 @@
     .info{
         padding: 2rem 1.5rem;
         margin-bottom: 0;
+        margin-top: 0;
+        padding-top: 0;
     }
     .content h2{
         font-size: 1.6em;

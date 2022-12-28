@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Firs';
+    src: url('../public/Fonts/TT\ Firs\ Neue\ Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
 .footer{
     background: url(../public/Stars\ footer\ bg.svg);
     height: 100vh;
@@ -13,6 +19,7 @@
     font-size: 50px;
     font-weight: 400;
     font-family: 'Firs';
+    color: white;
 }
 .footer_wrapper p{
     color: #CFD1D4;
@@ -22,6 +29,7 @@
 .email_wrapper{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     border-bottom: 2px solid rgba(125, 125, 125, 1);
     padding-bottom: 1em;
     margin-bottom: 2rem;
@@ -32,9 +40,15 @@
     width: calc(100% - 50px);
     background: none;
     font-size: 1.5em;
-    padding-left: 1em;
+    padding-left: .5em;
     font-family: "Firs";
     outline: none;
+}
+.footer .email_wrapper button{
+    padding: 0;
+    border: 0;
+    margin: 0;
+    justify-content: flex-end;
 }
 .email_wrapper img{
     width: 40px;
@@ -77,6 +91,7 @@
     font-family: 'Firs';
     font-weight: 400;
     font-size: 14px;
+    color: white;
 }
 .copyright li:first-child{
     background-image: linear-gradient(194deg,#ff00d2 33%,#7657ea 74%);
@@ -108,7 +123,8 @@
 }
 @media screen and (max-width : 480px) {
     .footer_wrapper{
-        padding: 0;
+        padding: 2em;
+        padding-top: 3rem;
     }
     .footer_wrapper h3{
         font-size: 1.6em;
@@ -124,8 +140,11 @@
         height: 25px;
     }
     .footer .copyright{
-        display: block;
+        flex-direction: column-reverse;
         text-align: center;
+    }
+    .copyright ul{
+        padding-left: 0;
     }
     .copyright p{
         font-size: .8em;

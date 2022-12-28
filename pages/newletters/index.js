@@ -1,12 +1,14 @@
 import Head from 'next/head'
-import Image from 'next/image';
 import Link from 'next/link';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import Subscribe from '../../components/Subscribe';
 import styles from '../../styles/Newsletters.module.css';
+import axios from 'axios';
 
-const Newsletters = () => {
+const Newsletters = ({ post }) => {
+
+    const postList = post?.docs
+    
   return (
     <div className={styles.newletters}>
         <Head>
@@ -15,7 +17,6 @@ const Newsletters = () => {
             <link rel="icon" href="/xr.jpeg" />
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='true'/>
-            <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet"/>
         </Head>
         <main className={styles.main}>
             <div className={styles.star_bg}></div>
@@ -24,103 +25,44 @@ const Newsletters = () => {
                 <div className={styles.main_content}>
                     <div className={styles.heading}>
                         <h2>Newsletters</h2>
+                        <p>Welcome to the XRAtlas Newsletter, where we keep you up to date on the latest news, insights, and events in the world of virtual and augmented reality, and other emerging technologies that are shaping the future of the metaverse. From industry updates and cutting-edge innovations to fascinating applications and inspiring stories, we bring you a curated selection of the most relevant and interesting developments in the metaverse. Subscribe now and stay ahead of the curve in the exciting realm of the metaverse.</p>
                     </div>
                     <div className={styles.wrapper}>
                         <div className={styles.list}>
-                            <Link href='/newletters/preview'>
-                                <div className={styles.newsletter}>
-                                    <div className={styles.content}>
-                                        <div className={styles.text}>
-                                            <h3>🔥 5 Reasons Why Web 3.0 will Fail?</h3>
-                                            <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype. For others — it is decentralized web applications where…</p>
-                                        </div>
-                                        <div className={styles.author}>
-                                            <img src="/AVATAR.svg" alt="" />
-                                            <p>Author’s Name <span>· 2 min read</span></p>
-                                        </div>
-                                    </div>
-                                    <div className={styles.photo}>
-                                        <Image src='/profile_3 (1).svg' width={140} height={140}/>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link href='/newletters/preview'>
-                                <div className={styles.newsletter}>
-                                    <div className={styles.content}>
-                                        <div className={styles.text}>
-                                            <h3>🔥 5 Reasons Why Web 3.0 will Fail?</h3>
-                                            <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype. For others — it is decentralized web applications where…</p>
-                                        </div>
-                                        <div className={styles.author}>
-                                            <img src="/AVATAR.svg" alt="" />
-                                            <p>Author’s Name <span>· 2 min read</span></p>
-                                        </div>
-                                    </div>
-                                    <div className={styles.photo}>
-                                        <Image src='/Aran Jamison.svg' width={140} height={140}/>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link href='/newletters/preview'>
-                                <div className={styles.newsletter}>
-                                    <div className={styles.content}>
-                                        <div className={styles.text}>
-                                            <h3>🔥 5 Reasons Why Web 3.0 will Fail?</h3>
-                                            <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype. For others — it is decentralized web applications where…</p>
-                                        </div>
-                                        <div className={styles.author}>
-                                            <img src="/AVATAR.svg" alt="" />
-                                            <p>Author’s Name <span>· 2 min read</span></p>
-                                        </div>
-                                    </div>
-                                    <div className={styles.photo}>
-                                        <Image src='/profile_3 (1).svg' width={140} height={140}/>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link href='/newletters/preview'>
-                                <div className={styles.newsletter}>
-                                    <div className={styles.content}>
-                                        <div className={styles.text}>
-                                            <h3>🔥 5 Reasons Why Web 3.0 will Fail?</h3>
-                                            <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype. For others — it is decentralized web applications where…</p>
-                                        </div>
-                                        <div className={styles.author}>
-                                            <img src="/AVATAR.svg" alt="" />
-                                            <p>Author’s Name <span>· 2 min read</span></p>
-                                        </div>
-                                    </div>
-                                    <div className={styles.photo}>
-                                        <Image src='/profile_3 (1).svg' width={140} height={140}/>
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link href='/newletters/preview'>
-                                <div className={styles.newsletter}>
-                                    <div className={styles.content}>
-                                        <div className={styles.text}>
-                                            <h3>🔥 5 Reasons Why Web 3.0 will Fail?</h3>
-                                            <p>Do you really need to waste your time learning Web 3 if it is just a failed idea? Intro For the majority of people, Web 3.0 sounds like one more buzzword used to promote crypto scams or get a piece of hype. For others — it is decentralized web applications where…</p>
-                                        </div>
-                                        <div className={styles.author}>
-                                            <img src="/AVATAR.svg" alt="" />
-                                            <p>Author’s Name <span>· 2 min read</span></p>
-                                        </div>
-                                    </div>
-                                    <div className={styles.photo}>
-                                        <Image src='/profile_3 (1).svg' width={140} height={140}/>
-                                    </div>
-                                </div>
-                            </Link>
+                            {
+                                postList && postList.map(({_id, postTags, postAuthor, postUrl, postContent, postName, postLength}) => {
+                                    return(
+                                        <Link href={`/newletters/${_id}`} key={_id}>
+                                            <div className={styles.newsletter}>
+                                                <div className={styles.content}>
+                                                    <div className={styles.text}>
+                                                        <h3>{postName}</h3>
+                                                        <p>{`${postContent.substr(0, 280)}...`}</p>
+                                                    </div>
+                                                    <div className={styles.author}>
+                                                        <img src="/AVATAR.svg" alt="" />
+                                                        <p>{postAuthor}<span> · {`${postLength} min read`}</span></p>
+                                                    </div>
+                                                </div>
+                                                <div className={styles.photo}>
+                                                    <img src={postUrl} width={140} height={140} alt=""/>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    )
+                                })
+                            }
                             <div className={styles.pagination}>
                                 <span>1</span>
                                 <span>2</span>
                                 <span>3</span>
                             </div>
+                            
                         </div>
                     </div>  
                 </div>
                 <Footer />
+                
             </div>
         </main>
     </div>
@@ -130,39 +72,24 @@ const Newsletters = () => {
 export default Newsletters;
 
 
+export async function getStaticProps(){
 
-
-
-
-
-
-
-{/* <div className={styles.rightwrapper}>
-                        <input placeholder='search'/>
-                        <div className={styles.recent}>
-                            <h4>Recent Posts</h4>
-                            <div className={styles.recentlist}>
-                                <div className={styles.recentitem}>
-                                    <div className={styles.recentTitle}>
-                                        <Image src='/wepik3.png' width={30} height={30} alt="title" className={styles.recentImage}/>
-                                        <p>Allison Maryclaire</p>
-                                    </div>
-                                    <h4>What We’re Reading: The psychology of self-esteem, game design for beginners, and the art of…</h4>
-                                </div>
-                                <div className={styles.recentitem}>
-                                    <div className={styles.recentTitle}>
-                                        <Image src='/wepik3.png' width={30} height={30} alt="title" className={styles.recentImage}/>
-                                        <p>Allison Maryclaire</p>
-                                    </div>
-                                    <h4>What We’re Reading: The psychology of self-esteem, game design for beginners, and the art of…</h4>
-                                </div>
-                                <div className={styles.recentitem}>
-                                    <div className={styles.recentTitle}>
-                                        <Image src='/wepik3.png' width={30} height={30} alt="title" className={styles.recentImage}/>
-                                        <p>Allison Maryclaire</p>
-                                    </div>
-                                    <h4>What We’re Reading: The psychology of self-esteem, game design for beginners, and the art of…</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
+    const options = {
+        method : "GET",
+        url : "https://xr-speeds-production.up.railway.app/pagination",
+        params : {
+            page : 1,
+            limit : 3
+        }
+    }
+    try {
+        const data = await axios.request(options)
+        const result = data.data; 
+        return { 
+            props : { post : result }
+         }
+         
+      } catch (error) {
+          console.log(error)
+      }
+}

@@ -1,7 +1,22 @@
+@font-face {
+    font-family: 'carbinet';
+    src: url('../public/Fonts/CabinetGrotesk-Black.otf');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Firs';
+    src: url('../public/Fonts/TT\ Firs\ Neue\ Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
 .newletters{
     max-width: 1200px;
-    font-family: 'carbinet', sans-serif;
+    font-family: 'carbinet';
     margin: 5rem auto;
+}
+.newletters h3{
+    font-size: 1.5em;
 }
 .newletterList{
     display: flex;
@@ -13,20 +28,34 @@
     border: 1px solid #3F4753;
     padding: 1em;
     border-radius: 10px;
+    min-height: 390px;
+    cursor: pointer;
+}
+.item .postImg{
+    width: 100%;
+    height: 157px;
+    /* width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover; */
 }
 .item h4{
-    font-family: 'carbinet', sans-serif;
+    font-family: 'carbinet';
     margin-bottom: 0px;
+    margin-top: .6em;
 }
 .item p{
     color: #7D7D7D;
     font-size: 14px;
     line-height: 1.6;
     margin-top: 5px;
+    font-family: 'Firs';
 }
 .newletterList .author{
     display: flex;
     align-items: center;
+    margin-top: 1em;
 }
 .author img{
     margin-right: 1rem;
@@ -45,23 +74,19 @@
     margin-top: 4rem;
 }
 .readmore button{
-    /* background: linear-gradient(89.76deg, #FB047B 3.64%, #130EFF 99.88%); */
-    
-    padding: 1.2rem 2rem;
+    background: linear-gradient(89.76deg, #FB047B 3.64%, #130EFF 99.88%);
+    padding: 1.5em;
+    border-radius: 40px;
     color: white;
-    border-radius: 45px;
+    border: 1px solid white;
+    margin-top: 4em;
+    cursor: pointer;
     width: 300px;
     font-family: 'Firs';
     font-weight: 500;
     font-size: 1.1rem;
-    background: transparent;
-    border: 1px solid white;
-    /* border: 1.32px solid linear-gradient(228.09deg, #FF2CF7 -9.95%, rgba(251, 4, 123, 0.796875) 12.47%, rgba(255, 126, 188, 0.81) 30.87%, rgba(255, 255, 255, 0) 53.87%, rgba(73, 255, 233, 0.65) 70.34%, #130EFF 100.44%);
-    border: 1.32px solid; */
-/* 
-    border-image-source: linear-gradient(228.09deg, #FF2CF7 -9.95%, rgba(251, 4, 123, 0.796875) 12.47%, rgba(255, 126, 188, 0.81) 30.87%, rgba(255, 255, 255, 0) 53.87%, rgba(73, 255, 233, 0.65) 70.34%, #130EFF 100.44%); */
-
 }
+
 @media screen and (max-width : 1020px) {
     .newletters{
         max-width: 100%;
@@ -74,11 +99,12 @@
         margin-bottom: 10px;
     }
 }
-@media screen and (max-width : 480px) {
-    /* .item h4{
-        font-size: 1.6em;
+@media screen and (max-width : 678px) {
+    .readmore{
+        margin-top: 0;
     }
-    .item p{
-        font-size: 1.3em;
-    } */
+    .newletters{
+        padding: 0 1.5rem;
+    }
 }
+

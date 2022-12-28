@@ -1,13 +1,22 @@
 @font-face {
     font-family: 'cabinet';
     src: url('../public/Fonts/CabinetGrotesk-Bold.otf');
+    src: url('../public/Fonts/CabinetGrotesk-Black.otf');
     /* font-weight: 400; */
     font-style: normal;
 }
+@font-face {
+    font-family: 'Firs';
+    src: url('../public/Fonts/TT\ Firs\ Neue\ Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
 .mission{
+    position: relative;
     padding: 3rem;
     background: black;
     z-index: 1050;
+    color: white;
 }
 .mission_wrapper{
     width: 1000px;
@@ -15,11 +24,12 @@
     z-index: 1050;
 }
 .mission h3{
-    font-size: 45px;
-    font-weight: 700;
+    font-size: 42px;
+    font-weight: 800;
     width: 56rem;
     font-family: 'cabinet';
     margin-bottom: 1.2rem;
+    text-transform: uppercase;
 }
 .mission h3 span{
     align-self: flex-start;
@@ -35,7 +45,7 @@
     line-height: 26px;
     font-weight: 400;
     font-size: 22px;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 @media screen and (max-width : 1020px) {
     .mission_wrapper{

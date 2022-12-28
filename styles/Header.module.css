@@ -1,11 +1,20 @@
+@font-face {
+    font-family: 'Firs';
+    src: url('../public/Fonts/TT\ Firs\ Neue\ Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
 .header{
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 4rem;
-    font-family: 'Firs', sans-serif;
+    padding: 1.2em 4rem;
+    font-family: 'Firs';
     z-index: 1050;
+}
+.header .hamburger{
+    display: none;
 }
 .header .active{
     background: linear-gradient(89.86deg, #FB047B 3.54%, #130EFF 222.81%);
@@ -28,7 +37,7 @@
     font-size: 1.4rem;
 }
 .nav{
-    flex: .35;
+    flex: .45;
 }
 .nav ul{
     display: flex;
@@ -38,7 +47,21 @@
 .nav li{
     list-style: none;
     color: white;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    font-family: 'Firs';
+}
+.chakra-slide{
+    background: black;
+    color: white;
+}
+.menu_list{
+    list-style: none;
+    margin-top: 2em;
+}
+.menu{
+    font-size: 2em;
+    margin-bottom: 1em;
     font-weight: 500;
     font-family: 'Firs';
 }
@@ -47,11 +70,19 @@
         display: none;
     }
 }
-@media screen and (max-width : 480px) {
+@media screen and (max-width : 768px) {
     .header{
-        padding: 0 2rem;
+        padding: 2rem;
     }
     .nav{
         display: none;
+    }
+    .header .hamburger{
+        display: block;
+    }
+}
+@media screen and (max-width : 480px) {
+    .header{
+        padding: 1.2rem;
     }
 }

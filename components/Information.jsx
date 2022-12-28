@@ -12,17 +12,14 @@ const Information = () => {
 
   return (
     <div className={styles.info} ref={ref}>
-        {/* <div className={styles.noise}></div> */}
         <div className={styles.wrapper} style={{
-              transform: isInView ? "none" : "translateY(200px)",
+              transform: isInView ? "none" : "translateY(100px)",
               opacity: isInView ? 1 : 0,
-              transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s"
+              transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.8s"
             }}>
             <div className={styles.content}>
                 <h2>A GLIMPSE INTO THE FUTURE OF THE METAVERSE</h2>
-                <p>XR Atlas Podcast explores immersive technologies and Artificial intelligence. Episodes from podcasts include conversations with enthusiasts, developers, designers, and leaders in the XR & AI industry, to address key issues & innovations and better understand their unique and diverse points of view.</p>
-
-                <p>The story is full of action, adventure, and suspense and is sure to keep you entertained from beginning to end. If you're looking for a great new comic book to read, then be sure to check out Daedalus!</p>
+                <p>Join us on the XRAtlas Podcast, where we explore the latest developments and trends in the world of Virtual reality, Augmented reality, Artificial Intelligence, and other emerging technologies that are shaping the future of humanity. From gaming and entertainment to education and commerce, we delve into the creative, social, and philosophical implications of the metaverse and its growing impact on our lives and society. Tune in to hear interviews with leading experts, creators, and visionaries, and get a glimpse into the exciting possibilities of the metaverse & other emerging technologies.</p>
             </div>
             <div className={styles.image}>
                 <Image src='/Group 8.svg' width={500} height={500} alt="mars"/>

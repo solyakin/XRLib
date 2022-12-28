@@ -9,9 +9,7 @@ const Glimpse = () => {
         </div>
         <div className={styles.secondcontent}>
             <h2>A GLIMPSE INTO THE FUTURE OF THE METAVERSE</h2>
-            <p>Connecting the dots between the evolution of the Metaverse and  it’s a direct impact on human development.<br></br> The XR Atlas Newsletter comes from creatives, technologists, designers and professionals from the Metaverse & AI spaces.<br></br> Enjoy and stay on top of the latest interesting and insightful updates from the world of  XR and the Metaverse.</p>
-
-            {/* <p>The story is full of action, adventure, and suspense and is sure to keep you entertained from beginning to end. If you're looking for a great new comic book to read, then be sure to check out Daedalus!</p> */}
+            <p>Welcome to the XRAtlas Newsletter, where we keep you up to date on the latest news, insights, and events in the world of virtual and augmented reality, and other emerging technologies that are shaping the future of the metaverse. From industry updates and cutting-edge innovations to fascinating applications and inspiring stories, we bring you a curated selection of the most relevant and interesting developments in the metaverse. Subscribe now and stay ahead of the curve in the exciting realm of the metaverse.</p>
         </div>
     </div>
   )

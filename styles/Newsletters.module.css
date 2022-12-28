@@ -14,8 +14,14 @@
     font-weight: 400;
     font-style: normal;
 }
+.preview_wrapper{
+    background: black;
+    color: white;
+}
 .main{
     position: relative;
+    background: black;
+    color: white;
 }
 .star_bg{
     position: fixed;
@@ -26,7 +32,7 @@
     background: url(../public/Stars\ footer\ bg.svg);
 }
 .main_content{
-    width: 1050px;
+    width: 1000px;
     margin: 50px auto;
 }
 .heading{
@@ -47,11 +53,18 @@
     -webkit-text-fill-color: transparent;
     margin-bottom: 40px;
 }
+.heading p{
+    font-size: 1.2em;
+    line-height: 1.8;
+    font-family: 'Firs';
+    margin-bottom: 2em;
+    text-align: left;
+}
 .newsletter{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 5rem;
+    gap: 3rem;
     border: 1px solid #727070;
     border-radius: 20px;
     padding: 1rem 1.5rem;
@@ -64,6 +77,8 @@
     margin-top: 10px;
     margin-bottom: 0;
     font-family: 'cabinet';
+    color: white;
+    font-size: 1.4em;
 }
 .author{
     display: flex;
@@ -73,6 +88,10 @@
 .author img{
     border-radius: 50%;
 }
+.author p{
+    color: white;
+    margin-bottom: 0!important;
+}
 .author span{
     color: rgba(244, 5, 128, 1);
 }
@@ -81,7 +100,8 @@
     color: rgba(125, 125, 125, 1);
     font-family: 'Firs';
     font-size: 16px;
-    margin-top: 0;
+    margin-top: .3em;
+    margin-bottom: 1em;
 }
 .list .pagination{
     display: flex;
@@ -96,9 +116,13 @@
     cursor: pointer;
     margin-top: 3rem;
 }
+.pagination span{
+    color: white;
+}
 .preview{
     width: 800px;
     margin: auto;
+    margin-top: 3rem;
 }
 .preview h3{
     font-size: 2.3em;
@@ -113,6 +137,43 @@
     font-size: 18px;
     line-height: 1.7;
     font-family: 'Firs';
+    margin-bottom: 1.2em;
+}
+.articleimg{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+.content{
+    flex: .8;
+}
+.photo{
+    flex: .2;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.photo img{
+    width: 140px;
+    height: 140px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+.create_btn{
+    display: flex;
+    justify-content: center;
+}
+.create_btn button{
+    background: linear-gradient(89.76deg, #FB047B 3.64%, #130EFF 99.88%);
+    padding: 1.5em;
+    border-radius: 40px;
+    color: white;
+    border: 1px solid white;
+    margin-top: 4em;
+    cursor: pointer;
+    width: 300px;
+    font-family: 'Firs';
+    font-weight: 500;
+    font-size: 1.1rem;
 }
 @media only screen and (max-width : 1250px) {
     .main_content{
@@ -129,14 +190,22 @@
     }
     .preview{
         width: 100%;
+        padding: 2em 4em;
     }
     .articleimg{
         width: 100%;
     }
 }
 @media only screen and (max-width : 768px) {
+    .author{
+        display: block;
+    }
     .heading h2{
         font-size: 3.5em;
+    }
+    .heading p{
+        padding: 2em;
+        font-size: 1em;
     }
     .newsletter{
         gap: 2em;
@@ -145,10 +214,11 @@
 @media only screen and (max-width : 590px) {
     .heading h2{
         font-size: 2.5em;
+        margin-bottom: 0;
     }
     .photo img{
-        width: 80px;
-        height: 80px;
+        width: 100%;
+        height: auto;
     }
     .main_content{
         padding: 0;
@@ -160,11 +230,18 @@
     .photo{
         align-self: flex-start;
     }
+    .preview{
+        padding: 2em 1.5em;
+    }
 }
 
 @media only screen and (max-width : 480px) {
-    .container{
-        padding: 2em 1em;
+    /* .container{
+        padding: 2em 1.5em;
+    } */
+    .newsletter{
+        padding: 1em 1.2em;
+        margin: 2em 1.5em;
     }
     .heading h2{
         font-size: 2em;

@@ -1,0 +1,11 @@
+
+@font-face {
+    font-family: 'Firs';
+    src: url('../public/Fonts/TT\ Firs\ Neue\ Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.login .text{
+    font-family: "Firs";
+}

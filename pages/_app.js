@@ -1,31 +1,43 @@
 import '../styles/globals.css'
-import { AnimatePresence, motion } from "framer-motion";
-import { useRouter} from 'next/router';
+import { ChakraProvider, useToast } from '@chakra-ui/react'
+import theme from '../utils/theme';
+import { AuthProvider } from '../components/authentication/contexts/AuthContext';
+import useAuth from '../components/authentication/hooks/use-auth';
+import { useEffect } from 'react';
+
+const AppInner = ({ Component, ...rest }) => {
+  const { currentUser } = useAuth();
+  const toast = useToast();
+  useEffect(() => {
+    if (currentUser) {
+      if (!currentUser.emailVerified) {
+        toast({
+          title: "You cannot experience the app fully without verifying your account. Check your email.",
+          status: "warning",
+          duration: 18000,
+          isClosable: true,
+        });
+        // Popup that says you cannot access all the features of this app without a fully verified account
+      }
+    }
+  }, [currentUser])
+  return (
+    <>
+      <Component {...rest} />
+    </>
+  )
+}
 
 function MyApp({ Component, pageProps }) {
 
-  const router = useRouter()
-  return <AnimatePresence exitBeforeEnter>
-    <motion.div
-    key={router.route}
-    initial="intialState"
-    animate="animateState"
-    exit="existState"
-    variants={{
-      initialState : {
-        opacity : 0
-      },
-      animateState : {
-        opacity : 1
-      },
-      existState : {
-        opacity : 0
-      }
-    }}
-    >
-      <Component {...pageProps} />
-    </motion.div>
-  </AnimatePresence>
+  return (
+    <AuthProvider>
+      <ChakraProvider theme={theme}>
+        <AppInner Component={Component} pageProps={pageProps} />
+      </ChakraProvider>
+    </AuthProvider>
+  )
 }
 
-export default MyApp
+export default MyApp;
+
