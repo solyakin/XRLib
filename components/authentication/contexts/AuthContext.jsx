@@ -52,7 +52,6 @@ export const AuthProvider = ({ children }) => {
         .catch(function (error) {
             // Handle Errors here.
             var errorMessage = error.message;
-            setError(errorMessage)
             throw new Error(errorMessage)
         })
 
