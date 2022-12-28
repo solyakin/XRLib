@@ -37,20 +37,20 @@ export const AuthProvider = ({ children }) => {
      * @param username 
      * @param password 
      */
-    const signUp = async (email, username, password) => {
+    const signUp = async (email, /* username, */ password) => {
         setSignUpLoading(true)
         createUserWithEmailAndPassword(firebaseAuth, email, password)
             .then(async (userCredential) => {
                 sendEmailVerification(userCredential.user, {
                     // Conditionally set return url to localhost or main production url based on env variable.
-                    url: process.env.NEXT_PUBLIC_DEVELOPMENT_MODE ? "http://localhost:3000/reset-password" : "https://xratlas.com/reset-password"
+                    url: process.env.NEXT_PUBLIC_DEVELOPMENT_MODE ? `http://localhost:3000/update-info/?user=${email}` : `https://xratlas.com/update-info/?user=${email}`
                 })
                 // Signed in and save user to firestore
                 const { user } = userCredential;
                 setCurrentUser(user);
                 await setDoc(doc(usersCollection, userCredential.user.uid), {
                     id: userCredential.user.uid,
-                    username: username,
+                    //username: username,
                     email: userCredential.user.email,
                 }).then(() => {
                     setSignUpLoading(false);
@@ -66,6 +66,7 @@ export const AuthProvider = ({ children }) => {
         email,
         password,
     ) => {
+        console.log("called")
         setSignInLoading(true)
         signInWithEmailAndPassword(firebaseAuth, email, password)
             .then(async (userCredential) => {
@@ -103,7 +104,7 @@ export const AuthProvider = ({ children }) => {
                 });
             });
     };
-    
+
     /**
      * 
      * @param {string} email 

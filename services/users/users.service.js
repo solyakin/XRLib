@@ -1,4 +1,4 @@
-import { collection } from "firebase/firestore";
+import { collection, getDoc, doc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
 const usersCollection = collection(db, "users")
