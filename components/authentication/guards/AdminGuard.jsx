@@ -85,7 +85,7 @@ const AdminGuard = ({ children }) => {
     }
     if (authLoading) {
         return (
-            <Center w={"100%"} h={"100vh"} bg={useColorModeValue("white", "gray.700")}>
+            <Center w={"100%"} h={"100vh"}>
                 <Spinner color="black" />
             </Center>
         )
@@ -96,7 +96,7 @@ const AdminGuard = ({ children }) => {
         return <>{children}</>;
     }
     return (
-        <Center w={"100%"} h={"100vh"} bg={useColorModeValue("white", "gray.700")}>
+        <Center w={"100%"} h={"100vh"}>
 
         </Center>
     )
