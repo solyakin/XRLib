@@ -22,10 +22,12 @@ const profile = () => {
                 <div className={styles.wrapper}>
                     <div className={styles.title}>
                         <h2>Your Posts</h2>
+                        <Link href="/profile/create">
                         <button>
                             <Image src="/sign.svg" width="14" height="14" alt=""/>
                             New post
                         </button>
+                        </Link>
                     </div>
                     <div className={styles.list}>
                         <Link href={"#"}>

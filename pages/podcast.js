@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 import axios from "axios";
 
 const Podcast = ({podcast}) => {
-    const { items } = podcast
+    const items  = podcast?.items
   return (
     <div className={styles.Podcast}>
         <Head>
