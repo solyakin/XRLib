@@ -29,7 +29,7 @@ export default function Home() {
     fetching()
   },[])
 
-  // console.log(podcasts)
+  // console.log("podcast", podcasts)
 
   return (
       <div className={styles.container}>
