@@ -26,7 +26,7 @@ import Login from './Login';
 import SignupWithEmail from './SignupWithEmail';
 import SignUp from './SignUp';
 import ForgotPassword from './ForgotPassword';
-import useAuth from './authentication/hooks/use-auth';
+import useAuth from './authentication/hooks/useAuth';
 import CheckInbox from './CheckInbox';
 
 const Header = () => {

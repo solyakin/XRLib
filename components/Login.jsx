@@ -16,7 +16,7 @@ import {
     InputGroup,
     HStack
 } from '@chakra-ui/react'
-import useAuth from './authentication/hooks/use-auth'
+import useAuth from './authentication/hooks/useAuth'
 import styles from '../styles/Login.module.css'
 
 const Login = ({ loginClose, loginIsOpen, signupOpen, forgetOpen }) => {

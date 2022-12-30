@@ -11,7 +11,7 @@ import {
     Spinner,
 } from '@chakra-ui/react'
 import styles from '../styles/Login.module.css'
-import useAuth from './authentication/hooks/use-auth'
+import useAuth from './authentication/hooks/useAuth'
 
 const SignUp = ({ signupClose, signupIsOpen, emailOpen, loginOpen }) => {
     const { signUpLoading, signUpWithGoogle } = useAuth();

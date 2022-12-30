@@ -1,17 +1,17 @@
 import React from 'react'
 import Header from '../../components/Header'
 import Head from 'next/head'
-import { Grid, GridItem, Container, Box, Text, Heading, HStack, Button, Stack, useDisclosure } from '@chakra-ui/react'
+import { Grid, GridItem, Container, Box, Text, Heading, HStack, Button, Stack, useDisclosure } from '@chakra-ui/react';
 import styles from '../../styles/user.module.css'
 import Image from 'next/image'
-import useAuth from '../../components/authentication/hooks/use-auth'
+import useAuth from '../../components/authentication/hooks/useAuth';
 import Link from 'next/link'
 import EditProfile from '../../components/EditProfile'
 
 const user = () => {
 
     const { currentUser } = useAuth();
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure();
    
   return (
     <div className={styles.user}>

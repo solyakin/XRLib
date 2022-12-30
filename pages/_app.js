@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import { ChakraProvider, useToast } from '@chakra-ui/react'
 import theme from '../utils/theme';
 import { AuthProvider } from '../components/authentication/contexts/AuthContext';
-import useAuth from '../components/authentication/hooks/use-auth';
+import useAuth from '../components/authentication/hooks/useAuth';
 import { useEffect } from 'react';
 
 const AppInner = ({ Component, ...rest }) => {

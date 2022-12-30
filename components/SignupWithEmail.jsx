@@ -13,7 +13,7 @@ import {
     InputRightElement
 } from '@chakra-ui/react'
 import styles from '../styles/Login.module.css'
-import useAuth from './authentication/hooks/use-auth'
+import useAuth from './authentication/hooks/useAuth'
 
 const SignupWithEmail = ({ emailClose, emailIsOpen, checkOpen }) => {
     const { signUp, signUpLoading } = useAuth();
