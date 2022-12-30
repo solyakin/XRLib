@@ -24,7 +24,6 @@ const Podcast = () => {
 
     }, [])
     
-    // console.log(items)
   return (
     <div className={styles.Podcast}>
         <Head>

@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { Container } from '@chakra-ui/react'
 import Link from 'next/link'
 
-const published = () => {
+const Published = () => {
   return (
     <div className={styles.profile}>
         <Head>
@@ -78,4 +78,4 @@ const published = () => {
   )
 }
 
-export default published
+export default Published;

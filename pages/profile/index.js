@@ -8,7 +8,7 @@ import useAuth from '../../components/authentication/hooks/useAuth';
 import Link from 'next/link'
 import EditProfile from '../../components/EditProfile'
 
-const user = () => {
+const Profile = () => {
 
     const { currentUser } = useAuth();
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -204,4 +204,4 @@ const user = () => {
   )
 }
 
-export default user
+export default Profile;
