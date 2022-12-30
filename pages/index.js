@@ -29,6 +29,8 @@ export default function Home() {
     fetching()
   },[])
 
+  // console.log(podcasts)
+
   return (
       <div className={styles.container}>
         <Head>
