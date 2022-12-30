@@ -245,7 +245,8 @@ const CreateNewsletter = ({ onChange }) => {
   )
 }
 
-Create.propTypes = {
+CreateNewsletter.propTypes = {
     onChange: PropTypes.func
 };
+
 export default CreateNewsletter;
