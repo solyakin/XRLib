@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router'
 import { motion, useScroll, useSpring } from "framer-motion";
@@ -8,12 +9,13 @@ import RecentNewsletter from '../../components/RecentNewsletter';
 import Footer from '../../components/Footer';
 import axios from 'axios';
 import { months, weekday } from '../../utils/monthList';
+import { baseUrl } from '../../utils/baseUrl';
 
 const data = {
   title : "Related topics",
 }
 
-const Preview = ({ post }) => {
+const Preview = () => {
 
   const router = useRouter();
   const { id } = router.query;
@@ -24,7 +26,20 @@ const Preview = ({ post }) => {
     restDelta: 0.001
   });
 
-  const currentPost = post.filter(item => item._id === id);
+  const [post, setPost] = useState([])
+
+  useEffect(() => {
+    const fetching = async () => {
+      const data = await axios.get(`${baseUrl}`)
+      const result = data.data; 
+      setPost(result)
+    }
+    fetching()
+  }, [])
+  
+  
+  const currentPost = post?.filter(item => item._id === id);
+ 
 
   return (
     <div className={styles.newletters}>
@@ -90,33 +105,34 @@ const Preview = ({ post }) => {
 
 export default Preview
 
-export async function getStaticPaths(){
+// export async function getStaticPaths(){
 
-  const data = await axios.get('https://xr-speeds-production.up.railway.app')
-  const result = data.data; 
-  const paths = result.map(({_id}) => {
-    return{
-      params : {
-        id : `${_id}`
-      }
-    }
-  })
-  return{
-    paths : paths,
-    fallback : false
-  }
-}
+//   const data = await axios.get(`${baseUrl}`)
+//   const result = data.data; 
+//   const paths = result.map(({_id}) => {
+//     return{
+//       params : {
+//         id : `${_id}`
+//       }
+//     }
+//   })
+//   return{
+//     paths : paths,
+//     fallback : false
+//   }
+// }
 
-export async function getStaticProps(context){
-  const { params } = context
-  try {
-      const data = await axios.get(`https://xr-speeds-production.up.railway.app/`)
-      const result = data.data; 
-      return { 
-          props : { post : result }
-       }
+// export async function getStaticProps(context){
+//   const { params } = context
+//   try {
+//       const data = await axios.get(`${baseUrl}`)
+//       const result = data.data; 
+//       console.log(result)
+//       return { 
+//           props : { post : result }
+//        }
        
-    } catch (error) {
-        console.log(error)
-    }
-}
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }

@@ -8,8 +8,16 @@ import {
     DrawerCloseButton,
     useDisclosure,
     Button,
+    HStack,
+    Avatar,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    MenuDivider,
+    Menu,
+    Box,
 } from '@chakra-ui/react'
-import { HamburgerIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { useRouter } from "next/router";
 import Link from 'next/link';
 import Image from 'next/image';
@@ -18,89 +26,140 @@ import Login from './Login';
 import SignupWithEmail from './SignupWithEmail';
 import SignUp from './SignUp';
 import ForgotPassword from './ForgotPassword';
+import useAuth from './authentication/hooks/use-auth';
+import CheckInbox from './CheckInbox';
 
 const Header = () => {
 
     const router = useRouter();
-    const { isOpen:hamISopen, onOpen: hamOpen, onClose: hamClose } = useDisclosure()
-    const { isOpen: loginIsOpen, onOpen: loginOpen, onClose : loginClose } = useDisclosure()
-    const { isOpen: emailIsOpen, onOpen: emailOpen, onClose : emailClose } = useDisclosure()
-    const { isOpen: signupIsOpen, onOpen: signupOpen, onClose : signupClose } = useDisclosure()
-    const { isOpen: forgetIsOpen, onOpen: forgetOpen, onClose : forgetClose } = useDisclosure()
+    const { currentUser, signOut } = useAuth();
+    const { isOpen: hamISopen, onOpen: hamOpen, onClose: hamClose } = useDisclosure()
+    const { isOpen: loginIsOpen, onOpen: loginOpen, onClose: loginClose } = useDisclosure()
+    const { isOpen: emailIsOpen, onOpen: emailOpen, onClose: emailClose } = useDisclosure()
+    const { isOpen: signupIsOpen, onOpen: signupOpen, onClose: signupClose } = useDisclosure()
+    const { isOpen: forgetIsOpen, onOpen: forgetOpen, onClose: forgetClose } = useDisclosure()
+    const { isOpen : checkIsOpen, onClose : checkClose, onOpen : checkOpen } = useDisclosure()
     const btnRef = React.useRef()
 
-  return (
-    <header className={styles.header}>
-        <Link href='/'>
-            <div className={styles.logo}>
-                <Image src="/Product Description.svg" width={140} height={100} alt="" />
-            </div>
-        </Link>
-        <nav className={styles.nav}>
-        <ul>
-            <li className={router.pathname == "/" ? `${styles.active}` : ""}>
-                <Link href='/'>Home</Link>
-            </li>
-            <li className={router.pathname == "/newletters" ? `${styles.active}` : ""}>
-                <Link href='/newletters'>Newsletter</Link>
-            </li>
-            <li className={router.pathname == "/podcast" ? `${styles.active}` : ""}>
-                <Link href='/podcast'>Podcast</Link>
-            </li>
-            <li>
-                <Button 
-                border="1px" 
-                borderColor="white" 
-                bg={"transparent"} 
-                bgGradient="linear(89.76deg, #FB047B 3.64%, #130EFF 99.88%)"
-                borderRadius="full"
-                _hover={{
-                    color: "black",
-                }}
-                onClick={loginOpen}
-                >
-                    Login
-                </Button>
-                <Login loginClose={loginClose} loginIsOpen={loginIsOpen} signupOpen={signupOpen} forgetOpen={forgetOpen}/>
-                <ForgotPassword forgetClose={forgetClose} forgetIsOpen={forgetIsOpen} forgetOpen={forgetOpen}/>
-                <SignUp signupClose={signupClose} signupIsOpen={signupIsOpen} emailOpen={emailOpen} loginOpen={loginOpen}/>
-                <SignupWithEmail emailClose={emailClose} emailIsOpen={emailIsOpen}/>
-            </li>
-        </ul>
-        </nav>
-        <div className={styles.hamburger}>
-            <HamburgerIcon boxSize={6} ref={btnRef} onClick={hamOpen}/>
-            <Drawer
-                isOpen={hamISopen}
-                placement='left'
-                onClose={hamClose}
-                finalFocusRef={btnRef}
+    console.log(currentUser?.photoURL)
+
+    return (
+        <header className={styles.header}>
+            <Link href='/'>
+                <div className={styles.logo}>
+                    <Image src="/Product Description.svg" width={140} height={100} alt="" />
+                </div>
+            </Link>
+            <nav className={styles.nav}>
+                <ul>
+                    <li className={router.pathname == "/" ? `${styles.active}` : ""}>
+                        <Link href='/'>Home</Link>
+                    </li>
+                    <li className={router.pathname == "/newletters" ? `${styles.active}` : ""}>
+                        <Link href='/newletters'>Newsletter</Link>
+                    </li>
+                    <li className={router.pathname == "/podcast" ? `${styles.active}` : ""}>
+                        <Link href='/podcast'>Podcast</Link>
+                    </li>
+                    {!currentUser ? <li>
+                        <Button
+                            border="1px"
+                            borderColor="white"
+                            bg={"transparent"}
+                            bgGradient="linear(89.76deg, #FB047B 3.64%, #130EFF 99.88%)"
+                            borderRadius="full"
+                            _hover={{
+                                color: "black",
+                            }}
+                            onClick={loginOpen}
+                        >
+                            Login
+                        </Button>
+                        <Login loginClose={loginClose} loginIsOpen={loginIsOpen} signupOpen={signupOpen} forgetOpen={forgetOpen} />
+                        <ForgotPassword forgetClose={forgetClose} forgetIsOpen={forgetIsOpen} forgetOpen={forgetOpen} />
+                        <SignUp signupClose={signupClose} signupIsOpen={signupIsOpen} emailOpen={emailOpen} loginOpen={loginOpen} />
+                        <SignupWithEmail emailClose={emailClose} emailIsOpen={emailIsOpen} checkOpen={checkOpen} />
+                        <CheckInbox checkOpen={checkOpen} checkClose={checkClose} checkIsOpen={checkIsOpen}/>
+                    </li> :
+                        <li>
+                            <HStack>
+                                <Avatar name={currentUser.displayName} src={currentUser.photoURL} size="sm"/>
+                                <Menu>
+                                    <MenuButton
+                                        as={Button}
+                                        rounded={'full'}
+                                        variant={'link'}
+                                        cursor={'pointer'}
+                                        minW={0}>
+                                        <ChevronDownIcon />
+                                    </MenuButton>
+                                    <MenuList background="#000000" borderColor="#1B1919">
+                                        <MenuItem fontSize="14px" mb="4" background="#000000">
+                                            <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{marginRight : "10px"}}/>
+                                            <Link href="/profile">Profile</Link>
+                                        </MenuItem>
+                                        <MenuItem fontSize="14px" background="#000000">
+                                            <Image src="/Vector (19).svg" width="14" height="14" alt="" style={{marginRight : "10px"}}/>
+                                            <Link href="/profile/published">Posts</Link>
+                                        </MenuItem>
+                                        <MenuDivider />
+                                        <MenuItem background="#000000" fontSize="14px">
+                                            <Box 
+                                            display="flex" 
+                                            alignItems="center"
+                                            as="button" 
+                                            onClick={()=> signOut()} 
+                                            background="#F40580" 
+                                            color="white"
+                                            padding={2}
+                                            w="100%"
+                                            borderRadius="full"
+                                            textAlign="center"
+                                            >
+                                                <Image src="/Vector (20).svg" width="14" height="14" alt="" style={{marginRight : "10px"}}/>
+                                                Sign out
+                                            </Box>
+                                        </MenuItem>
+                                    </MenuList>
+                                </Menu>
+                            </HStack>
+                        </li>
+                    }
+                </ul>
+            </nav>
+            <div className={styles.hamburger}>
+                <HamburgerIcon boxSize={6} ref={btnRef} onClick={hamOpen} />
+                <Drawer
+                    isOpen={hamISopen}
+                    placement='left'
+                    onClose={hamClose}
+                    finalFocusRef={btnRef}
                 // styleConfig={{background : "rgba(255, 255, 255, 0.1)"}}
-            >
-                <DrawerOverlay />
-                <DrawerContent>
-                    <DrawerCloseButton />
-                    <DrawerHeader>
-                        <Image src="/Product Description.svg"  width={140} height={100} alt="" />
-                    </DrawerHeader>
-                    <DrawerBody>
-                        <ul className={styles.menu_list}>
-                            <li className={styles.menu}>
-                                <Link href="/">Home</Link>
-                            </li>
-                            <li className={styles.menu}>
-                                <Link href="/newletters">Newletter</Link>
-                            </li>
-                            <li className={styles.menu}>
-                                <Link href="/podcast">Podcast</Link>
-                            </li>
-                        </ul>
-                    </DrawerBody>
-                </DrawerContent>
-            </Drawer>
-        </div>
-    </header>
-  )
+                >
+                    <DrawerOverlay />
+                    <DrawerContent>
+                        <DrawerCloseButton />
+                        <DrawerHeader>
+                            <Image src="/Product Description.svg" width={140} height={100} alt="" />
+                        </DrawerHeader>
+                        <DrawerBody>
+                            <ul className={styles.menu_list}>
+                                <li className={styles.menu}>
+                                    <Link href="/">Home</Link>
+                                </li>
+                                <li className={styles.menu}>
+                                    <Link href="/newletters">Newletter</Link>
+                                </li>
+                                <li className={styles.menu}>
+                                    <Link href="/podcast">Podcast</Link>
+                                </li>
+                            </ul>
+                        </DrawerBody>
+                    </DrawerContent>
+                </Drawer>
+            </div>
+        </header>
+    )
 }
 
 export default Header

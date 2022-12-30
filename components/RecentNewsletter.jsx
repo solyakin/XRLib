@@ -3,6 +3,7 @@ import axios from 'axios'
 import Link from 'next/link'
 import React from 'react'
 import styles from '../styles/RecentNewsletter.module.css'
+import { baseUrl } from '../utils/baseUrl'
 
 const RecentNewsletter = ({ data }) => {
 
@@ -11,7 +12,7 @@ const RecentNewsletter = ({ data }) => {
     useEffect(() => {
     const fetching = async () => {
         try {
-            const data = await axios.get('https://xr-speeds-production.up.railway.app/recent')
+            const data = await axios.get(`${baseUrl}/recent`)
             const result = data.data; 
             setRecent(result)
         } catch (error) {

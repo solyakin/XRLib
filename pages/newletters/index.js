@@ -1,13 +1,39 @@
 import Head from 'next/head'
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import styles from '../../styles/Newsletters.module.css';
 import axios from 'axios';
+import { baseUrl } from '../../utils/baseUrl';
 
-const Newsletters = ({ post }) => {
+const options = {
+    method : "GET",
+    url : `${baseUrl}/pagination`,
+    params : {
+        page : 1,
+        limit : 4
+    }
+}
 
-    const postList = post?.docs
+const Newsletters = () => {
+
+    const [postList, setPost] = useState([])
+
+    useEffect(() => {
+      
+        const fetching = async () => {
+            try {
+                const data = await axios.request(options)
+                const result = data.data;
+                setPost(result.docs)
+                 
+              } catch (error) {
+                  console.log(error)
+              }
+        }
+        fetching()
+    }, [])
     
   return (
     <div className={styles.newletters}>
@@ -72,24 +98,24 @@ const Newsletters = ({ post }) => {
 export default Newsletters;
 
 
-export async function getStaticProps(){
+    // export const getStaticProps = async () => {
 
-    const options = {
-        method : "GET",
-        url : "https://xr-speeds-production.up.railway.app/pagination",
-        params : {
-            page : 1,
-            limit : 3
-        }
-    }
-    try {
-        const data = await axios.request(options)
-        const result = data.data; 
-        return { 
-            props : { post : result }
-         }
-         
-      } catch (error) {
-          console.log(error)
-      }
-}
+    //     const options = {
+    //         method : "GET",
+    //         url : `https://xr-speeds.vercel.app/pagination`,
+    //         params : {
+    //             page : 1,
+    //             limit : 3
+    //         }
+    //     }
+    //     try {
+    //         const data = await axios.request(options)
+    //         const result = data.data;
+    //         return { 
+    //             props : { post : result }
+    //          }
+            
+    //       } catch (error) {
+    //           console.log(error)
+    //       }
+    // }
