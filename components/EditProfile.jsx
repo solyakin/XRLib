@@ -21,7 +21,7 @@ const EditProfile = ({onClose, isOpen}) => {
   return (
     <div>
         <Modal onClose={onClose} isOpen={isOpen} isCentered size="xl">
-            <ModalOverlay />
+            <ModalOverlay backdropBlur="3xl" background={"rgba(26, 32, 44, 0.9)"} />
             <ModalContent bg="#000005" borderRadius="lg" boxShadow={"dark-lg"} borderColor="white" border="1px">
                 <ModalBody mb="8" mt="9" marginLeft="6" marginRight="6">
                     <Heading as="h3" mb="6" size="lg" color="white">Profile information</Heading>

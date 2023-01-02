@@ -24,10 +24,10 @@ const SignUp = ({ signupClose, signupIsOpen, emailOpen, loginOpen }) => {
     }
     return (
         <Modal onClose={signupClose} isOpen={signupIsOpen} isCentered>
-            <ModalOverlay />
+            <ModalOverlay backdropBlur="3xl" background={"rgba(26, 32, 44, 0.6)"}/>
             <ModalContent bg="#000005" borderRadius="md" boxShadow={"dark-lg"} borderColor="white" border="1px">
                 <ModalBody mb="8" mt="9" marginLeft="6" marginRight="6">
-                    <Heading as="h3" mb="6" size="lg" color="white">Sign Up</Heading>
+                    <Heading as="h3" mb="14" size="lg" color="white">Sign Up</Heading>
                     <Box as='button'
                         onClick={emailOpen}
                         borderRadius="full"
@@ -66,7 +66,12 @@ const SignUp = ({ signupClose, signupIsOpen, emailOpen, loginOpen }) => {
                     <Box mt="8">
                         <Text color="whiteAlpha.700" fontSize="sm" textAlign={"center"}>
                             Already have an account?
-                            <span onClick={handleModal} style={{ cursor: "pointer", marginLeft: "10px", color: "whitesmoke" }}>Login</span>
+                            <Text 
+                            onClick={handleModal}
+                            _hover={{color : "#F40580", cursor: "pointer"}} 
+                            >
+                                Login
+                            </Text>
                         </Text>
                     </Box>
                     <Box mt="12" mb="10">

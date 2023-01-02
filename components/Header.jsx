@@ -63,13 +63,12 @@ const Header = () => {
                     </li>
                     {!currentUser ? <li>
                         <Button
-                            border="1px"
-                            borderColor="white"
                             bg={"transparent"}
                             bgGradient="linear(89.76deg, #FB047B 3.64%, #130EFF 99.88%)"
                             borderRadius="full"
                             _hover={{
-                                color: "black",
+                                border : "1px",
+                                borderColor : "white"
                             }}
                             onClick={loginOpen}
                         >
@@ -93,16 +92,20 @@ const Header = () => {
                                         minW={0}>
                                         <ChevronDownIcon />
                                     </MenuButton>
-                                    <MenuList background="#000000" borderColor="#1B1919">
-                                        <MenuItem fontSize="14px" mb="4" background="#000000">
+                                    <MenuList background="#000000" borderColor="#1B1919" minW="2.5" >
+                                        <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{background : "white", color : "black"}}>
                                             <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{marginRight : "10px"}}/>
                                             <Link href="/profile">Profile</Link>
                                         </MenuItem>
-                                        <MenuItem fontSize="14px" background="#000000">
+                                        <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{background : "white", color : "black"}}>
                                             <Image src="/Vector (19).svg" width="14" height="14" alt="" style={{marginRight : "10px"}}/>
                                             <Link href="/profile/published">Posts</Link>
                                         </MenuItem>
-                                        <MenuDivider />
+                                        <MenuItem fontSize="14px" background="#000000" _hover={{background : "white", color : "black"}}>
+                                            <Image src="/Vector (21).svg" width="14" height="14" alt="" style={{marginRight : "10px"}}/>
+                                            <Link href="#">Stats</Link>
+                                        </MenuItem>
+                                        <MenuDivider background={"white"} opacity="1" color={"white"}/>
                                         <MenuItem background="#000000" fontSize="14px">
                                             <Box 
                                             display="flex" 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import {
     Modal,
@@ -22,7 +22,8 @@ import styles from '../styles/Login.module.css'
 const Login = ({ loginClose, loginIsOpen, signupOpen, forgetOpen }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    // Auth
+    const [disabled, setDisable] = useState(true);
+
     const { signIn, signInLoading, signUpWithGoogle } = useAuth()
 
     const [show, setShow] = React.useState(false)
@@ -35,10 +36,19 @@ const Login = ({ loginClose, loginIsOpen, signupOpen, forgetOpen }) => {
         signupOpen()
     }
 
+    useEffect (() => {
+        if(email !== "" && password !== ""){
+            setDisable(false)
+        }else{
+            setDisable(true)
+        }
+    },[email, password])
+    
+
     return (
         <div className={styles.login}>
             <Modal onClose={loginClose} isOpen={loginIsOpen} isCentered>
-                <ModalOverlay />
+                <ModalOverlay backdropBlur="3xl" background={"rgba(26, 32, 44, 0.5)"}/>
                 <ModalContent bg="#000005" borderRadius="lg" boxShadow={"dark-lg"} borderColor="white" border="1px">
                     <ModalBody mb="8" mt="9" marginLeft="6" marginRight="6">
                         <Heading as="h3" mb="6" size="lg" color="white">Login</Heading>
@@ -65,13 +75,17 @@ const Login = ({ loginClose, loginIsOpen, signupOpen, forgetOpen }) => {
                         <Button
                             isLoading={signInLoading}
                             onClick={() => signIn(email, password)}
-                            w="full" mt="4"
+                            w="full" 
+                            mt="4"
                             borderRadius="full"
                             background="#F40580"
                             color="white"
                             borderColor="white"
                             border="1px"
                             mb="12"
+                            disabled={disabled}
+                            _disabled={{background : "grey", opacity : "0.6", cursor : "not-allowed"}}
+                            _hover={{background : "inherit"}}
                         >
                             Sign In
                         </Button>
@@ -80,9 +94,9 @@ const Login = ({ loginClose, loginIsOpen, signupOpen, forgetOpen }) => {
                             <Box as="button" background="white" onClick={signUpWithGoogle} borderRadius="full" p={3} w="full">
                                 <Image src="/google.svg" width={20} height={20} alt="" style={{ margin: "auto" }} />
                             </Box>
-                            <Box as="button" background="white" borderRadius="full" p={3} w="full">
+                            {/* <Box as="button" background="white" borderRadius="full" p={3} w="full">
                                 <Image src="/Vector (11).svg" width={20} height={20} alt="" style={{ margin: "auto" }} />
-                            </Box>
+                            </Box> */}
                             <Box as="button" background="white" borderRadius="full" p={3} w="full">
                                 <Image src="/Vector (12).svg" width={20} height={20} alt="" style={{ margin: "auto" }} />
                             </Box>

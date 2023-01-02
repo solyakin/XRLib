@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { ArrowDownIcon } from '@chakra-ui/icons';
 import { motion } from 'framer-motion'
 import { useInView } from "framer-motion";
 import React from 'react'
@@ -11,7 +12,7 @@ const Hero = () => {
 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  // console.log(ref)
+  
   return (
     <div className={styles.hero}>
         <div className={styles.header}>
