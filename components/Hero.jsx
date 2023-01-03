@@ -1,18 +1,18 @@
 import { useRef } from 'react'
+import { ArrowDownIcon } from '@chakra-ui/icons';
 import { motion } from 'framer-motion'
 import { useInView } from "framer-motion";
 import React from 'react'
 import styles from '../styles/Hero.module.css'
 import style from '../styles/Mission.module.css'
 import Header from './Header'
-import ParallaxText from './ScrollText';
+
 
 const Hero = () => {
 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-
-  // console.log(ref)
+  
   return (
     <div className={styles.hero}>
         <div className={styles.header}>
@@ -39,10 +39,6 @@ const Hero = () => {
             <p className={styles.by}>By Babatunde</p>
           </div>
         </div>
-        {/* <div className={styles.scroll_text}>
-          <ParallaxText baseVelocity={-1}>Extended Reality - Virtual Reality - Argumented Reality - Mixed Reality</ParallaxText>
-          <ParallaxText baseVelocity={1}>Extended Reality - Virtual Reality - Argumented Reality - Mixed Reality</ParallaxText>
-        </div> */}
         <div className={style.mission} ref={ref}>
           <div className={style.mission_wrapper}>
             <div style={{

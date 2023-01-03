@@ -9,7 +9,9 @@ import useAuth from "../hooks/use-auth";
  * @param {*} children: React children that consume the useEffect in this component 
  * @returns 
  */
+
 const RouteGuard = ({ children }) => {
+    const color = useColorModeValue("white", "gray.700");
     const { currentUser, authLoading, userData } = useAuth() || {};
     const router = useRouter();
     const [authorized, setAuthorized] = useState(false);
@@ -60,7 +62,7 @@ const RouteGuard = ({ children }) => {
 
     if (authLoading) {
         return (
-            <Center w={"100%"} h={"100vh"}>
+            <Center w={"100%"} h={"100vh"} bg={color}>
                 <Spinner color="black" />
             </Center>
         )
@@ -71,7 +73,7 @@ const RouteGuard = ({ children }) => {
     } else {
         // redirect to login and store the current url for redirecting back to after successful login
         return (
-            <Center w={"100%"} h={"100vh"}>
+            <Center w={"100%"} h={"100vh"} bg={color}>
 
             </Center>)
 

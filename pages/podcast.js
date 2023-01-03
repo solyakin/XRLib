@@ -1,4 +1,5 @@
 import Head from "next/head"
+import { useEffect, useState } from 'react';
 import Image from "next/image"
 import Header from "../components/Header"
 import styles from '../styles/Podcast.module.css'
@@ -6,9 +7,23 @@ import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import Footer from "../components/Footer";
 import axios from "axios";
+import { baseUrl } from "../utils/baseUrl";
 
-const Podcast = ({podcast}) => {
-    const { items } = podcast
+const Podcast = () => {
+
+   const [items, setItems] = useState([]);
+
+    useEffect(() => {
+      
+        const fetching = async () => {
+            const res = await axios(`${baseUrl}/rss-feed`)
+            const data = res.data
+            setItems(data.items)
+        }
+        fetching()
+
+    }, [])
+    
   return (
     <div className={styles.Podcast}>
         <Head>
@@ -68,15 +83,3 @@ const Podcast = ({podcast}) => {
 
 export default Podcast
 
-export async function getStaticProps(){
-    try {
-    const data = await axios.get('https://xr-speeds-production.up.railway.app/rss-feed')
-    const result = data.data; 
-    return { 
-        props : { podcast : result }
-        }
-        
-    } catch (error) {
-        console.log(error)
-    }
-}

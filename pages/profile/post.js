@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { Container } from '@chakra-ui/react'
 import Link from 'next/link'
 
-const Published = () => {
+const Posts = () => {
   return (
     <div className={styles.profile}>
         <Head>
@@ -23,10 +23,10 @@ const Published = () => {
                     <div className={styles.title}>
                         <h2>Your Posts</h2>
                         <Link href="/profile/create">
-                            <button>
-                                <Image src="/sign.svg" width="14" height="14" alt=""/>
-                                New post
-                            </button>
+                        <button>
+                            <Image src="/sign.svg" width="14" height="14" alt=""/>
+                            New post
+                        </button>
                         </Link>
                     </div>
                     <div className={styles.list}>
@@ -78,4 +78,4 @@ const Published = () => {
   )
 }
 
-export default Published;
+export default Posts

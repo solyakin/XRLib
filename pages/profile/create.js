@@ -13,7 +13,7 @@ const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
 });
 
 
-const create = () => {
+const Create = () => {
 
     const mdParser = new MarkdownIt(/* Markdown-it options */);
     function handleEditorChange({ html, text }) {
@@ -49,4 +49,4 @@ const create = () => {
   )
 }
 
-export default create
+export default Create;

@@ -12,8 +12,10 @@ import useAuth from "../hooks/use-auth";
  * @param {*} children: React children that consume the useEffect in this component 
  * @returns 
  */
+
 const AdminGuard = ({ children }) => {
 
+    const color = useColorModeValue("white", "gray.700");
     const { userData, authLoading } = useAuth() || {};
     const toast = useToast();
     const router = useRouter();
@@ -55,7 +57,7 @@ const AdminGuard = ({ children }) => {
                         query: { returnUrl: router.asPath }
                     });
                     toast({
-                        title: "You are not authorized to access this page. Please login as admin",
+                        title: "You are not authorized to access this page. Please login as Editor",
                         status: "error",
                         duration: 3000,
                         isClosable: true,
@@ -85,7 +87,7 @@ const AdminGuard = ({ children }) => {
     }
     if (authLoading) {
         return (
-            <Center w={"100%"} h={"100vh"}>
+            <Center w={"100%"} h={"100vh"} bg={color}>
                 <Spinner color="black" />
             </Center>
         )
@@ -96,7 +98,7 @@ const AdminGuard = ({ children }) => {
         return <>{children}</>;
     }
     return (
-        <Center w={"100%"} h={"100vh"}>
+        <Center w={"100%"} h={"100vh"} bg={color}>
 
         </Center>
     )

@@ -39,16 +39,19 @@ export const AuthProvider = ({ children }) => {
             }
             // The signed-in user info.
             var user = result.user;
-            console.log("googleUser", user)
-            let userDoc = await getDoc(doc(usersCollection, user.uid))
-            if (!userDoc.exists()) {
-                await setDoc(doc(usersCollection, user.uid), {
-                    id: user.uid,
-                    email: user.email,
-                }).then(() => {
-                    setCurrentUser(user)
-                });
-            }
+            // console.log("googleUser", user)
+            await setDoc(doc(usersCollection, user.uid), {
+                id: user.uid,
+                email: user.email,
+            }).then(() => {
+                setCurrentUser(user)
+                setSignUpLoading(false);
+            });
+        })
+        .catch(function (error) {
+            // Handle Errors here.
+            var errorMessage = error.message;
+            throw new Error(errorMessage)
         })
             .catch(function (error) {
                 // Handle Errors here.
@@ -161,6 +164,7 @@ export const AuthProvider = ({ children }) => {
                 // Sign-out successful.
                 setCurrentUser(null);
                 setSignOutLoading(false);
+                router.push('/')
             })
             .catch((error) => {
                 // An error happened.
@@ -179,13 +183,13 @@ export const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(
             firebaseAuth,
             async (authUser) => {
-                console.log("testing", authUser);
+                // console.log("testing", authUser);
                 if (authUser) {
                     setCurrentUser(authUser);
                     await UserService.getUserData(authUser.uid).then(async (userData) => {
                         setAuthLoading(false);
                         setUserData({ ...userData });
-                        console.log("userData:", userData);
+                        // console.log("userData:", userData);
 
                     });
                 }

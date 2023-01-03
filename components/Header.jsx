@@ -15,6 +15,7 @@ import {
     MenuItem,
     MenuDivider,
     Menu,
+    Box,
 } from '@chakra-ui/react'
 import { ChevronDownIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { useRouter } from "next/router";
@@ -25,7 +26,8 @@ import Login from './Login';
 import SignupWithEmail from './SignupWithEmail';
 import SignUp from './SignUp';
 import ForgotPassword from './ForgotPassword';
-import useAuth from './authentication/hooks/use-auth';
+import useAuth from './authentication/hooks/useAuth';
+import CheckInbox from './CheckInbox';
 
 const Header = () => {
 
@@ -36,7 +38,10 @@ const Header = () => {
     const { isOpen: emailIsOpen, onOpen: emailOpen, onClose: emailClose } = useDisclosure()
     const { isOpen: signupIsOpen, onOpen: signupOpen, onClose: signupClose } = useDisclosure()
     const { isOpen: forgetIsOpen, onOpen: forgetOpen, onClose: forgetClose } = useDisclosure()
+    const { isOpen : checkIsOpen, onClose : checkClose, onOpen : checkOpen } = useDisclosure()
     const btnRef = React.useRef()
+
+    console.log(currentUser?.photoURL)
 
     return (
         <header className={styles.header}>
@@ -58,13 +63,12 @@ const Header = () => {
                     </li>
                     {!currentUser ? <li>
                         <Button
-                            border="1px"
-                            borderColor="white"
                             bg={"transparent"}
                             bgGradient="linear(89.76deg, #FB047B 3.64%, #130EFF 99.88%)"
                             borderRadius="full"
                             _hover={{
-                                color: "black",
+                                border : "1px",
+                                borderColor : "white"
                             }}
                             onClick={loginOpen}
                         >
@@ -73,11 +77,12 @@ const Header = () => {
                         <Login loginClose={loginClose} loginIsOpen={loginIsOpen} signupOpen={signupOpen} forgetOpen={forgetOpen} />
                         <ForgotPassword forgetClose={forgetClose} forgetIsOpen={forgetIsOpen} forgetOpen={forgetOpen} />
                         <SignUp signupClose={signupClose} signupIsOpen={signupIsOpen} emailOpen={emailOpen} loginOpen={loginOpen} />
-                        <SignupWithEmail emailClose={emailClose} emailIsOpen={emailIsOpen} />
+                        <SignupWithEmail emailClose={emailClose} emailIsOpen={emailIsOpen} checkOpen={checkOpen} />
+                        <CheckInbox checkOpen={checkOpen} checkClose={checkClose} checkIsOpen={checkIsOpen}/>
                     </li> :
                         <li>
                             <HStack>
-                                <Avatar name={currentUser.displayName} />
+                                <Avatar name={currentUser.displayName} src={currentUser.photoURL} size="sm"/>
                                 <Menu>
                                     <MenuButton
                                         as={Button}
@@ -87,11 +92,37 @@ const Header = () => {
                                         minW={0}>
                                         <ChevronDownIcon />
                                     </MenuButton>
-                                    <MenuList>
-                                        <MenuItem>Link 1</MenuItem>
-                                        <MenuItem>Link 2</MenuItem>
-                                        <MenuDivider />
-                                        <MenuItem onClick={()=> signOut()}>Sign out</MenuItem>
+                                    <MenuList background="#000000" borderColor="#1B1919" minW="2.5" >
+                                        <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{background : "white", color : "black"}}>
+                                            <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{marginRight : "10px"}}/>
+                                            <Link href="/profile">Profile</Link>
+                                        </MenuItem>
+                                        <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{background : "white", color : "black"}}>
+                                            <Image src="/Vector (19).svg" width="14" height="14" alt="" style={{marginRight : "10px"}}/>
+                                            <Link href="/profile/published">Posts</Link>
+                                        </MenuItem>
+                                        <MenuItem fontSize="14px" background="#000000" _hover={{background : "white", color : "black"}}>
+                                            <Image src="/Vector (21).svg" width="14" height="14" alt="" style={{marginRight : "10px"}}/>
+                                            <Link href="#">Stats</Link>
+                                        </MenuItem>
+                                        <MenuDivider background={"white"} opacity="1" color={"white"}/>
+                                        <MenuItem background="#000000" fontSize="14px">
+                                            <Box 
+                                            display="flex" 
+                                            alignItems="center"
+                                            as="button" 
+                                            onClick={()=> signOut()} 
+                                            background="#F40580" 
+                                            color="white"
+                                            padding={2}
+                                            w="100%"
+                                            borderRadius="full"
+                                            textAlign="center"
+                                            >
+                                                <Image src="/Vector (20).svg" width="14" height="14" alt="" style={{marginRight : "10px"}}/>
+                                                Sign out
+                                            </Box>
+                                        </MenuItem>
                                     </MenuList>
                                 </Menu>
                             </HStack>

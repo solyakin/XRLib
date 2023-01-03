@@ -10,7 +10,7 @@ import Information from '../components/Information'
 import RecentNewsletter from '../components/RecentNewsletter'
 import RecentPodcast from '../components/RecentPodcast'
 import styles from '../styles/Home.module.css'
-import SubscribeForm from '../components/SubscribeForm';
+import { baseUrl } from '../utils/baseUrl';
 
 const data = {
   title : "Recent Newsletters",
@@ -22,12 +22,14 @@ export default function Home() {
 
   useEffect(() => {
     const fetching = async () => {
-      const data = await axios.get('https://xr-speeds-production.up.railway.app/rss-feed')
+      const data = await axios.get(`${baseUrl}/rss-feed`)
       const response = data.data;
       setpodcast(response.items)
     }
     fetching()
   },[])
+
+  // console.log("podcast", podcasts)
 
   return (
       <div className={styles.container}>
@@ -57,7 +59,6 @@ export default function Home() {
           <RecentNewsletter data={data}/>
           <Community />
           <Footer />
-          {/* <SubscribeForm /> */}
         </main>
       </div>
   )

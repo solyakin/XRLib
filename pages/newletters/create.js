@@ -35,7 +35,7 @@ const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
     ssr: false,
 });
   
-const Create = ({ onChange }) => {
+const CreateNewsletter = ({ onChange }) => {
 
     const navigate = useRouter();
     const cloudinaryRef = useRef()
@@ -245,7 +245,8 @@ const Create = ({ onChange }) => {
   )
 }
 
-Create.propTypes = {
+CreateNewsletter.propTypes = {
     onChange: PropTypes.func
 };
-export default Create
+
+export default CreateNewsletter;
