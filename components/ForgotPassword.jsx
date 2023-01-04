@@ -33,9 +33,6 @@ const ForgotPassword = ({forgetClose, forgetIsOpen}) => {
                 <Box mt="12" mb="10">
                     <Text color="whiteAlpha.700" textAlign={"center"} fontSize="small">Click “Sign Up” to agree to Medium’s Terms of Service and acknowledge that Medium’s Privacy Policy applies to you.</Text>
                 </Box>
-                {/* <Box textAlign={"center"} onClick={emailClose} cursor="pointer">
-                    <Text color="whiteAlpha.500" fontSize="small">Back</Text>
-                </Box> */}
             </ModalBody>
         </ModalContent>
     </Modal>
