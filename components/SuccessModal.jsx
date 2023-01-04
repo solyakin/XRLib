@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import { ModalOverlay, Modal, ModalBody, Heading, Text, Button, HStack } from '@chakra-ui/react'
+import { ModalOverlay, Modal, ModalBody, ModalContent, Heading, Text, Button, HStack } from '@chakra-ui/react'
 
 const SuccessModal = ({onClose, isOpen}) => {
   return (
