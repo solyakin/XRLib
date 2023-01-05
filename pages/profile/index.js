@@ -19,7 +19,7 @@ const Profile = () => {
 
     const { isLoading, data: postCount } = useQuery({
         queryKey: ['post-count', userData?.id], queryFn: async () => {
-            return await PostsService.getPostsCount(userData.id)
+            return await PostsService.getPostsCountByUserId(userData.id)
         }, onSuccess: (data) => {
             console.log(data)
         },

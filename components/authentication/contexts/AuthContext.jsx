@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     //This represents the user's data from the DB
 
     const [userData, setUserData] = useState(null)
-    
+
     // This exists so we can invalidate this query and trigger a refetch when profile updates.
     const { data } = useQuery({
         queryKey: ['profile', userData?.id], queryFn: async () => {
@@ -57,16 +57,12 @@ export const AuthProvider = ({ children }) => {
                 await setDoc(doc(usersCollection, user.uid), {
                     id: user.uid,
                     email: user.email,
+                    role: "member",
                 }).then(() => {
                     setCurrentUser(user)
                     setSignUpLoading(false);
                 });
         })
-            .catch(function (error) {
-                // Handle Errors here.
-                var errorMessage = error.message;
-                throw new Error(errorMessage)
-            })
             .catch(function (error) {
                 // Handle Errors here.
                 var errorMessage = error.message;
@@ -106,6 +102,7 @@ export const AuthProvider = ({ children }) => {
                 await setDoc(doc(usersCollection, userCredential.user.uid), {
                     id: userCredential.user.uid,
                     //username: username,
+                    role: "member",
                     email: userCredential.user.email,
                 }).then(() => {
                     setSignUpLoading(false);

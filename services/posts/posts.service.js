@@ -4,7 +4,7 @@
  */
 
 
-import { collection, doc, getCountFromServer, getDoc, getDocs, query, serverTimestamp, setDoc, Timestamp, updateDoc, where } from "firebase/firestore";
+import { collection, doc, getCountFromServer, getDoc, getDocs, limit, orderBy, query, setDoc, startAfter, Timestamp, updateDoc, where } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
 const postsCollection = collection(db, "posts")
@@ -22,9 +22,49 @@ class PostsService {
             }
         );
     }
+    static async getPost(postId) {
+        return await getDoc(doc(postsCollection, postId)).then(
+            async (doc) => {
+                if (doc.exists()) {
+                    return doc.data();
+                } else {
+                    throw new Error("No posts");
+                }
+            }
+        );
+    }
+    static async getPaginatedPosts(
+        startAfterVal,
+        take,
+    ) {
+        let lastPostRef = null;
+        let q = startAfterVal
+            ? query(
+                postsCollection,
+                limit(take),
+                orderBy("createdAt", "asc"),
+                startAfter(startAfterVal)
+            )
+            : query(
+                postsCollection,
+                orderBy("createdAt", "asc"),
+                limit(take)
+            );
 
-    static async getPostsCount(userId) {
+
+        const postData = await getDocs(q);
+        lastPostRef = postData.docs[postData.docs.length - 1];
+        const result = postData.docs.map((doc) => doc.data());
+        return { posts: result, lastPostRef };
+    };
+
+    static async getPostsCountByUserId(userId) {
         const q = query(postsCollection, where("author.id", "==", userId))
+        let snapshot = await getCountFromServer(q)
+        return snapshot.data().count;
+    }
+    static async getPostsCount() {
+        const q = query(postsCollection, where("isPublished", "==", true))
         let snapshot = await getCountFromServer(q)
         return snapshot.data().count;
     }

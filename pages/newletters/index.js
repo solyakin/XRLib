@@ -6,6 +6,10 @@ import Header from '../../components/Header';
 import styles from '../../styles/Newsletters.module.css';
 import axios from 'axios';
 import { baseUrl } from '../../utils/baseUrl';
+import {useQuery} from "@tanstack/react-query"
+import PostsService from '../../services/posts/posts.service';
+import { Pagination, PaginationContainer, PaginationNext, PaginationPrevious, usePagination } from '@ajna/pagination';
+import { HStack, Text } from '@chakra-ui/react';
 
 const options = {
     method : "GET",
@@ -18,8 +22,52 @@ const options = {
 
 const Newsletters = () => {
 
-    const [postList, setPost] = useState([])
+    const [itemsPerPage, setItemsPerPage] = useState({
+        temporary: 4,
+        permanent: 4,
+    });
+    const {
+        isLoading,
+        error,
+        data: coursesData,
+        isFetching,
+    } = useQuery(["post-count"], PostsService.getPostsCount, {
+        keepPreviousData: true, onSuccess(data) {
+            setTotalItems(data);
+        },
+    })
 
+    const [totalItems, setTotalItems] = useState(coursesData || 0);
+    const [startFrom, setStartFrom] = useState(undefined);
+    const numberOfPages = Math.ceil(totalItems / itemsPerPage.permanent);
+    const {
+        currentPage,
+        setCurrentPage,
+        pagesCount,
+        pages
+    } = usePagination({
+        pagesCount: numberOfPages,
+        initialState: { currentPage: 1 },
+    });
+    const [previousCursors, setPreviousCursors] = useState([]);
+
+    const [postList, setPost] = useState([])
+    const { isLoading: postsLoading, data, isFetching: postsFetching } = useQuery(
+        ["posts", itemsPerPage.permanent, startFrom],
+        () => PostsService.getPaginatedPosts(startFrom, itemsPerPage.permanent),
+        {
+            keepPreviousData: true,
+            onSuccess: (data) => {
+                 console.log(data);
+                 console.log("startFromState", startFrom)
+                 //setStartFrom(data.lastPostRef)
+                
+            },
+            onError: (err) => {
+                alert(err)
+            }
+        }
+    );
     useEffect(() => {
       
         const fetching = async () => {
@@ -56,28 +104,61 @@ const Newsletters = () => {
                     <div className={styles.wrapper}>
                         <div className={styles.list}>
                             {
-                                postList && postList.map(({_id, postTags, postAuthor, postUrl, postContent, postName, postLength}) => {
+                                postsLoading && <Text>
+                                    Loading
+                                </Text>
+                            }
+                            {
+                                data && data.posts.map(({id, content, description, readMinutes, thumbnailUrl, title, author}) => {
                                     return(
-                                        <Link href={`/newletters/${_id}`} key={_id}>
+                                        <Link href={`/newletters/${id}`} key={id}>
                                             <div className={styles.newsletter}>
                                                 <div className={styles.content}>
                                                     <div className={styles.text}>
-                                                        <h3>{postName}</h3>
-                                                        <p>{`${postContent.substr(0, 280)}...`}</p>
+                                                        <h3>{title}</h3>
+                                                        <p>{`${description.substr(0, 280)||content.substr(0, 280)}...`}</p>
                                                     </div>
                                                     <div className={styles.author}>
                                                         <img src="/AVATAR.svg" alt="" />
-                                                        <p>{postAuthor}<span> · {`${postLength} min read`}</span></p>
+                                                        <p>{author.displayName}<span> · {`${readMinutes} min read`}</span></p>
                                                     </div>
                                                 </div>
                                                 <div className={styles.photo}>
-                                                    <img src={postUrl} width={140} height={140} alt=""/>
+                                                    <img src={thumbnailUrl} width={140} height={140} alt=""/>
                                                 </div>
                                             </div>
                                         </Link>
                                     )
                                 })
                             }
+        <Pagination
+        pagesCount={pagesCount}
+        currentPage={currentPage}
+        onPageChange={(page) => {
+          let delta = page - currentPage;
+          console.log(delta)
+          let isNext = delta > 0
+          setCurrentPage(page)
+          // If the user is going to the next page, we need to get the last item of the current page
+          if (isNext) {
+            setPreviousCursors([...previousCursors, startFrom])
+            setStartFrom(data?.lastPostRef)
+          }
+          else {
+            // The user is going to the previous page so set the startAfter to the cursor of the previous page
+            setStartFrom(previousCursors[previousCursors.length - 1])
+            // Remove the last cursor from the array since it's now current page
+            setPreviousCursors(previousCursors.slice(0, previousCursors.length - 1))
+          }
+        }}
+      >
+        <PaginationContainer maxW={"1200px"} w={"100%"}>
+          <HStack spacing={2}>
+            <PaginationPrevious>Previous</PaginationPrevious>
+            <PaginationNext>Next</PaginationNext>
+          </HStack>
+        </PaginationContainer>
+      </Pagination>
                             {/* <div className={styles.pagination}>
                                 <span>1</span>
                                 <span>2</span>
