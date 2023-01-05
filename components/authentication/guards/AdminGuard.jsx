@@ -1,12 +1,12 @@
 import { Center, Spinner, useColorModeValue, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import useAuth from "../hooks/use-auth";
+import useAuth from "../hooks/useAuth";
 
 
 
 /**
- * This listens to route change events and performs checks to see if the user has the right priviledges to access a given route.
+ * This listens to route change events and performs checks to see if the user has the right privileges to access a given route.
  * 
  * This should wrap any admin-only route.
  * @param {*} children: React children that consume the useEffect in this component 
@@ -46,10 +46,10 @@ const AdminGuard = ({ children }) => {
 
     function adminCheck() {
         // redirect to login page if accessing a private page and not logged in 
-        if (!authLoading) {
+        if (!authLoading && userData) {
             if (!(userData?.role === "admin")) {
 
-                // redirect to admin page if accessing a private page and not logged in
+                // redirect to login page if accessing a private page and not logged in
                 if (!(userData?.role === "editor")) {
                     setAuthorized(false);
                     router.push({
@@ -63,7 +63,6 @@ const AdminGuard = ({ children }) => {
                         isClosable: true,
                     })
                 }
-                // redirect to admin page if not superadmin
                 else {
                     toast({
                         title: "You are not authorized to access this page as an editor. Requires Superadmin Scope",
@@ -72,8 +71,7 @@ const AdminGuard = ({ children }) => {
                         isClosable: true,
                     })
                     router.push({
-                        pathname: '/admin',
-                        //  query: { returnUrl: router.asPath }
+                        pathname: '/',
                     });
                 }
             }
