@@ -75,7 +75,7 @@ const SignUp = ({ signupClose, signupIsOpen, emailOpen, loginOpen }) => {
                         </Text>
                     </Box>
                     <Box mt="12" mb="10">
-                        <Text color="whiteAlpha.700" textAlign={"center"} fontSize="small">Click “Sign Up” to agree to Medium’s Terms of Service and acknowledge that Medium’s Privacy Policy applies to you.</Text>
+                        <Text color="whiteAlpha.700" textAlign={"center"} fontSize="small">Click “Sign Up” to agree to our Terms of Service and acknowledge that our Privacy Policy applies to you.</Text>
                     </Box>
                 </ModalBody>
             </ModalContent>

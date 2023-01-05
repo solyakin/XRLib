@@ -60,6 +60,15 @@ const SignupWithEmail = ({ emailClose, emailIsOpen, checkOpen }) => {
                                 </Button>
                             </InputRightElement>
                         </InputGroup>
+                        <Text ml="3" mb="3" color="whiteAlpha.800" fontSize="md" textAlign={"left"} className={styles.text}>Reset Password</Text>
+                        <InputGroup>
+                            <Input onChange={(e) => setPassword(e.target.value)} type={!show ? "password" : "text"} borderColor="whiteAlpha.800"borderRadius="full"  />
+                            <InputRightElement width='4.5rem'>
+                                <Button h='1.75rem' size='sm' fontSize="x-small" color="black" onClick={() => setShow(!show)}>
+                                    {show ? 'Hide' : 'Show'}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
                     </Box>
                     <Button 
                     isLoading={signUpLoading} 
