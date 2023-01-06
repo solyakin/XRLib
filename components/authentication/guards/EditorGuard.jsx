@@ -1,7 +1,7 @@
 import { Box, Center, Spinner, useColorModeValue, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { PropsWithChildren, useEffect, useState } from "react";
-import useAuth from "../hooks/use-auth";
+import useAuth from "../hooks/useAuth";
 
 /**
  * This listens to route change events and performs checks to see if the user has the right priviledges to access a given route.
@@ -10,10 +10,11 @@ import useAuth from "../hooks/use-auth";
  * @returns 
  */
 
-const RouteGuard = ({ children }) => {
+const EditorGuard = ({ children }) => {
     const color = useColorModeValue("white", "gray.700");
     const { currentUser, authLoading, userData } = useAuth() || {};
     const router = useRouter();
+    const navigate = useRouter();
     const [authorized, setAuthorized] = useState(false);
     // toast
     const toast = useToast();
@@ -80,4 +81,4 @@ const RouteGuard = ({ children }) => {
     }
 }
 
-export default RouteGuard;
+export default EditorGuard;

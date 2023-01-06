@@ -16,6 +16,10 @@ a {
 * {
   box-sizing: border-box;
 }
+.rdw-editor-main{
+  background: rgb(228, 227, 227);
+  height: 300px!important;
+}
 
 @media (prefers-color-scheme: dark) {
   html {

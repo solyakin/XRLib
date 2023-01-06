@@ -4,8 +4,9 @@ import { db, firebaseAuth } from "../../../config/firebase"
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut as fbSignOut, sendPasswordResetEmail, sendEmailVerification, signInWithRedirect, signInWithPopup } from "firebase/auth";
 import { useToast } from "@chakra-ui/react";
 import UserService from "../../../services/users/users.service";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { googleProvider } from "../../../config/firebase/auth.config";
+import { useQuery } from "@tanstack/react-query"
 
 
 export const AuthContext = React.createContext(null);
@@ -21,18 +22,28 @@ export const AuthProvider = ({ children }) => {
     const [signOutLoading, setSignOutLoading] = useState(false);
     const [signUpLoading, setSignUpLoading] = useState(false);
     const [resetPasswordLoading, setResetPasswordLoading] = useState(false);
+    const [authDone, setAuthDone] = useState(false)
     //Loading states END
 
     // This represents the user session data from firebase authentication.
     const [currentUser, setCurrentUser] = useState(null);
 
-
     //This represents the user's data from the DB
 
     const [userData, setUserData] = useState(null)
 
+    // This exists so we can invalidate this query and trigger a refetch when profile updates.
+    const { data } = useQuery({
+        queryKey: ['profile', userData?.id], queryFn: async () => {
+            return await UserService.getUserData(userData?.id)
+        }, onSuccess: (data) => {
+            setUserData(data)
+        },
+
+    },
+    )
+
     const signUpWithGoogle = async () => {
-        setSignUpLoading(true)
         signInWithPopup(firebaseAuth, googleProvider).then(async function (result) {
             if (result?.credential) {
                 // This gives you a Google Access Token. You can use it to access the Google API.
@@ -41,19 +52,34 @@ export const AuthProvider = ({ children }) => {
             // The signed-in user info.
             var user = result.user;
             // console.log("googleUser", user)
-            await setDoc(doc(usersCollection, user.uid), {
-                id: user.uid,
-                email: user.email,
-            }).then(() => {
-                setCurrentUser(user)
-                setSignUpLoading(false);
-            });
+            let userDoc = getDoc(doc(usersCollection, user.uid))
+            if (!(await userDoc).exists())
+                await setDoc(doc(usersCollection, user.uid), {
+                    id: user.uid,
+                    email: user.email,
+                    role: "member",
+                }).then(() => {
+                    setCurrentUser(user)
+                    setSignUpLoading(false);
+                });
         })
-        .catch(function (error) {
-            // Handle Errors here.
-            var errorMessage = error.message;
-            throw new Error(errorMessage)
-        })
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorMessage = error.message;
+                toast({
+                    title: "Error",
+                    status: "error",
+                    description: `${errorMessage.replace(
+                        "Firebase",
+                        ""
+                    )}`,
+                    isClosable: true,
+                    duration: 3000,
+                });
+            })
+            .finally(() => {
+                setAuthDone(true)
+            })
 
     };
     /**
@@ -76,6 +102,7 @@ export const AuthProvider = ({ children }) => {
                 await setDoc(doc(usersCollection, userCredential.user.uid), {
                     id: userCredential.user.uid,
                     //username: username,
+                    role: "member",
                     email: userCredential.user.email,
                 }).then(() => {
                     setSignUpLoading(false);
@@ -83,7 +110,10 @@ export const AuthProvider = ({ children }) => {
             })
             .catch((error) => {
                 setSignUpLoading(false);
-            });
+            })
+            .finally(() => {
+                setAuthDone(true)
+            })
 
     };
 
@@ -122,12 +152,14 @@ export const AuthProvider = ({ children }) => {
                     status: "error",
                     description: `${errorMessage.replace(
                         "Firebase",
-                        ""
+                        "XRAtlas"
                     )}`,
                     isClosable: true,
                     duration: 3000,
                 });
-            });
+            }).finally(() => {
+                setAuthDone(true)
+            })
     };
 
     /**
@@ -177,6 +209,7 @@ export const AuthProvider = ({ children }) => {
                         setAuthLoading(false);
                         setUserData({ ...userData });
                         // console.log("userData:", userData);
+                        setAuthDone(true)
 
                     });
                 }
@@ -184,6 +217,7 @@ export const AuthProvider = ({ children }) => {
                     setCurrentUser(null)
                     setUserData(null)
                     setAuthLoading(false)
+                    setAuthDone(true)
                 }
             },
             (error) => {
@@ -203,6 +237,7 @@ export const AuthProvider = ({ children }) => {
         signUpLoading,
         signOutLoading,
         resetPasswordLoading,
+        authDone,
         currentUser,
         authLoading,
         userData,

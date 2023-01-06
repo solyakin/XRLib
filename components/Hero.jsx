@@ -1,5 +1,4 @@
 import { useRef } from 'react'
-import { ArrowDownIcon } from '@chakra-ui/icons';
 import { motion } from 'framer-motion'
 import { useInView } from "framer-motion";
 import React from 'react'

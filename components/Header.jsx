@@ -32,16 +32,16 @@ import CheckInbox from './CheckInbox';
 const Header = () => {
 
     const router = useRouter();
-    const { currentUser, signOut } = useAuth();
+    const { currentUser, signOut, userData } = useAuth();
     const { isOpen: hamISopen, onOpen: hamOpen, onClose: hamClose } = useDisclosure()
     const { isOpen: loginIsOpen, onOpen: loginOpen, onClose: loginClose } = useDisclosure()
     const { isOpen: emailIsOpen, onOpen: emailOpen, onClose: emailClose } = useDisclosure()
     const { isOpen: signupIsOpen, onOpen: signupOpen, onClose: signupClose } = useDisclosure()
     const { isOpen: forgetIsOpen, onOpen: forgetOpen, onClose: forgetClose } = useDisclosure()
-    const { isOpen : checkIsOpen, onClose : checkClose, onOpen : checkOpen } = useDisclosure()
+    const { isOpen: checkIsOpen, onClose: checkClose, onOpen: checkOpen } = useDisclosure()
     const btnRef = React.useRef()
 
-    console.log(currentUser?.photoURL)
+    console.log(userData)
 
     return (
         <header className={styles.header}>
@@ -67,8 +67,8 @@ const Header = () => {
                             bgGradient="linear(89.76deg, #FB047B 3.64%, #130EFF 99.88%)"
                             borderRadius="full"
                             _hover={{
-                                border : "1px",
-                                borderColor : "white"
+                                border: "1px",
+                                borderColor: "white"
                             }}
                             onClick={loginOpen}
                         >
@@ -78,11 +78,11 @@ const Header = () => {
                         <ForgotPassword forgetClose={forgetClose} forgetIsOpen={forgetIsOpen} forgetOpen={forgetOpen} />
                         <SignUp signupClose={signupClose} signupIsOpen={signupIsOpen} emailOpen={emailOpen} loginOpen={loginOpen} />
                         <SignupWithEmail emailClose={emailClose} emailIsOpen={emailIsOpen} checkOpen={checkOpen} />
-                        <CheckInbox checkOpen={checkOpen} checkClose={checkClose} checkIsOpen={checkIsOpen}/>
+                        <CheckInbox checkOpen={checkOpen} checkClose={checkClose} checkIsOpen={checkIsOpen} />
                     </li> :
                         <li>
                             <HStack>
-                                <Avatar name={currentUser.displayName} src={currentUser.photoURL} size="sm"/>
+                                <Avatar name={currentUser.displayName} src={currentUser.photoURL || userData.profileImageUrl} size="sm" />
                                 <Menu>
                                     <MenuButton
                                         as={Button}
@@ -93,33 +93,33 @@ const Header = () => {
                                         <ChevronDownIcon />
                                     </MenuButton>
                                     <MenuList background="#000000" borderColor="#1B1919" minW="2.5" >
-                                        <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{background : "white", color : "black"}}>
-                                            <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{marginRight : "10px"}}/>
+                                        <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{ background: "white", color: "black" }}>
+                                            <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
                                             <Link href="/profile">Profile</Link>
                                         </MenuItem>
-                                        <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{background : "white", color : "black"}}>
-                                            <Image src="/Vector (19).svg" width="14" height="14" alt="" style={{marginRight : "10px"}}/>
+                                        {userData?.role === "contributor" && <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{ background: "white", color: "black" }}>
+                                            <Image src="/Vector (19).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
                                             <Link href="/profile/published">Posts</Link>
-                                        </MenuItem>
-                                        <MenuItem fontSize="14px" background="#000000" _hover={{background : "white", color : "black"}}>
-                                            <Image src="/Vector (21).svg" width="14" height="14" alt="" style={{marginRight : "10px"}}/>
+                                        </MenuItem>}
+                                        <MenuItem fontSize="14px" background="#000000" _hover={{ background: "white", color: "black" }}>
+                                            <Image src="/Vector (21).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
                                             <Link href="#">Stats</Link>
                                         </MenuItem>
-                                        <MenuDivider background={"white"} opacity="1" color={"white"}/>
+                                        <MenuDivider background={"white"} opacity="1" color={"white"} />
                                         <MenuItem background="#000000" fontSize="14px">
-                                            <Box 
-                                            display="flex" 
-                                            alignItems="center"
-                                            as="button" 
-                                            onClick={()=> signOut()} 
-                                            background="#F40580" 
-                                            color="white"
-                                            padding={2}
-                                            w="100%"
-                                            borderRadius="full"
-                                            textAlign="center"
+                                            <Box
+                                                display="flex"
+                                                alignItems="center"
+                                                as="button"
+                                                onClick={() => signOut()}
+                                                background="#F40580"
+                                                color="white"
+                                                padding={2}
+                                                w="100%"
+                                                borderRadius="full"
+                                                textAlign="center"
                                             >
-                                                <Image src="/Vector (20).svg" width="14" height="14" alt="" style={{marginRight : "10px"}}/>
+                                                <Image src="/Vector (20).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
                                                 Sign out
                                             </Box>
                                         </MenuItem>
