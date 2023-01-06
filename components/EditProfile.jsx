@@ -15,6 +15,7 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+
 const EditProfile = ({onClose, isOpen}) => {
 
     const formik = useFormik({
