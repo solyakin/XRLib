@@ -209,7 +209,6 @@ export const AuthProvider = ({ children }) => {
                         setAuthLoading(false);
                         setUserData({ ...userData });
                         // console.log("userData:", userData);
-                        setAuthDone(true)
 
                     });
                 }
@@ -217,8 +216,9 @@ export const AuthProvider = ({ children }) => {
                     setCurrentUser(null)
                     setUserData(null)
                     setAuthLoading(false)
-                    setAuthDone(true)
                 }
+                setAuthDone(true)
+
             },
             (error) => {
                 setCurrentUser(null);
