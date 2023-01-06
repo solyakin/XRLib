@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
 import Header from '../../components/Header'
 import styles from '../../styles/Create.module.css'
@@ -11,11 +11,12 @@ import ContributorGuard from '../../components/authentication/guards/Contributor
 import { useMutation } from "@tanstack/react-query";
 import PostsService from '../../services/posts/posts.service'
 import useAuth from '../../components/authentication/hooks/useAuth'
-import timeAgo from '../../utils/dateToTimeAgo'
-import { collection, doc } from 'firebase/firestore'
-import { db } from '../../config/firebase'
 
-const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
+/* const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
+    ssr: false,
+}); */
+
+const Editor2 = dynamic(() => import('../../utils/Editor2'), {
     ssr: false,
 });
 
@@ -88,11 +89,12 @@ const Create = () => {
                             </HStack>
                         </HStack>
                         <Text color="whiteAlpha.500" as="h1" fontSize="2xl">Title</Text>
-                        <MdEditor
+                        {/* <MdEditor
                             style={{ height: '500px' }}
                             renderHTML={text => mdParser.render(text)}
                             onChange={handleEditorChange}
-                        />
+                        /> */}
+                        <Editor2 />
                     </Container>
                 </main>
             </ContributorGuard>

@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { Grid, GridItem, Container, Box, Text, Heading, HStack, Button, Stack, useDisclosure, useToast } from '@chakra-ui/react';
 import styles from '../../styles/user.module.css'
 import Image from 'next/image'
-import {  useQuery } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import useAuth from '../../components/authentication/hooks/useAuth';
 import Link from 'next/link'
 import EditProfile from '../../components/EditProfile'
@@ -180,7 +180,7 @@ const Profile = () => {
                                                         <Image src="/Icon.svg" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
                                                         <Box maxW="170px">
                                                             <Text fontSize="14px">website</Text>
-                                                            <Text fontSize="14px" color="#F40580">Hello@carrotlabs.co</Text>
+                                                            <Text fontSize="14px" color="#F40580">{userData?.website}</Text>
                                                         </Box>
                                                     </HStack>
 

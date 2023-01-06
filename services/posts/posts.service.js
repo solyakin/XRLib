@@ -28,7 +28,7 @@ class PostsService {
                 if (doc.exists()) {
                     return doc.data();
                 } else {
-                    throw new Error("No posts");
+                    throw new Error("Post does not exist");
                 }
             }
         );
