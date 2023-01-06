@@ -64,9 +64,9 @@ const Published = () => {
                                     )
                                 }
                                 {
-                                    data && data.map((post) => {
+                                    data && data.map((post, index) => {
                                         return (
-                                            <Link href={encodeURIComponent(`/${post.id}`)}>
+                                            <Link href={encodeURIComponent(`/${post.id}`)} key={index}>
                                                 <div className={styles.newsletter}>
                                                     <div className={styles.content}>
                                                         <div className={styles.text}>
