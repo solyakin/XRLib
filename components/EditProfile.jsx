@@ -27,13 +27,13 @@ const EditProfile = ({ onClose, isOpen }) => {
     const [fileToUpload, setFileToUpload] = useState(null)
     const formik = useFormik({
         initialValues: {
-            displayName: "",
-            phoneNumber: "",
-            website: "",
-            facebookUrl: "",
-            twitterUrl: "",
-            instagramUrl: "",
-            profileSummary: ""
+            displayName: userData?.displayName || "",
+            phoneNumber: userData?.phoneNumber || "",
+            website: userData?.website || "",
+            facebookUrl: userData?.facebookUrl ? userData?.facebookUrl.split('https://facebook.com/')[1] : "",
+            twitterUrl: userData?.twitterUrl ? userData.twitterUrl.split('https://twitter.com/')[1] : "",
+            instagramUrl: userData.instagramUrl? userData.instagramUrl.split('https://instagram.com/')[1] : "",
+            profileSummary: userData.profileSummary || ""
         },
         validationSchema: Yup.object({
             displayName: Yup.string().required('Required'),
