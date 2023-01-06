@@ -10,6 +10,8 @@ import Footer from '../../components/Footer';
 import axios from 'axios';
 import { months, weekday } from '../../utils/monthList';
 import { baseUrl } from '../../utils/baseUrl';
+import PostsService from '../../services/posts/posts.service';
+import { Timestamp } from 'firebase/firestore';
 
 const data = {
   title : "Related topics",
@@ -26,20 +28,23 @@ const Preview = () => {
     restDelta: 0.001
   });
 
-  const [post, setPost] = useState([])
+  const [post, setPost] = useState(null)
+  
 
   useEffect(() => {
     const fetching = async () => {
-      const data = await axios.get(`${baseUrl}`)
-      const result = data.data; 
+      const data = await PostsService.getPost(id)
+      const result = data; 
       setPost(result)
     }
     fetching()
   }, [])
   
-  
-  const currentPost = post?.filter(item => item._id === id);
- 
+ const newDate = post && post.createdAt.toDate();
+ let dummyDate = new Date();
+ const [month, day, year, dy] = post ? [newDate.getMonth(), newDate.getDate(), newDate.getFullYear(), newDate.getDay()]: [dummyDate.getMonth(), dummyDate.getDate(), dummyDate.getFullYear(), dummyDate.getDay()];
+
+ const newWord = post && post.content.split("\n");
 
   return (
     <div className={styles.newletters}>
@@ -54,28 +59,20 @@ const Preview = () => {
         <motion.div className={styles.progress_bar} style={{ scaleX }} />
         <Header />
         <div className={styles.c}>
-          {
-            currentPost && currentPost.map(({_id, postAuthor, createdAt, postContent, postName, postLength, postUrl}) => {
-
-              const newDate = new Date(createdAt);
-              const [month, day, year, dy] = [newDate.getMonth(), newDate.getDate(), newDate.getFullYear(), newDate.getDay()];
-
-              const newWord = postContent.split("\n");
-              return(
-                  <div className={styles.preview} key={_id}>
+                 { post && <div className={styles.preview} key={post.id}>
                     <div className={styles.author}>
                         <img src='/virtual.jpeg' width={30} height={30} alt="avatar"/>
-                        <p>{postAuthor}</p>
+                        <p>{post.author.displayName}</p>
                         <p><span>{`${weekday[dy]} ${day} ${months[month]} ${year} `}</span></p>
                     </div>
                     <div className={styles.title}>
-                      <h3>{postName}</h3>
+                      <h3>{post.title}</h3>
                     </div>
                     {
-                      postUrl && <img src={postUrl} width={800} height={300} alt="figure" className={styles.articleimg}/>
+                      post.thumbnailUrl && <img src={post.thumbnailUrl} width={800} height={300} alt="figure" className={styles.articleimg}/>
                     }
                     {
-                      !postUrl && <Image src='/femalegoogle.svg'width={800} height={300} alt="figure" className={styles.articleimg}/>
+                      !post.thumbnailUrl && <Image src='/femalegoogle.svg'width={800} height={300} alt="figure" className={styles.articleimg}/>
                     }
                     <div className={styles.writeup}>
                       <div>
@@ -89,10 +86,7 @@ const Preview = () => {
                         }
                         </div>
                     </div>
-                  </div>
-              )
-            })
-          }
+                  </div>}
             <div className={styles.related}>
               <RecentNewsletter data={data}/>
               <Footer />
