@@ -61,7 +61,7 @@ const Create = () => {
                                         Last updated {draftLastUpdated.toUTCString()}
                                     </Text>
                                 }
-                                <Button bg="none" borderColor="#F40580" _hover={{background : "none"}} onClick={() => mutate(draftData)} isLoading={isLoading} className={styles.publish_btn}>
+                                <Button bg="none" borderColor="#F40580" borderRadius="full" _hover={{background : "none"}} onClick={() => mutate(draftData)} isLoading={isLoading} className={styles.publish_btn}>
                                     <Image src="/upload.svg" width="14" height="14" alt="" />
                                     Save to drafts
                                 </Button>
@@ -73,7 +73,6 @@ const Create = () => {
 
                             </HStack>
                         </HStack>
-                        {/* <Text color="whiteAlpha.500" as="h1" fontSize="2xl">Title</Text> */}
                         <FormControl mb="4" width="400px">
                             <FormLabel color="whiteAlpha.500" fontSize="sm">Title</FormLabel>
                             <Input
