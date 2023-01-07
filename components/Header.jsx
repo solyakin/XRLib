@@ -39,6 +39,7 @@ const Header = () => {
     const { isOpen: signupIsOpen, onOpen: signupOpen, onClose: signupClose } = useDisclosure()
     const { isOpen: forgetIsOpen, onOpen: forgetOpen, onClose: forgetClose } = useDisclosure()
     const { isOpen: checkIsOpen, onClose: checkClose, onOpen: checkOpen } = useDisclosure()
+
     const btnRef = React.useRef()
 
     console.log(currentUser)
@@ -105,9 +106,13 @@ const Header = () => {
                                             <Image src="/Vector (19).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
                                             <Link href="/profile/published">Posts</Link>
                                         </MenuItem>}
-                                        <MenuItem fontSize="14px" background="#000000" _hover={{ background: "white", color: "black" }}>
+                                        <MenuItem fontSize="14px" background="#000000" mb="4" _hover={{ background: "white", color: "black" }}>
                                             <Image src="/Vector (21).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
                                             <Link href="#">Stats</Link>
+                                        </MenuItem>
+                                        <MenuItem fontSize="14px" background="#000000" _hover={{ background: "white", color: "black" }}>
+                                            <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
+                                            <Link href="/admin/posts">Admin</Link>
                                         </MenuItem>
                                         <MenuDivider background={"white"} opacity="1" color={"white"} />
                                         <MenuItem background="#000000" fontSize="14px">

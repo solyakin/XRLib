@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Header from '../../components/Header'
 import styles from '../../styles/profile.module.css'
 import Image from 'next/image'
-import { Avatar, Center, Container, Spinner, useToast, Tabs, Tag, Tab, TabPanel, TabList, TabPanels } from '@chakra-ui/react'
+import { Avatar, Center, Container, Spinner, useToast, Tabs, Tag, Tab, TabPanel, TabList, TabPanels, Heading } from '@chakra-ui/react'
 import Link from 'next/link'
 import useAuth from '../../components/authentication/hooks/useAuth'
 import { useQuery } from '@tanstack/react-query'
@@ -47,7 +47,7 @@ const Published = () => {
                     <Container maxW="950px" mt="6">
                         <div className={styles.wrapper}>
                             <div className={styles.title}>
-                                <h2>Your Posts</h2>
+                                <Heading>Your Posts</Heading>
                                 <Link href="/profile/create">
                                     <button>
                                         <Image src="/sign.svg" width="14" height="14" alt="" />

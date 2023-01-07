@@ -18,6 +18,7 @@ a {
 }
 .rdw-editor-main{
   background: rgb(228, 227, 227);
+  color : black;
   height: 300px!important;
 }
 .rhap_stacked .rhap_controls-section{
@@ -42,6 +43,9 @@ a {
   }
   .css-12isumq{
     margin-top: 2em!important;
+  }
+  .chakra-tabs button{
+    font-size: 13px;
   }
 }
 @media (prefers-color-scheme: dark) {
