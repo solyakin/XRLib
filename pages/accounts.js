@@ -1,9 +1,6 @@
 import React from 'react'
 import Head from 'next/head';
 import {
-    Table,
-    Thead,
-    Tbody, Tr, Th, Td, TableContainer,
     Container,
     Box,
     Text,
@@ -14,13 +11,12 @@ import {
     RadioGroup, Radio,
     Input, FormControl, FormLabel, Heading,
     Tabs, TabList, TabPanels, Tab, TabPanel,
-    Menu, MenuButton, MenuList, MenuItem,
     useDisclosure, Modal, ModalOverlay, ModalBody, ModalContent, Stack, Textarea
 } from '@chakra-ui/react'
-import { AddIcon, DeleteIcon, } from '@chakra-ui/icons';
+// import { AddIcon, DeleteIcon, } from '@chakra-ui/icons';
 import Header from '../components/Header';
 import styles from '../styles/accounts.module.css';
-import adminGuard from '../components/authentication/guards/adminGuard';
+// import adminGuard from '../components/authentication/guards/adminGuard';
 import { useQuery } from '@tanstack/react-query';
 import UserService from '../services/users/users.service';
 import AdminTable from '../components/AdminTable';
