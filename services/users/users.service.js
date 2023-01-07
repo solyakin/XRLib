@@ -1,4 +1,4 @@
-import { collection, getDoc, doc, updateDoc } from "firebase/firestore";
+import { collection, getDoc, doc, updateDoc, query, where, getCountFromServer, getDocs } from "firebase/firestore";
 import { db, firebaseStorage } from "../../config/firebase";
 import {
     deleteObject,
@@ -24,6 +24,53 @@ class UserService {
                 }
             }
         );
+    }
+    /**
+     * 
+     * @param {Role} role 
+     * @returns {Array<User>}
+     */
+    static async getAllUsersByRole(role) {
+        const q = query(usersCollection, where("role", "==", role))
+        let users = [];
+        try {
+            await getDocs(q)
+                .then(async (data) => {
+                    data.docs.map(doc => {
+                        console.log(doc.data())
+                        users.push(doc.data());
+                    })
+                })
+        }
+        catch (error) {
+            throw new Error(`Unable to get users: ${error}`);
+        }
+        return users;
+    }
+    /**
+    * 
+    * @param {Role} role 
+    * @returns {Array<User>}
+    */
+    static async getAllUsersByRoleWithPostCount(role) {
+        const q = query(usersCollection, where("role", "==", role))
+
+        let users = [];
+        try {
+            await getDocs(q)
+                .then(async (data) => {
+                    data.docs.map(async (doc) => {
+                        // Get Post count for each item
+                        const postsQuery = query(usersCollection, where("author.id", "==", doc.data().id))
+                        let postCount = getCountFromServer(postsQuery)
+                        posts.push({ ...doc.data(), postCount });
+                    })
+                })
+        }
+        catch (error) {
+            throw new Error(`Unable to get users: ${error}`);
+        }
+        return users;
     }
 
     /**

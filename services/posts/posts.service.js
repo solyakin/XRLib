@@ -5,7 +5,8 @@
 
 
 import { collection, doc, getCountFromServer, getDoc, getDocs, limit, orderBy, query, setDoc, startAfter, Timestamp, updateDoc, where } from "firebase/firestore";
-import { db } from "../../config/firebase";
+import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { db, firebaseStorage } from "../../config/firebase";
 
 const postsCollection = collection(db, "posts")
 
@@ -32,6 +33,25 @@ class PostsService {
                 }
             }
         );
+    }
+    static async uploadImageForPostAndGetUrl(fileName, file) {
+        console.log("running")
+        const storageRef = ref(firebaseStorage, `/temp/${fileName}`);
+        let imageExists = false
+        try {
+            let imageFile = await getDownloadURL(await storageRef)
+            if (imageFile) imageExists = true
+        }
+        catch {
+            imageExists = false
+        }
+        if (imageExists) {
+            // delete image from storage
+            await deleteObject(storageRef);
+        }
+        const imageRef = uploadBytes(storageRef, file);
+        const url = getDownloadURL((await imageRef).ref);
+        return { data: { link: await url } };
     }
     static async getPaginatedPosts(
         startAfterVal,

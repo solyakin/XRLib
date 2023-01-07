@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { stateToHTML } from "draft-js-export-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import dynamic from "next/dynamic";
 import { EditorState } from "draft-js"
 import { Editor } from "react-draft-wysiwyg"
 import DOMPurify from "dompurify";
+import { WYSIWYG_EDITOR_DEFAULT_SETTINGS } from "../config/editor.config";
+import { Box } from "@chakra-ui/react";
+import PostsService from "../services/posts/posts.service";
 
 
 /* const Editor = dynamic(() => import('draft-js').then((mod) => mod.Editor), {
@@ -16,9 +18,9 @@ const EditorState = dynamic(() => import('draft-js').then((mod) => mod.EditorSta
 const config = {
     image: { uploadCallback: () => console.log("callback called") },
 };
-const Editor2 = () => {
+const Editor2 = ({setHtmlBlockState}) => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty()); // create custom type for textState
-    const [htmlBlockState, setHtmlBlockState] = useState("")
+    //const [htmlBlockState, setHtmlBlockState] = useState("")
 
     const handleTextChange = (currentTextState) => {
         setEditorState(currentTextState);
@@ -33,22 +35,44 @@ const Editor2 = () => {
 
         setHtmlBlockState(newHtml);
     };
+    const uploadCallback = (file, callback) => {
+        console.log(file);
+        return new Promise((resolve, reject) => {
+            const reader = new window.FileReader();
+            console.log(reader);
+            reader.onloadend = async () => {
+                const form_data = new FormData();
+                form_data.append("file", file);
+                const res = await PostsService.uploadImageForPostAndGetUrl(file.name, file)
+                resolve(res);
+            };
+            reader.readAsDataURL(file);
+        });
+    };
 
     return (
-        <Editor
-            toolbarClassName="toolbarClassName"
-            wrapperClassName="wrapperClassName"
-            editorClassName="editorClassName"
-            editorState={editorState}
-            onEditorStateChange={handleTextChange}
-            /*  toolbar={{
-                 image: {
-                     previewImage: true,
-                 },
-                 alt: { present: true, mandatory: true },
-             }} */
-            toolbar={config}
-        />
+        <Box zIndex={3}>
+            <Editor
+                {...WYSIWYG_EDITOR_DEFAULT_SETTINGS}
+                editorState={editorState}
+                onEditorStateChange={handleTextChange}
+                toolbarClassName="toolbarClassName"
+                wrapperClassName="wrapperClassName"
+                editorClassName="editorClassName"
+                toolbar={{
+                    options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'history'],
+                    image: {
+                        urlEnabled: true,
+                        uploadEnabled: true,
+                        uploadCallback: uploadCallback,
+                        previewImage: true,
+                        alt: { present: false, mandatory: false }
+                    },
+                }}
+            //toolbar={config}
+            />
+        </Box>
+
     )
 }
 

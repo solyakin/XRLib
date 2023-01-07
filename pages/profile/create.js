@@ -26,6 +26,7 @@ const Create = () => {
     const { userData } = useAuth();
     const [draftData, setDraftData] = useState({ content: "", draftId: undefined })
     const [draftLastUpdated, setDraftLastUpdated] = useState(null);
+    const [htmlBlockState, setHtmlBlockState] = useState(null)
 
     const { error, mutate, isLoading } = useMutation(async (draftData) => {
         let authorData = {
@@ -33,7 +34,7 @@ const Create = () => {
             displayName: userData?.displayName,
             profileImageUrl: userData?.profileImageUrl,
         }
-        return await PostsService.saveDraft(authorData, draftData, setDraftData)
+        return await PostsService.saveDraft(authorData, { ...draftData, content: htmlBlockState, readMinutes: countWords(htmlBlockState) }, setDraftData)
     },
         {
             onSuccess: () => {
@@ -51,11 +52,7 @@ const Create = () => {
         //return s.split(' ').filter(String).length; - this can also be used
     }
 
-    const mdParser = new MarkdownIt(/* Markdown-it options */);
-    function handleEditorChange({ html, text }) {
-        console.log('handleEditorChange', html, text);
-        setDraftData({ ...draftData, content: text, readMinutes: countWords(text) })
-    }
+
     return (
         <div className={styles.create}>
             <Head>
@@ -100,7 +97,7 @@ const Create = () => {
                             renderHTML={text => mdParser.render(text)}
                             onChange={handleEditorChange}
                         /> */}
-                        <Editor2 />
+                        <Editor2 setHtmlBlockState={setHtmlBlockState} />
                     </Container>
                 </main>
             </ContributorGuard>

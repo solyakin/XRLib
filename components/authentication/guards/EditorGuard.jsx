@@ -50,7 +50,7 @@ const EditorGuard = ({ children }) => {
                     query: { returnUrl: router.asPath }
                 });
                 toast({
-                    title: "You are not authorized to access this page. Please login as superadmin or editor",
+                    title: "You are not authorized to access this page. Please login as admin or editor",
                     status: "error",
                     duration: 3000,
                     isClosable: true,

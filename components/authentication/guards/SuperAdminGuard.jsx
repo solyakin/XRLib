@@ -1,4 +1,4 @@
-import { Center, Spinner, useColorModeValue, useToast } from "@chakra-ui/react";
+import { Center, Spinner, Text, useColorModeValue, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
@@ -15,8 +15,8 @@ import useAuth from "../hooks/useAuth";
 
 const AdminGuard = ({ children }) => {
 
-    const color = useColorModeValue("white", "gray.700");
-    const { userData, authLoading } = useAuth() || {};
+    const color = useColorModeValue("black", "gray.700");
+    const { userData, authLoading, authDone } = useAuth() || {};
     const toast = useToast();
     const router = useRouter();
     const [authorized, setAuthorized] = useState(false);
@@ -24,7 +24,7 @@ const AdminGuard = ({ children }) => {
     useEffect(() => {
         // on initial load - run auth check 
 
-        if (!authLoading) {
+        if (authDone) {
             adminCheck();
 
             // on route change start - hide page content by setting authorized to false  
@@ -40,53 +40,33 @@ const AdminGuard = ({ children }) => {
                 router.events.off('routeChangeComplete', () => adminCheck);
             }
         }
-
-
-    }, [authLoading]);
+    }, [authDone]);
 
     function adminCheck() {
         // redirect to login page if accessing a private page and not logged in 
-        if (!authLoading && userData) {
-            if (!(userData?.role === "admin")) {
+        if (authDone) {
 
-                // redirect to login page if accessing a private page and not logged in
-                if (!(userData?.role === "editor")) {
-                    setAuthorized(false);
-                    router.push({
-                        pathname: '/login',
-                        query: { returnUrl: router.asPath }
-                    });
-                    toast({
-                        title: "You are not authorized to access this page. Please login as Editor",
-                        status: "error",
-                        duration: 3000,
-                        isClosable: true,
-                    })
-                }
-                else {
-                    toast({
-                        title: "You are not authorized to access this page as an editor. Requires admin Scope",
-                        status: "error",
-                        duration: 3000,
-                        isClosable: true,
-                    })
-                    router.push({
-                        pathname: '/',
-                    });
-                }
+            // redirect to login page if accessing a private page and not logged in
+            if (!(userData?.role === "admin")) {
+                setAuthorized(false);
+                router.back();
+                toast({
+                    title: "You are not authorized to access this page. Please login as a admin",
+                    status: "error",
+                    duration: 3000,
+                    isClosable: true,
+                })
             }
             else {
-                setAuthorized(true);
+                setAuthorized(true)
             }
-
-
         }
 
     }
     if (authLoading) {
         return (
             <Center w={"100%"} h={"100vh"} bg={color}>
-                <Spinner color="black" />
+                <Spinner color="white" />
             </Center>
         )
     }
@@ -97,7 +77,7 @@ const AdminGuard = ({ children }) => {
     }
     return (
         <Center w={"100%"} h={"100vh"} bg={color}>
-
+            <Spinner />
         </Center>
     )
 }

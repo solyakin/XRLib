@@ -58,6 +58,9 @@ export const AuthProvider = ({ children }) => {
                     id: user.uid,
                     email: user.email,
                     role: "member",
+                    firstName: user.displayName.split(" ")[0],
+                    lastName: user.displayName.split(" ")[1]
+
                 }).then(() => {
                     setCurrentUser(user)
                     setSignUpLoading(false);
