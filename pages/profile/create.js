@@ -19,6 +19,7 @@ const Create = () => {
     const { userData } = useAuth();
     const [draftData, setDraftData] = useState({ content: "", draftId: undefined })
     const [draftLastUpdated, setDraftLastUpdated] = useState(null);
+    const [htmlBlockState, setHtmlBlockState] = useState(null)
 
     const { error, mutate, isLoading } = useMutation(async (draftData) => {
         let authorData = {
@@ -26,7 +27,7 @@ const Create = () => {
             displayName: userData?.displayName,
             profileImageUrl: userData?.profileImageUrl,
         }
-        return await PostsService.saveDraft(authorData, draftData, setDraftData)
+        return await PostsService.saveDraft(authorData, { ...draftData, content: htmlBlockState, readMinutes: countWords(htmlBlockState) }, setDraftData)
     },
         {
             onSuccess: () => {
@@ -34,6 +35,15 @@ const Create = () => {
             }
         }
     )
+
+    function countWords(s) {
+        s = s.replace(/(^\s*)|(\s*$)/gi, "");//exclude  start and end white-space
+        s = s.replace(/[ ]{2,}/gi, " ");//2 or more space to 1
+        s = s.replace(/\n /, "\n"); // exclude newline with a start spacing
+        return s.split(' ').filter(function (str) { return str != ""; }).length;
+        //return s.split(' ').filter(String).length; - this can also be used
+    }
+
 
     return (
         <div className={styles.create}>
@@ -73,6 +83,13 @@ const Create = () => {
 
                             </HStack>
                         </HStack>
+                        <Text color="whiteAlpha.500" as="h1" fontSize="2xl">Title</Text>
+                        {/* <MdEditor
+                            style={{ height: '500px' }}
+                            renderHTML={text => mdParser.render(text)}
+                            onChange={handleEditorChange}
+                        /> */}
+                        <Editor2 setHtmlBlockState={setHtmlBlockState} />
                         <FormControl mb="4" width="400px">
                             <FormLabel color="whiteAlpha.500" fontSize="sm">Title</FormLabel>
                             <Input

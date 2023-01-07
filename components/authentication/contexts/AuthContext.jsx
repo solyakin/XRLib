@@ -58,6 +58,9 @@ export const AuthProvider = ({ children }) => {
                     id: user.uid,
                     email: user.email,
                     role: "member",
+                    firstName: user.displayName.split(" ")[0],
+                    lastName: user.displayName.split(" ")[1]
+
                 }).then(() => {
                     setCurrentUser(user)
                     setSignUpLoading(false);
@@ -209,7 +212,6 @@ export const AuthProvider = ({ children }) => {
                         setAuthLoading(false);
                         setUserData({ ...userData });
                         // console.log("userData:", userData);
-                        setAuthDone(true)
 
                     });
                 }
@@ -217,8 +219,9 @@ export const AuthProvider = ({ children }) => {
                     setCurrentUser(null)
                     setUserData(null)
                     setAuthLoading(false)
-                    setAuthDone(true)
                 }
+                setAuthDone(true)
+
             },
             (error) => {
                 setCurrentUser(null);

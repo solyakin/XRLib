@@ -125,7 +125,7 @@ const Profile = () => {
                                             <HStack justifyContent="space-between">
                                                 <Button background="#F40580" color="white" borderRadius="full" fontSize="14px">
                                                     <Image src="/medal.svg" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
-                                                    <Text textTransform={"capitalize"}>{userData?.role}</Text>
+                                                    <Text textTransform={"capitalize"}>{userData?.role || "member"}</Text>
                                                 </Button>
                                                 <Button
                                                     onClick={onOpen}
