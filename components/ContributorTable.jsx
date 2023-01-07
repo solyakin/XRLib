@@ -29,9 +29,9 @@ const ContributorTable = () => {
                 </Thead>
                 <Tbody borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
                     {
-                        data && data.map((user) => {
+                        data && data.map((user, index) => {
                             return (
-                                <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
+                                <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"} key={index}>
                                     <Td>{user?.displayName}</Td>
                                     <Td>{`${user?.firstName || "N/A"} ${user.lastName || "N/A"}`}</Td>
                                     <Td>{user.email}</Td>
