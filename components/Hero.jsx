@@ -2,15 +2,19 @@ import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from "framer-motion";
 import React from 'react'
+import { useDisclosure } from '@chakra-ui/react';
 import styles from '../styles/Hero.module.css'
 import style from '../styles/Mission.module.css'
 import Header from './Header'
+import CompleteProfile from './CompleteProfile';
 
 
 const Hero = () => {
 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+
+  const { isOpen: profileIsOpen, onClose: profileClose, onOpen: profileOpen } = useDisclosure()
   
   return (
     <div className={styles.hero}>
@@ -35,7 +39,7 @@ const Hero = () => {
             }}>
               <h1> XR-ATLAS</h1>
             </motion.div>
-            <p className={styles.by}>By Babatunde</p>
+            <p className={styles.by} onClick={profileOpen}>By Babatunde</p>
           </div>
         </div>
         <div className={style.mission} ref={ref}>
@@ -52,6 +56,7 @@ const Hero = () => {
             </div>
           </div>
         </div>
+        <CompleteProfile profileClose={profileClose} profileIsOpen={profileIsOpen}/>
     </div>
   )
 }

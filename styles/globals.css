@@ -16,7 +16,38 @@ a {
 * {
   box-sizing: border-box;
 }
-
+.rdw-editor-main{
+  background: rgb(228, 227, 227);
+  color : black;
+  height: 300px!important;
+}
+.rhap_stacked .rhap_controls-section{
+  margin-top: 0!important;
+}
+.rhap_controls-section svg{
+  width: 22px;
+}
+.rhap_additional-controls svg{
+  width: 18px;
+}
+@media only screen and (max-width : 480px){
+  .css-uv6hmy{
+    margin-left: 0!important;
+    margin-right: 0!important;
+    padding-left: 1em!important;
+    padding-right: 1em!important;
+  }
+  .css-1uv7yw5, .css-1jagptf{
+    padding-left: 0!important;
+    padding-right: 0!important;
+  }
+  .css-12isumq{
+    margin-top: 2em!important;
+  }
+  .chakra-tabs button{
+    font-size: 13px;
+  }
+}
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

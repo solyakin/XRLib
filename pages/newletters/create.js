@@ -22,9 +22,6 @@ import axios from 'axios'
 import dynamic from 'next/dynamic';
 import 'react-markdown-editor-lite/lib/index.css';
 import MarkdownIt from 'markdown-it';
-// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-// import { EditorState, convertToRaw, ContentState } from 'draft-js';
-// import { Editor } from 'react-draft-wysiwyg';
 
 const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
     ssr: false,

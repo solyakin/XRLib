@@ -29,6 +29,7 @@ const Posts = () => {
         },
     },
     )
+
     return (
         <div className={styles.profile}>
             <Head>
@@ -61,9 +62,9 @@ const Posts = () => {
                                     )
                                 }
                                 {
-                                    data && data.map((post) => {
+                                    data && data.map((post, index) => {
                                         return (
-                                            <Link href={encodeURIComponent(`/${post.id}`)}>
+                                            <Link href={encodeURIComponent(`/${post.id}`)} key={index}>
                                                 <div className={styles.newsletter}>
                                                     <div className={styles.content}>
                                                         <div className={styles.text}>

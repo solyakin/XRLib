@@ -51,8 +51,8 @@ const Profile = () => {
                         <div className="">
                             <Heading mt="10" mb="4">PROFILE</Heading>
                             <div>
-                                <Grid gridTemplateColumns={'310px 1fr 310px'} gap={2}>
-                                    <GridItem border="1px" borderColor="whiteAlpha.500" borderRadius="3xl" p={3}>
+                                <Grid gridTemplateColumns={{ lg : '310px 1fr 310px', sm : "block"}} gap={2}>
+                                    <GridItem border="1px" borderColor="whiteAlpha.500" borderRadius="3xl" p={3} display={{lg : "block", sm : "none"}}>
                                         <Text mt="4">Summary</Text>
                                         <Text fontSize="14px">{userData?.profileSummary}</Text>
                                         <Box marginTop="14rem">
@@ -143,7 +143,7 @@ const Profile = () => {
                                                 </Button>
                                             </HStack>
                                             <Box mt="5" pb="6" borderTop="1px" borderColor="whiteAlpha.500">
-                                                <HStack mt="3">
+                                                <HStack mt="3" display={{sm : "block"}}>
                                                     <HStack flex="0.5">
                                                         <Image src="/photo.png" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
                                                         <Box maxW="170px">
@@ -151,7 +151,7 @@ const Profile = () => {
                                                             <Text fontSize="14px">{currentUser?.displayName}</Text>
                                                         </Box>
                                                     </HStack>
-                                                    <HStack flex="0.5">
+                                                    <HStack flex="0.5" mt={{sm : "5"}}>
                                                         <Image src="/Group.svg" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
                                                         <Box maxW="170px">
                                                             <Text fontSize="14px">Display Name </Text>
@@ -159,7 +159,7 @@ const Profile = () => {
                                                         </Box>
                                                     </HStack>
                                                 </HStack>
-                                                <HStack mt="6" gap="3">
+                                                <HStack mt="6" gap="3" display={{sm : "block"}}>
                                                     <HStack flex="0.5">
                                                         <Image src="/mail.svg" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
                                                         <Box maxW="170px">

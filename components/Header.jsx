@@ -39,9 +39,14 @@ const Header = () => {
     const { isOpen: signupIsOpen, onOpen: signupOpen, onClose: signupClose } = useDisclosure()
     const { isOpen: forgetIsOpen, onOpen: forgetOpen, onClose: forgetClose } = useDisclosure()
     const { isOpen: checkIsOpen, onClose: checkClose, onOpen: checkOpen } = useDisclosure()
+
     const btnRef = React.useRef()
 
-    console.log(currentUser?.photoURL)
+    console.log(currentUser)
+    const loginAction = () => {
+        hamClose()
+        loginOpen()
+    }
 
     return (
         <header className={styles.header}>
@@ -82,7 +87,7 @@ const Header = () => {
                     </li> :
                         <li>
                             <HStack>
-                                <Avatar name={currentUser.displayName} src={currentUser.photoURL} size="sm" />
+                                <Avatar name={currentUser?.displayName} src={currentUser.photoURL || userData.profileImageUrl} size="sm" />
                                 <Menu>
                                     <MenuButton
                                         as={Button}
@@ -101,9 +106,13 @@ const Header = () => {
                                             <Image src="/Vector (19).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
                                             <Link href="/profile/published">Posts</Link>
                                         </MenuItem>}
-                                        <MenuItem fontSize="14px" background="#000000" _hover={{ background: "white", color: "black" }}>
+                                        <MenuItem fontSize="14px" background="#000000" mb="4" _hover={{ background: "white", color: "black" }}>
                                             <Image src="/Vector (21).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
                                             <Link href="#">Stats</Link>
+                                        </MenuItem>
+                                        <MenuItem fontSize="14px" background="#000000" _hover={{ background: "white", color: "black" }}>
+                                            <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
+                                            <Link href="/admin/posts">Admin</Link>
                                         </MenuItem>
                                         <MenuDivider background={"white"} opacity="1" color={"white"} />
                                         <MenuItem background="#000000" fontSize="14px">
@@ -137,7 +146,6 @@ const Header = () => {
                     placement='left'
                     onClose={hamClose}
                     finalFocusRef={btnRef}
-                // styleConfig={{background : "rgba(255, 255, 255, 0.1)"}}
                 >
                     <DrawerOverlay />
                     <DrawerContent>
@@ -148,6 +156,9 @@ const Header = () => {
                         <DrawerBody>
                             <ul className={styles.menu_list}>
                                 <li className={styles.menu}>
+                                    {/* <Avatar name={currentUser.displayName} src={currentUser.photoURL || userData.profileImageUrl} size="sm" /> */}
+                                </li>
+                                <li className={styles.menu} onClick={hamClose}>
                                     <Link href="/">Home</Link>
                                 </li>
                                 <li className={styles.menu}>
@@ -156,6 +167,55 @@ const Header = () => {
                                 <li className={styles.menu}>
                                     <Link href="/podcast">Podcast</Link>
                                 </li>
+                                {
+                                    !currentUser ? <li>
+                                        <Button
+                                            bg={"transparent"}
+                                            bgGradient="linear(89.76deg, #FB047B 3.64%, #130EFF 99.88%)"
+                                            borderRadius="full"
+                                            w="full"
+                                            color="whiteAlpha.800"
+                                            _hover={{
+                                                border: "1px",
+                                                borderColor: "white"
+                                            }}
+                                            onClick={loginAction}
+                                        >
+                                            Login
+                                        </Button>
+                                        <Login loginClose={loginClose} loginIsOpen={loginIsOpen} signupOpen={signupOpen} forgetOpen={forgetOpen} />
+                                        <ForgotPassword forgetClose={forgetClose} forgetIsOpen={forgetIsOpen} forgetOpen={forgetOpen} />
+                                        <SignUp signupClose={signupClose} signupIsOpen={signupIsOpen} emailOpen={emailOpen} loginOpen={loginOpen} />
+                                        <SignupWithEmail emailClose={emailClose} emailIsOpen={emailIsOpen} checkOpen={checkOpen} />
+                                        <CheckInbox checkOpen={checkOpen} checkClose={checkClose} checkIsOpen={checkIsOpen} />
+                                    </li> : <>
+                                            <li className={styles.menu}>
+                                                <Link href="/profile">Profile</Link>
+                                            </li>
+                                            <li className={styles.menu}>
+                                                <Link href="/profile/published">Posts</Link>
+                                            </li>
+                                            <li className={styles.menu}>
+                                                <Link href="#">Stats</Link>
+                                            </li>
+                                            <Box
+                                                display="flex"
+                                                alignItems="center"
+                                                as="button"
+                                                onClick={() => signOut()}
+                                                background="#F40580"
+                                                color="white"
+                                                padding={2}
+                                                w="100%"
+                                                borderRadius="full"
+                                                textAlign="center"
+                                            >
+                                                <Image src="/Vector (20).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
+                                                Sign out
+                                            </Box>
+                                    </>
+                                }
+                                
                             </ul>
                         </DrawerBody>
                     </DrawerContent>

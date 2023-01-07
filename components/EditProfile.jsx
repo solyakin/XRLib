@@ -85,7 +85,7 @@ const EditProfile = ({ onClose, isOpen }) => {
         <div>
             <Modal onClose={onClose} isOpen={isOpen} isCentered size="xl">
                 <ModalOverlay backdropBlur="3xl" background={"rgba(26, 32, 44, 0.9)"} />
-                <ModalContent bg="#000005" borderRadius="lg" boxShadow={"dark-lg"} borderColor="white" border="1px">
+                <ModalContent bg="#000005" borderRadius="lg" boxShadow={"dark-lg"} borderColor="white" border="1px" w={[300, 400, 500]}>
                     <ModalBody mb="8" mt="9" marginLeft="6" marginRight="6">
                         <Heading as="h3" mb="6" size="lg" color="white">Profile information</Heading>
                         <form onSubmit={formik.handleSubmit}>
@@ -110,7 +110,7 @@ const EditProfile = ({ onClose, isOpen }) => {
                                     <Text color="red.400" fontSize="sm" mt="2">{formik.errors.name}</Text>
                                 ) : null}
                             </FormControl> */}
-                                <FormControl isRequired>
+                                <FormControl>
                                     <FormLabel color="white" fontSize="sm">Display Name</FormLabel>
                                     <Input type="text" name='displayName' value={formik.values.displayName} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='AS' borderRadius="full" borderColor="whiteAlpha.400" fontSize="small" color="white" outline="none" />
                                     {formik.touched.displayName && formik.errors.displayName ? (
@@ -126,7 +126,7 @@ const EditProfile = ({ onClose, isOpen }) => {
                                     <Text color="red.400" fontSize="sm" mt="2">{formik.errors.email}</Text>
                                 ) : null}
                             </FormControl> */}
-                                <FormControl isRequired>
+                                <FormControl>
                                     <FormLabel color="white" fontSize="sm">Phone Number</FormLabel>
                                     <Input type="string" name='phoneNumber' value={formik.values.phoneNumber} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='+234 81 691 14001' borderRadius="full" borderColor="whiteAlpha.400" fontSize="small" color="white" outline="none" />
                                     {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
@@ -136,7 +136,7 @@ const EditProfile = ({ onClose, isOpen }) => {
                             </HStack>
                             <HStack alignItems="center" gap="6" mb="5">
 
-                                <FormControl isRequired>
+                                <FormControl>
                                     <FormLabel color="white" fontSize="sm">Profile Summary</FormLabel>
                                     <Textarea type="text" name='profileSummary' value={formik.values.profileSummary} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='+234 81 691 14001' borderRadius="full" borderColor="whiteAlpha.400" fontSize="small" color="white" outline="none" />
                                     {formik.touched.profileSummary && formik.errors.profileSummary ? (
@@ -145,14 +145,14 @@ const EditProfile = ({ onClose, isOpen }) => {
                                 </FormControl>
                             </HStack>
                             <HStack alignItems="center" gap="6" mb="5">
-                                <FormControl isRequired>
+                                <FormControl>
                                     <FormLabel color="white" fontSize="sm">Website</FormLabel>
                                     <Input type="text" name='website' value={formik.values.website} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='username.com' borderRadius="full" borderColor="whiteAlpha.400" fontSize="small" color="white" outline="none" />
                                     {formik.touched.website && formik.errors.website ? (
                                         <Text color="red.400" fontSize="sm" mt="2">{formik.errors.website}</Text>
                                     ) : null}
                                 </FormControl>
-                                <FormControl isRequired>
+                                <FormControl>
                                     <FormLabel color="white" fontSize="sm">Facebook Username</FormLabel>
                                     <Input type="text" name='facebookUrl' placeholder='solomon' value={formik.values.facebookUrl} onChange={formik.handleChange} onBlur={formik.handleBlur} borderRadius="full" borderColor="whiteAlpha.400" fontSize="small" color="white" outline="none" />
                                     {formik.touched.facebookUrl && formik.errors.facebookUrl ? (
@@ -161,14 +161,14 @@ const EditProfile = ({ onClose, isOpen }) => {
                                 </FormControl>
                             </HStack>
                             <HStack alignItems="center" gap="6" mb="5">
-                                <FormControl isRequired>
+                                <FormControl>
                                     <FormLabel color="white" fontSize="sm">Twitter</FormLabel>
                                     <Input type="text" name='twitterUrl' placeholder='@username' value={formik.values.twitterUrl} onChange={formik.handleChange} onBlur={formik.handleBlur} borderRadius="full" borderColor="whiteAlpha.400" fontSize="small" color="white" outline="none" />
                                     {formik.touched.twitterUrl && formik.errors.twitterUrl ? (
                                         <Text color="red.400" fontSize="sm" mt="2">{formik.errors.twitterUrl}</Text>
                                     ) : null}
                                 </FormControl>
-                                <FormControl isRequired>
+                                <FormControl>
                                     <FormLabel color="white" fontSize="sm">Instagram handle</FormLabel>
                                     <Input type="text" name='instagramUrl' placeholder='@IGusername' value={formik.values.instagramUrl} onChange={formik.handleChange} onBlur={formik.handleBlur} borderRadius="full" borderColor="whiteAlpha.400" fontSize="small" color="white" outline="none" />
                                     {formik.touched.instagramUrl && formik.errors.instagramUrl ? (

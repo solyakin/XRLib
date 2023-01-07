@@ -3,24 +3,17 @@ import Head from 'next/head'
 import Header from '../../components/Header'
 import styles from '../../styles/Create.module.css'
 import Image from 'next/image'
-import { Button, Container, HStack, Text, useQuery } from '@chakra-ui/react'
+import { Button, Container, HStack, Text, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import 'react-markdown-editor-lite/lib/index.css';
-import MarkdownIt from 'markdown-it';
 import ContributorGuard from '../../components/authentication/guards/ContributorGuard'
 import { useMutation } from "@tanstack/react-query";
 import PostsService from '../../services/posts/posts.service'
 import useAuth from '../../components/authentication/hooks/useAuth'
 
-/* const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
-    ssr: false,
-}); */
-
 const Editor2 = dynamic(() => import('../../utils/Editor2'), {
     ssr: false,
 });
-
-
 
 const Create = () => {
     const { userData } = useAuth();
@@ -40,7 +33,6 @@ const Create = () => {
             onSuccess: () => {
                 setDraftLastUpdated(new Date())
             }
-
         }
     )
 
@@ -79,7 +71,7 @@ const Create = () => {
                                         Last updated {draftLastUpdated.toUTCString()}
                                     </Text>
                                 }
-                                <Button onClick={() => mutate(draftData)} isLoading={isLoading} className={styles.publish_btn}>
+                                <Button bg="none" borderColor="#F40580" borderRadius="full" _hover={{background : "none"}} onClick={() => mutate(draftData)} isLoading={isLoading} className={styles.publish_btn}>
                                     <Image src="/upload.svg" width="14" height="14" alt="" />
                                     Save to drafts
                                 </Button>
@@ -98,6 +90,30 @@ const Create = () => {
                             onChange={handleEditorChange}
                         /> */}
                         <Editor2 setHtmlBlockState={setHtmlBlockState} />
+                        <FormControl mb="4" width="400px">
+                            <FormLabel color="whiteAlpha.500" fontSize="sm">Title</FormLabel>
+                            <Input
+                                type="text"
+                                borderRadius="full"
+                                borderColor="whiteAlpha.400"
+                                fontSize="small"
+                                color="white"
+                                outline="none"
+                            />
+                        </FormControl>
+                        <FormControl mb="4" width="400px">
+                            <FormLabel color="white" fontSize="sm">Thumbnail</FormLabel>
+                            <Input
+                                type="file"
+                                accept="image/png, image/jpeg"
+                                borderRadius="full"
+                                borderColor="whiteAlpha.400"
+                                fontSize="small"
+                                color="white"
+                                outline="none"
+                            />
+                        </FormControl>
+                        <Editor2 />
                     </Container>
                 </main>
             </ContributorGuard>

@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Header from '../../components/Header'
 import styles from '../../styles/profile.module.css'
 import Image from 'next/image'
-import { Avatar, Center, Container, Spinner, useToast } from '@chakra-ui/react'
+import { Avatar, Center, Container, Spinner, useToast, Tabs, Tag, Tab, TabPanel, TabList, TabPanels, Heading } from '@chakra-ui/react'
 import Link from 'next/link'
 import useAuth from '../../components/authentication/hooks/useAuth'
 import { useQuery } from '@tanstack/react-query'
@@ -47,7 +47,7 @@ const Published = () => {
                     <Container maxW="950px" mt="6">
                         <div className={styles.wrapper}>
                             <div className={styles.title}>
-                                <h2>Your Posts</h2>
+                                <Heading>Your Posts</Heading>
                                 <Link href="/profile/create">
                                     <button>
                                         <Image src="/sign.svg" width="14" height="14" alt="" />
@@ -55,38 +55,64 @@ const Published = () => {
                                     </button>
                                 </Link>
                             </div>
-                            <div className={styles.list}>
-                                {
-                                    isLoading && (
-                                        <Center>
-                                            <Spinner />
-                                        </Center>
-                                    )
-                                }
-                                {
-                                    data && data.map((post) => {
-                                        return (
-                                            <Link href={encodeURIComponent(`/${post.id}`)}>
-                                                <div className={styles.newsletter}>
-                                                    <div className={styles.content}>
-                                                        <div className={styles.text}>
-                                                            <h3>{post.title}</h3>
-                                                            <p>{post.content.substring(0, 290)}...</p>
-                                                        </div>
-                                                        <div className={styles.author}>
-                                                            <Avatar size={"sm"} src={post.author.profileImageUrl} />
-                                                            <p style={{ textTransform: "capitalize" }}>{post.author.displayName}<span> · {post.readMinutes} mins read</span></p>
-                                                        </div>
-                                                    </div>
-                                                    <div className={styles.photo}>
-                                                        <img src={post.thumbnailUrl} width={"140px"} height={"140px"} alt="" />
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        )
-                                    })
-                                }
-                            </div>
+                            <Tabs colorScheme={"pink"}>
+                                <TabList>
+                                    <Tab>
+                                        Published
+                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">2</Tag>
+                                    </Tab>
+                                    <Tab>
+                                        Draft
+                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">2</Tag>    
+                                    </Tab>
+                                    <Tab>
+                                        Comments
+                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">2</Tag>
+                                    </Tab>
+                                </TabList>
+                                <TabPanels>
+                                    <TabPanel>
+                                        <div className={styles.list}>
+                                            {
+                                                isLoading && (
+                                                    <Center>
+                                                        <Spinner />
+                                                    </Center>
+                                                )
+                                            }
+                                            {
+                                                data && data.map((post, index) => {
+                                                    return (
+                                                        <Link href={encodeURIComponent(`/${post.id}`)} key={index}>
+                                                            <div className={styles.newsletter}>
+                                                                <div className={styles.content}>
+                                                                    <div className={styles.text}>
+                                                                        <h3>{post.title}</h3>
+                                                                        <p>{post.content.substring(0, 290)}...</p>
+                                                                    </div>
+                                                                    <div className={styles.author}>
+                                                                        <Avatar size={"sm"} src={post.author.profileImageUrl} />
+                                                                        <p style={{ textTransform: "capitalize" }}>{post.author.displayName}<span> · {post.readMinutes} mins read</span></p>
+                                                                    </div>
+                                                                </div>
+                                                                <div className={styles.photo}>
+                                                                    <img src={post.thumbnailUrl} width={"140px"} height={"140px"} alt="" />
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    </TabPanel>
+                                    <TabPanel>
+                                    <p>Draft</p>
+                                    </TabPanel>
+                                    <TabPanel>
+                                    <p>Comments</p>
+                                    </TabPanel>
+                                </TabPanels>
+                            </Tabs>
                         </div>
                     </Container>
                 </main>
