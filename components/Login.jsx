@@ -49,7 +49,7 @@ const Login = ({ loginClose, loginIsOpen, signupOpen, forgetOpen }) => {
         <div className={styles.login}>
             <Modal onClose={loginClose} isOpen={loginIsOpen} isCentered>
                 <ModalOverlay backdropBlur="3xl" background={"rgba(26, 32, 44, 0.5)"}/>
-                <ModalContent bg="#000005" borderRadius="lg" boxShadow={"dark-lg"} borderColor="white" border="1px">
+                <ModalContent bg="#000005" borderRadius="lg" boxShadow={"dark-lg"} borderColor="white" border="1px" w={[300, 400, 500]}>
                     <ModalBody mb="8" mt="9" marginLeft="6" marginRight="6">
                         <Heading as="h3" mb="6" size="lg" color="white">Login</Heading>
                         <FormControl isRequired mb="5">

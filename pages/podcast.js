@@ -57,8 +57,7 @@ const Podcast = () => {
                                             <div className={styles.audio}>
                                                 <AudioPlayer
                                                     src={enclosure.url}
-                                                    onPlay={e => console.log("onPlay")}
-                                                    // other props here
+                                                    onPlay={e => console.log(e)}
                                                     style={{borderRadius : "45px", background : "rgba(255, 255, 255, 0.1)", border : "1px solid rgba(255, 255, 255, 0.1)"}}
                                                 />
                                             </div>
@@ -68,11 +67,6 @@ const Podcast = () => {
                             })
                         }
                     </div>
-                    {/* <div className={styles.pagination}>
-                        <span>1</span>
-                        <span>2</span>
-                        <span>3</span>
-                    </div> */}
                 </div>
             </div>
             <Footer />

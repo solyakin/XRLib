@@ -7,7 +7,7 @@ const SuccessModal = ({onClose, isOpen}) => {
     <div>
         <Modal onClose={onClose} isOpen={isOpen} isCentered>
             <ModalOverlay background={"rgba(26, 32, 44, 0.7)"}/>
-            <ModalContent bg="#000005" borderRadius="md" boxShadow={"dark-lg"} borderColor="white" border="1px">
+            <ModalContent bg="#000005" borderRadius="md" boxShadow={"dark-lg"} borderColor="white" border="1px" w={[300, 400, 500]}>
                 <ModalBody mb="8" mt="9" marginLeft="6" marginRight="6">
                     <Heading as="h3" mb="3" textAlign="center" size="md" color="white">Success</Heading>
                     <Image src='/Group1.svg' width="100" height="100" alt=""/>
