@@ -42,7 +42,7 @@ const Header = () => {
 
     const btnRef = React.useRef()
 
-    console.log(currentUser)
+    // console.log(currentUser)
     const loginAction = () => {
         hamClose()
         loginOpen()

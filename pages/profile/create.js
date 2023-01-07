@@ -58,19 +58,19 @@ const Create = () => {
                 <main>
                     <Header />
                     <Container maxW="900px" mt="8">
+                        {
+                            isLoading &&
+                            <Text>
+                                Updating...
+                            </Text>
+                        }
+                        {draftLastUpdated &&
+                            <Text color="#F40580" fontSize="xs" mb="2">
+                                Last updated {draftLastUpdated.toUTCString()}
+                            </Text>
+                        }
                         <HStack justifyContent="flex-end">
                             <HStack>
-                                {
-                                    isLoading &&
-                                    <Text>
-                                        Updating...
-                                    </Text>
-                                }
-                                {draftLastUpdated &&
-                                    <Text>
-                                        Last updated {draftLastUpdated.toUTCString()}
-                                    </Text>
-                                }
                                 <Button bg="none" borderColor="#F40580" borderRadius="full" _hover={{background : "none"}} onClick={() => mutate(draftData)} isLoading={isLoading} className={styles.publish_btn}>
                                     <Image src="/upload.svg" width="14" height="14" alt="" />
                                     Save to drafts
@@ -83,14 +83,7 @@ const Create = () => {
 
                             </HStack>
                         </HStack>
-                        <Text color="whiteAlpha.500" as="h1" fontSize="2xl">Title</Text>
-                        {/* <MdEditor
-                            style={{ height: '500px' }}
-                            renderHTML={text => mdParser.render(text)}
-                            onChange={handleEditorChange}
-                        /> */}
-                        <Editor2 setHtmlBlockState={setHtmlBlockState} />
-                        <FormControl mb="4" width="400px">
+                        <FormControl mb="4" w={[300, 400, 500]}>
                             <FormLabel color="whiteAlpha.500" fontSize="sm">Title</FormLabel>
                             <Input
                                 type="text"
@@ -101,7 +94,7 @@ const Create = () => {
                                 outline="none"
                             />
                         </FormControl>
-                        <FormControl mb="4" width="400px">
+                        <FormControl mb="4" w={[300, 400, 500]}>
                             <FormLabel color="white" fontSize="sm">Thumbnail</FormLabel>
                             <Input
                                 type="file"
@@ -113,7 +106,7 @@ const Create = () => {
                                 outline="none"
                             />
                         </FormControl>
-                        <Editor2 />
+                        <Editor2 setHtmlBlockState={setHtmlBlockState} />
                     </Container>
                 </main>
             </ContributorGuard>

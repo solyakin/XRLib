@@ -19,7 +19,7 @@ a {
 .rdw-editor-main{
   background: rgb(228, 227, 227);
   color : black;
-  height: 300px!important;
+  min-height: 300px!important;
 }
 .rhap_stacked .rhap_controls-section{
   margin-top: 0!important;
