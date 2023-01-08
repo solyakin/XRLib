@@ -2,28 +2,33 @@
     font-family: 'Isabov';
     src: url('../public/Fonts/ISABOV-Bold.otf');
 }
+
 @font-face {
     font-family: 'cabinet';
     src: url('../public/Fonts/CabinetGrotesk-Bold.otf');
     /* font-weight: 400; */
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Firs';
     src: url('../public/Fonts/TT\ Firs\ Neue\ Regular.ttf');
     font-weight: 400;
     font-style: normal;
 }
-.preview_wrapper{
+
+.preview_wrapper {
     background: black;
     color: white;
 }
-.main{
+
+.main {
     position: relative;
     background: black;
     color: white;
 }
-.star_bg{
+
+.star_bg {
     position: fixed;
     top: 0;
     z-index: -1;
@@ -31,19 +36,27 @@
     min-height: 100vh;
     background: url(../public/Stars\ footer\ bg.svg);
 }
-.main_content{
+
+.main_content {
     width: 1000px;
     margin: 50px auto;
 }
-.heading{
+
+.writeup {
+    font-family: 'Firs';
+    font-size: 18px;
+}
+
+.heading {
     text-align: center;
 }
-.heading h2{
+
+.heading h2 {
     font-size: 4.9em;
     font-weight: 500;
     text-align: center;
     align-self: flex-start;
-    background-image: linear-gradient(194deg,#ff00d2 33%,#7657ea 74%);
+    background-image: linear-gradient(194deg, #ff00d2 33%, #7657ea 74%);
     color: #fff;
     font-family: 'Isabov';
     text-transform: uppercase;
@@ -53,14 +66,16 @@
     -webkit-text-fill-color: transparent;
     margin-bottom: 40px;
 }
-.heading p{
+
+.heading p {
     font-size: 1.2em;
     line-height: 1.8;
     font-family: 'Firs';
     margin-bottom: 2em;
     text-align: left;
 }
-.newsletter{
+
+.newsletter {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -73,29 +88,34 @@
     border: 1px solid linear-gradient(228.09deg, #FF2CF7 -9.95%, rgba(251, 4, 123, 0.796875) 12.47%, rgba(255, 126, 188, 0.81) 30.87%, rgba(255, 255, 255, 0) 53.87%, rgba(73, 255, 233, 0.65) 70.34%, #130EFF 100.44%);
 }
 
-.newsletter h3{
+.newsletter h3 {
     margin-top: 10px;
     margin-bottom: 0;
     font-family: 'cabinet';
     color: white;
     font-size: 1.4em;
 }
-.author{
+
+.author {
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.author img{
+
+.author img {
     border-radius: 50%;
 }
-.author p{
+
+.author p {
     color: white;
-    margin-bottom: 0!important;
+    margin-bottom: 0 !important;
 }
-.author span{
+
+.author span {
     color: rgba(244, 5, 128, 1);
 }
-.text p{
+
+.text p {
     line-height: 1.6;
     color: rgba(125, 125, 125, 1);
     font-family: 'Firs';
@@ -103,66 +123,77 @@
     margin-top: .3em;
     margin-bottom: 1em;
 }
-.list .pagination{
+
+.list .pagination {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 2em;
 }
-.list .pagination span{
+
+.list .pagination span {
     border: 1px solid #ff00d2;
     padding: 1em 1.2em;
     border-radius: 50%;
     cursor: pointer;
     margin-top: 3rem;
 }
-.pagination span{
+
+.pagination span {
     color: white;
 }
-.preview{
+
+.preview {
     width: 800px;
     margin: auto;
     margin-top: 3rem;
 }
-.preview h3{
+
+.preview h3 {
     font-size: 2.3em;
     margin-top: 0em;
     font-family: 'Firs';
 }
-.writeup h4{
+
+.writeup h4 {
     font-size: 1.5em;
-    font-family: 'Firs';
 }
-.preview p{
+
+.preview p {
     font-size: 18px;
     line-height: 1.7;
     font-family: 'Firs';
     margin-bottom: 1.2em;
 }
-.articleimg{
+
+.articleimg {
     margin-top: 2em;
     margin-bottom: 2em;
 }
-.content{
+
+.content {
     flex: .8;
 }
-.photo{
+
+.photo {
     flex: .2;
     display: flex;
     justify-content: flex-end;
 }
 
-.photo img{
+.photo img {
     width: 140px;
     height: 140px;
     border-radius: 5px;
     object-fit: cover;
 }
-.create_btn{
+
+.create_btn {
     display: flex;
     justify-content: center;
 }
-.create_btn button{
+
+.create_btn button {
     background: linear-gradient(89.76deg, #FB047B 3.64%, #130EFF 99.88%);
     padding: 1.5em;
     border-radius: 40px;
@@ -175,91 +206,116 @@
     font-weight: 500;
     font-size: 1.1rem;
 }
+
 @media only screen and (max-width : 1250px) {
-    .main_content{
+    .main_content {
         width: 100%;
         padding: 2rem;
     }
 }
+
 @media only screen and (max-width : 990px) {
-    .nav{
+    .nav {
         display: none;
     }
-    .container, .list{
+
+    .container,
+    .list {
         width: 100%;
     }
-    .preview{
+
+    .preview {
         width: 100%;
         padding: 2em 4em;
     }
-    .articleimg{
+
+    .articleimg {
         width: 100%;
     }
 }
+
 @media only screen and (max-width : 768px) {
-    .author{
+    .author {
         display: block;
     }
-    .heading h2{
+
+    .heading h2 {
         font-size: 3.5em;
     }
-    .heading p{
+
+    .heading p {
         padding: 2em;
         font-size: 1em;
     }
-    .newsletter{
+
+    .newsletter {
         gap: 2em;
     }
 }
+
 @media only screen and (max-width : 590px) {
-    .heading h2{
+    .heading h2 {
         font-size: 2.5em;
         margin-bottom: 0;
     }
-    .photo img{
+
+    .photo img {
         width: 100%;
         height: auto;
     }
-    .main_content{
+
+    .main_content {
         padding: 0;
     }
-    .newsletter{
+
+    .newsletter {
         flex-direction: column-reverse;
         gap: 0;
     }
-    .photo{
+
+    .photo {
         align-self: flex-start;
     }
-    .preview{
+
+    .preview {
         padding: 2em 1.5em;
     }
 }
 
 @media only screen and (max-width : 480px) {
+
     /* .container{
         padding: 2em 1.5em;
     } */
-    .newsletter{
+    .newsletter {
         padding: 1em 1.2em;
         margin: 2em 1.5em;
     }
-    .heading h2{
+
+    .heading h2 {
         font-size: 2em;
         margin-top: 0;
     }
-    .title h3{
+
+    .title h3 {
         font-size: 1.5em;
     }
-    .author p{
+
+    .author p {
         font-size: 15px;
     }
-    .writeup h4{
+
+    .writeup h4 {
         font-size: 1.2em;
+        font-family: 'Firs';
+
     }
-    .preview p{
+
+    .preview p {
         font-size: 16px;
     }
-    .text h3{
+
+    .text h3 {
         font-size: 1em;
     }
 }

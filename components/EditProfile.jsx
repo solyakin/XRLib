@@ -32,7 +32,7 @@ const EditProfile = ({ onClose, isOpen }) => {
             website: userData?.website || "",
             facebookUrl: userData?.facebookUrl ? userData?.facebookUrl.split('https://facebook.com/')[1] : "",
             twitterUrl: userData?.twitterUrl ? userData.twitterUrl.split('https://twitter.com/')[1] : "",
-            instagramUrl: userData.instagramUrl? userData.instagramUrl.split('https://instagram.com/')[1] : "",
+            instagramUrl: userData.instagramUrl ? userData.instagramUrl.split('https://instagram.com/')[1] : "",
             profileSummary: userData.profileSummary || ""
         },
         validationSchema: Yup.object({
@@ -61,9 +61,7 @@ const EditProfile = ({ onClose, isOpen }) => {
         },
     });
     const { error, mutate } = useMutation(async ({ userId, profileData }) => {
-        console.log("submitting")
-        console.log("mutation", profileData, userId)
-        return await UserService.updateUserProfile(userId, profileData)
+            return await UserService.updateUserProfile(userId, profileData)
     },
         {
             onSuccess: () => {

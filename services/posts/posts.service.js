@@ -35,7 +35,6 @@ class PostsService {
         );
     }
     static async uploadImageForPostAndGetUrl(fileName, file) {
-        console.log("running")
         const storageRef = ref(firebaseStorage, `/temp/${fileName}`);
         let imageExists = false
         try {
@@ -84,6 +83,11 @@ class PostsService {
         return snapshot.data().count;
     }
     static async getPostsCount() {
+        const q = query(postsCollection)
+        let snapshot = await getCountFromServer(q)
+        return snapshot.data().count;
+    }
+    static async getPublishedPostsCount() {
         const q = query(postsCollection, where("isPublished", "==", true))
         let snapshot = await getCountFromServer(q)
         return snapshot.data().count;
@@ -125,15 +129,16 @@ class PostsService {
 
     }
 
-    static async uploadPost(author, postData) {
+    static async uploadPost(author, postData, postImage) {
         let newPostRef = doc(postsCollection);
+        let imageUrl = await this.uploadPostCoverImage(postImage, newPostRef.id);
         let post = {
             ...postData,
             id: newPostRef.id,
             author,
             createdAt: Timestamp.now(),
-            lastUpdated: Timestamp.now()
-
+            lastUpdated: Timestamp.now(),
+            thumbnailUrl: imageUrl
         }
         return await setDoc(newPostRef, post)
     }
@@ -172,7 +177,19 @@ class PostsService {
     }
     static async uploadPostCoverImage(image, postId,
     ) {
-        const storageRef = ref(firebaseStorage, `/posts/${postId}`);
+        const storageRef = ref(firebaseStorage, `/posts-cover-images/${postId}`);
+        let imageExists = false
+        try {
+            let imageFile = await getDownloadURL(await storageRef)
+            if (imageFile) imageExists = true
+        }
+        catch {
+            imageExists = false
+        }
+        if (imageExists) {
+            // delete image from storage
+            await deleteObject(storageRef);
+        }
         const imageRef = uploadBytes(storageRef, image);
         const url = getDownloadURL((await imageRef).ref);
         return url;
