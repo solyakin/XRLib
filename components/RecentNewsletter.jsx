@@ -4,56 +4,48 @@ import Link from 'next/link'
 import React from 'react'
 import styles from '../styles/RecentNewsletter.module.css'
 import { baseUrl } from '../utils/baseUrl'
+import PostsService from '../services/posts/posts.service'
+import { Avatar } from '@chakra-ui/react'
+import { useQuery } from '@tanstack/react-query'
 
-const RecentNewsletter = ({ data }) => {
+const RecentNewsletter = ({ info }) => {
+    const { data } = useQuery({
+        queryKey: ['recent-posts'], queryFn: async () => {
+            return await PostsService.getRecentPosts()
+        }, onSuccess: (data) => {
+        },
+    },
+    )
 
-    const [recent, setRecent] = useState([])
-    
-    useEffect(() => {
-    const fetching = async () => {
-        try {
-            const data = await axios.get(`${baseUrl}/recent`)
-            const result = data.data; 
-            setRecent(result)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    fetching()
-    }, [])
-
-    const renderList = recent?.slice(0, 3)
-    
-  return (
-    <div className={styles.newletters}>
-        <h3>{data.title}</h3>
-        <div className={styles.newletterList}>
-            {
-                renderList && renderList.map(({_id, postUrl, postName, postAuthor, postContent, postLength}) => {
-                    return(
-                        <Link href={`/newletters/${_id}`} key={_id}>
-                            <div className={styles.item}>
-                                <img src={postUrl} alt="" className={styles.postImg} />
-                                <h4>{`${postName.substr(0, 80)}`}</h4>
-                                <p>{`${postContent.substr(0, 160)}...`}</p>
-                                <div className={styles.author}>
-                                    <img src="/AVATAR.svg" alt="" />
-                                    <p>{postAuthor} <span>{`· ${postLength} min read`}</span></p>
+    return (
+        <div className={styles.newletters}>
+            <h3>{info?.title}</h3>
+            <div className={styles.newletterList}>
+                {
+                    data && data.map(({ id, thumbnailUrl, description, author, title, contentText, content, readMinutes }) => {
+                        return (
+                            <Link href={`/newletters/${id}`} key={id}>
+                                <div className={styles.item}>
+                                    <img src={thumbnailUrl} alt="" className={styles.postImg} />
+                                    <h4>{`${title}`}</h4>
+                                    <p>{`${contentText?.substr(0, 160)}...`}</p>
+                                    <div className={styles.author}>
+                                        <Avatar src={author.profileImageUrl} name={author.displayName} />
+                                        <p>{author.displayname} <span>{`· ${readMinutes} min read`}</span></p>
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
-                    )
-                })
-            }
+                            </Link>
+                        )
+                    })
+                }
+            </div>
+            <div className={styles.readmore}>
+                <button>
+                    <Link href='/newletters'>Read Newsletters</Link>
+                </button>
+            </div>
         </div>
-        <div className={styles.readmore}>
-            <button>
-                <Link href='/newletters'>Read Newsletters</Link>
-            </button>
-        </div>
-    </div>
-  )
+    )
 }
 
 export default RecentNewsletter

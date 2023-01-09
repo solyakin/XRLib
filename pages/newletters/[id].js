@@ -11,7 +11,7 @@ import { months, weekday } from '../../utils/monthList';
 import PostsService from '../../services/posts/posts.service';
 import { Avatar } from '@chakra-ui/react';
 
-const data = {
+const info = {
   title : "Related topics",
 }
 
@@ -74,7 +74,7 @@ const Preview = () => {
                     </div>
                   </div>}
             <div className={styles.related}>
-              <RecentNewsletter data={data}/>
+              <RecentNewsletter info={info}/>
               <Footer />
             </div>
         </div>

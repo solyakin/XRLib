@@ -30,10 +30,11 @@ const EditProfile = ({ onClose, isOpen }) => {
             displayName: userData?.displayName || "",
             phoneNumber: userData?.phoneNumber || "",
             website: userData?.website || "",
-            facebookUrl: userData?.facebookUrl ? userData?.facebookUrl.split('https://facebook.com/')[1] : "",
-            twitterUrl: userData?.twitterUrl ? userData.twitterUrl.split('https://twitter.com/')[1] : "",
-            instagramUrl: userData.instagramUrl ? userData.instagramUrl.split('https://instagram.com/')[1] : "",
-            profileSummary: userData.profileSummary || ""
+            facebookUrl: userData?.facebookUrl ? userData?.facebookUrl.split('https://facebook.com/')[1] : null,
+            twitterUrl: userData?.twitterUrl ? userData.twitterUrl.split('https://twitter.com/')[1] : null,
+            instagramUrl: userData.instagramUrl ? userData.instagramUrl.split('https://instagram.com/')[1] : null,
+            profileSummary: userData.profileSummary || "",
+            linkedInUrl: userData?.linkedInUrl || ""
         },
         validationSchema: Yup.object({
             displayName: Yup.string().required('Required'),
@@ -42,20 +43,17 @@ const EditProfile = ({ onClose, isOpen }) => {
             facebookUrl: Yup.string(),
             twitterUrl: Yup.string(),
             instagramUrl: Yup.string(),
+            linkedInUrl: Yup.string(),
             profileSummary: Yup.string(),
         }),
         validateOnMount: true,
         onSubmit: async (values, onSubmitProps) => {
             let fileDownloadUrl = null;
             if (fileToUpload) fileDownloadUrl = await UserService.uploadProfileImageAndGetDownloadUrl(fileToUpload, userData?.id)
-            console.log({
-                ...userData, displayName: values.displayName, twitterUrl: `https://twitter.com/${values.twitterUrl}`, phoneNumber: values.phoneNumber, website: values.website,
-                facebookUrl: `https://facebook.com/${values.facebookUrl}`, profileSummary: values.profileSummary, instagramUrl: `https://instagram.com/${values.instagramUrl}`
-            })
             mutate({
                 userId: userData?.id, profileData: {
                     ...userData, profileImageUrl: fileDownloadUrl, displayName: values.displayName, twitterUrl: `https://twitter.com/${values.twitterUrl}`, phoneNumber: values.phoneNumber, website: values.website,
-                    facebookUrl: `https://facebook.com/${values.facebookUrl}`, profileSummary: values.profileSummary, instagramUrl: `https://instagram.com/${values.instagramUrl}`
+                    facebookUrl: `https://facebook.com/${values.facebookUrl}`, linkedInUrl: `https://linkedin.com/${values.linkedInUrl}`, profileSummary: values.profileSummary, instagramUrl: `https://instagram.com/${values.instagramUrl}`
                 }
             })
         },
@@ -89,7 +87,7 @@ const EditProfile = ({ onClose, isOpen }) => {
                         <form onSubmit={formik.handleSubmit}>
                             <FormControl mb="5">
                                 <FormLabel color="white" fontSize="sm">Avatar</FormLabel>
-                                <label style={{ "color": "#F40580", "cursor": "pointer" }} for="uploadImage">{fileToUpload.name || userData.profileImageUrl || "Select file"}</label>
+                                <label style={{ "color": "#F40580", "cursor": "pointer" }} for="uploadImage">{fileToUpload?.name || userData?.profileImageUrl || "Select file"}</label>
                                 <Input
                                     hidden
                                     type="file"
@@ -104,13 +102,6 @@ const EditProfile = ({ onClose, isOpen }) => {
                                 />
                             </FormControl>
                             <HStack alignItems="center" gap="6" mb="5">
-                                {/*  <FormControl isRequired>
-                                <FormLabel color="white" fontSize="sm">Name</FormLabel>
-                                <Input type="text" name='name' value={formik.values.name} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='Solomon' borderRadius="full" borderColor="whiteAlpha.400" fontSize="small" color="white" outline="none" />
-                                {formik.touched.name && formik.errors.name ? (
-                                    <Text color="red.400" fontSize="sm" mt="2">{formik.errors.name}</Text>
-                                ) : null}
-                            </FormControl> */}
                                 <FormControl>
                                     <FormLabel color="white" fontSize="sm">Display Name</FormLabel>
                                     <Input type="text" name='displayName' value={formik.values.displayName} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='AS' borderRadius="full" borderColor="whiteAlpha.400" fontSize="small" color="white" outline="none" />
@@ -120,13 +111,6 @@ const EditProfile = ({ onClose, isOpen }) => {
                                 </FormControl>
                             </HStack>
                             <HStack alignItems="center" gap="6" mb="5">
-                                {/*  <FormControl isRequired>
-                                <FormLabel color="white" fontSize="sm">Email</FormLabel>
-                                <Input type="email" name='email' value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='username@gmail.com' borderRadius="full" borderColor="whiteAlpha.400" fontSize="small" color="white" outline="none" />
-                                {formik.touched.email && formik.errors.email ? (
-                                    <Text color="red.400" fontSize="sm" mt="2">{formik.errors.email}</Text>
-                                ) : null}
-                            </FormControl> */}
                                 <FormControl>
                                     <FormLabel color="white" fontSize="sm">Phone Number</FormLabel>
                                     <Input type="string" name='phoneNumber' value={formik.values.phoneNumber} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='+234 81 691 14001' borderRadius="full" borderColor="whiteAlpha.400" fontSize="small" color="white" outline="none" />
