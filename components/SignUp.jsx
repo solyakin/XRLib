@@ -22,6 +22,13 @@ const SignUp = ({ signupClose, signupIsOpen, emailOpen, loginOpen }) => {
         }
         loginOpen()
     }
+
+    const handleEmail = () => {
+        if(signupIsOpen){
+            signupClose()
+        }
+        emailOpen()
+    }
     return (
         <Modal onClose={signupClose} isOpen={signupIsOpen} isCentered>
             <ModalOverlay backdropBlur="3xl" background={"rgba(26, 32, 44, 0.6)"}/>
@@ -29,7 +36,7 @@ const SignUp = ({ signupClose, signupIsOpen, emailOpen, loginOpen }) => {
                 <ModalBody mb="8" mt="9" marginLeft="6" marginRight="6">
                     <Heading as="h3" mb="14" size="lg" color="white">Sign Up</Heading>
                     <Box as='button'
-                        onClick={emailOpen}
+                        onClick={handleEmail}
                         borderRadius="full"
                         color="white"
                         border="1px"
