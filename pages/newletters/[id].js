@@ -7,13 +7,11 @@ import styles from '../../styles/Newsletters.module.css';
 import Header from '../../components/Header';
 import RecentNewsletter from '../../components/RecentNewsletter';
 import Footer from '../../components/Footer';
-import axios from 'axios';
 import { months, weekday } from '../../utils/monthList';
-import { baseUrl } from '../../utils/baseUrl';
 import PostsService from '../../services/posts/posts.service';
-import { Timestamp } from 'firebase/firestore';
+import { Avatar } from '@chakra-ui/react';
 
-const data = {
+const info = {
   title : "Related topics",
 }
 
@@ -44,8 +42,6 @@ const Preview = () => {
  let dummyDate = new Date();
  const [month, day, year, dy] = post ? [newDate.getMonth(), newDate.getDate(), newDate.getFullYear(), newDate.getDay()]: [dummyDate.getMonth(), dummyDate.getDate(), dummyDate.getFullYear(), dummyDate.getDay()];
 
- const newWord = post && post.content.split("\n");
-
   return (
     <div className={styles.newletters}>
       <Head>
@@ -61,7 +57,7 @@ const Preview = () => {
         <div className={styles.c}>
                  { post && <div className={styles.preview} key={post.id}>
                     <div className={styles.author}>
-                        <img src='/virtual.jpeg' width={30} height={30} alt="avatar"/>
+                        <Avatar src={post.author.profileImageUrl} size={"sm"} alt="avatar"/>
                         <p>{post.author.displayName}</p>
                         <p><span>{`${weekday[dy]} ${day} ${months[month]} ${year} `}</span></p>
                     </div>
@@ -74,21 +70,11 @@ const Preview = () => {
                     {
                       !post.thumbnailUrl && <Image src='/femalegoogle.svg'width={800} height={300} alt="figure" className={styles.articleimg}/>
                     }
-                    <div className={styles.writeup}>
-                      <div>
-                        {
-                          newWord.map((element, id) => {
-                            console.log(id)
-                            return(
-                              <p key={id}>{element}</p>
-                            )
-                          })
-                        }
-                        </div>
+                      <div className={styles.writeup} dangerouslySetInnerHTML={{__html:post.content}}>
                     </div>
                   </div>}
             <div className={styles.related}>
-              <RecentNewsletter data={data}/>
+              <RecentNewsletter info={info}/>
               <Footer />
             </div>
         </div>

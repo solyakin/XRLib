@@ -69,7 +69,7 @@ const Posts = () => {
                                                     <div className={styles.content}>
                                                         <div className={styles.text}>
                                                             <h3>{post.title}</h3>
-                                                            <p>{post.content.substring(0, 290)}...</p>
+                                                            <p>{post.contentText && post.contentText.substring(0, 290)}...</p>
                                                         </div>
                                                         <div className={styles.author}>
                                                             <Avatar size={"sm"} src={post.author.profileImageUrl} />

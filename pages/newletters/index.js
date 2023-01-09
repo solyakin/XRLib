@@ -23,8 +23,8 @@ const options = {
 const Newsletters = () => {
 
     const [itemsPerPage, setItemsPerPage] = useState({
-        temporary: 4,
-        permanent: 4,
+        temporary: 3,
+        permanent: 3,
     });
     const {
         isLoading,
