@@ -57,6 +57,8 @@ const Profile = () => {
     },
     )
 
+    // console.log(currentUser)
+
     return (
         <div className={styles.user}>
             <Head>
@@ -71,7 +73,7 @@ const Profile = () => {
                     <Header />
                     <Container maxW="1200px">
                         <div className="">
-                            <Heading mt="10" mb="4">PROFILE</Heading>
+                            <Heading mt="10" mb="4" fontSize={"lg"}>PROFILE</Heading>
                             <div>
                                 <Grid gridTemplateColumns={{ lg: '310px 1fr 310px', sm: "block" }} gap={2}>
                                     <GridItem border="1px" borderColor="whiteAlpha.500" borderRadius="3xl" p={3} display={{ lg: "block", sm: "none" }}>
@@ -138,7 +140,7 @@ const Profile = () => {
                                                 }}
                                             >
                                                 <HStack>
-                                                    <img src={userData?.profileImageUrl || "/AVATAR.svg"} srcSet={userData?.profileImageUrl || "/AVATAR.svg"} width="50" height="50" alt="" style={{ borderRadius: "7px" }} />
+                                                    <img src={userData?.profileImageUrl || "/AVATAR.svg"} srcSet={userData?.profileImageUrl || "/AVATAR.svg"} width="50" height="50" alt="" style={{ borderRadius: "7px", height : "50px", objectFit : "cover" }} />
                                                     <Text fontSize="14px" fontWeight="bold">{currentUser?.displayName}</Text>
                                                 </HStack>
                                             </Box>
@@ -171,14 +173,14 @@ const Profile = () => {
                                                         <Image src="/photo.png" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
                                                         <Box maxW="170px">
                                                             <Text fontSize="14px">Name</Text>
-                                                            <Text fontSize="14px">{currentUser?.displayName}</Text>
+                                                            <Text fontSize="14px">{currentUser?.displayName || userData?.name}</Text>
                                                         </Box>
                                                     </HStack>
                                                     <HStack flex="0.5" mt={{ sm: "5" }}>
                                                         <Image src="/Group.svg" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
                                                         <Box maxW="170px">
-                                                            <Text fontSize="14px">Display Name </Text>
-                                                            <Text fontSize="14px">{userData?.displayName || "Not set"}</Text>
+                                                            <Text fontSize="14px">Display Name </Text>  
+                                                            <Text fontSize="14px">{userData?.displayName || userData?.displayName}</Text>
                                                         </Box>
                                                     </HStack>
                                                 </HStack>

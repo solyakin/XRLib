@@ -97,7 +97,7 @@ const CompleteProfile = ({ profileClose, profileIsOpen }) => {
         <div className=''>
             <Modal onClose={profileClose} isOpen={profileIsOpen} isCentered closeOnOverlayClick={false} closeOnEsc={false}>
                 <ModalOverlay />
-                <ModalContent bg="#000005" borderRadius="md" boxShadow={"dark-lg"} borderColor="white" border="1px" w={[300, 400, 500]}>
+                <ModalContent bg="#000005" borderRadius="md" boxShadow={"dark-lg"} borderColor="#727070" border="1px" w={[300, 400, 500]}>
                     <ModalBody mb="8" mt="9">
                         <Heading as="h3" mb="3" fontSize="lg" textAlign="center" size="lg" color="white">Complete Profile</Heading>
                         <Box
@@ -247,7 +247,7 @@ const CompleteProfile = ({ profileClose, profileIsOpen }) => {
                                             ) : null}
                                         </FormControl>
                                         <FormControl>
-                                            <FormLabel color="white" fontSize="sm" fontWeight="light">Instagram</FormLabel>
+                                            <FormLabel color="white" fontSize="sm" fontWeight="light">Twitter</FormLabel>
                                             <Input
                                                 borderRadius="full"
                                                 borderColor="whiteAlpha.400"

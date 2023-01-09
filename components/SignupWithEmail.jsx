@@ -35,6 +35,7 @@ const SignupWithEmail = ({ emailClose, emailIsOpen, checkOpen }) => {
     const handleSignUp = async () => {
         await signUp(email, password).then(() => {
             // Toggle the verify email modal. 
+            emailClose()
             checkOpen()
         })
     }
@@ -47,7 +48,6 @@ const SignupWithEmail = ({ emailClose, emailIsOpen, checkOpen }) => {
                     <Text color="whiteAlpha.600" textAlign="center" mb="6" fontSize="small">Enter your email address to create an account.</Text>
                     <Box
                         color="white"
-                        p={3}
                         marginBottom="6"
                         w="full"
                     >

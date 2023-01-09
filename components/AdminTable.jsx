@@ -2,9 +2,9 @@ import { AddIcon, DeleteIcon } from "@chakra-ui/icons"
 import { TableContainer, Table, Thead, Tr, Th, Tbody, Td, Menu, MenuButton, MenuList, MenuItem, Image } from "@chakra-ui/react"
 import { useQuery } from "@tanstack/react-query"
 import UserService from "../services/users/users.service"
-import useAuth from "./authentication/hooks/useAuth"
+// import useAuth from "./authentication/hooks/useAuth"
 
-const AdminTable = ({ mutateRole }) => {
+const AdminTable = ({ mutateRole, assignOpen }) => {
     const { userData } = useAuth();
     const { data } = useQuery({
         queryKey: ['admin-users'], queryFn: async () => {
@@ -12,7 +12,6 @@ const AdminTable = ({ mutateRole }) => {
         }, onSuccess: (data) => {
 
         },
-
     },
     )
 
@@ -42,6 +41,7 @@ const AdminTable = ({ mutateRole }) => {
                                             </MenuButton>
                                             <MenuList background="black" borderColor="#1B1919" minW={"40px"} py="5">
                                                 <MenuItem
+                                                    onClick={assignOpen}
                                                     icon={<AddIcon />}
                                                     mb="3"
                                                     background="#000000"
