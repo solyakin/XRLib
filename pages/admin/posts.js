@@ -117,15 +117,15 @@ const AdminPosts = () => {
                                 <TabList>
                                     <Tab>
                                         All
-                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">120</Tag>
+                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">{allPosts?.length || 0}</Tag>
                                     </Tab>
                                     <Tab>
                                         Published
-                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">2</Tag>
+                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">{allPublishedPosts?.length || 0}</Tag>
                                     </Tab>
                                     <Tab>
                                         Unpublished
-                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">2</Tag>
+                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">{allUnpublishedPosts?.length || 0}</Tag>
                                     </Tab>
                                 </TabList>
                                 <TabPanels>

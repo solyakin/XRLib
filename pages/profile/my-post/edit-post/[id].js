@@ -1,30 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
-import Header from '../../../components/Header'
-import styles from '../../../styles/Create.module.css'
+import Header from '../../../../components/Header'
+import styles from '../../../../styles/Create.module.css'
 import Image from 'next/image'
 import { Button, Container, HStack, Text, FormControl, FormLabel, Input, useToast, Textarea } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import 'react-markdown-editor-lite/lib/index.css';
-import ContributorGuard from '../../../components/authentication/guards/ContributorGuard'
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import PostsService from '../../../services/posts/posts.service'
-import useAuth from '../../../components/authentication/hooks/useAuth'
-import convertHtmlToText from '../../../utils/html-to-text'
+import ContributorGuard from '../../../../components/authentication/guards/ContributorGuard'
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import PostsService from '../../../../services/posts/posts.service'
+import useAuth from '../../../../components/authentication/hooks/useAuth'
+import convertHtmlToText from '../../../../utils/html-to-text'
+import { useRouter } from 'next/router'
+import { ContentState, EditorState, convertFromHTML } from 'draft-js'
 
-const Editor2 = dynamic(() => import('../../../utils/Editor2'), {
+const Editor2 = dynamic(() => import('../../../../utils/Editor2'), {
     ssr: false,
 });
+
+
 
 const EditPost = () => {
     const toast = useToast();
     const queryClient = useQueryClient();
+    const router = useRouter();
+    const { id } = router.query;
     const { userData } = useAuth();
     const [draftData, setDraftData] = useState({ content: "", draftId: undefined });
     const [postImage, setPostImage] = useState();
     const [postData, setPostData] = useState({ content: "", readMinutes: null, title: "", description: "" })
     const [draftLastUpdated, setDraftLastUpdated] = useState(null);
     const [htmlBlockState, setHtmlBlockState] = useState(null)
+    const [draftFromHTML, setDraftFromHTML] = useState(null)
+    const [initialEditorState, setInitialEditorState] = useState(EditorState.createEmpty())
 
     function countWords(s) {
         s = s.replace(/(^\s*)|(\s*$)/gi, "");//exclude  start and end white-space
@@ -33,6 +41,30 @@ const EditPost = () => {
         return s.split(' ').filter(function (str) { return str != ""; }).length;
         //return s.split(' ').filter(String).length; - this can also be used
     }
+
+    const { data } = useQuery({
+        queryKey: ['post', id], queryFn: async () => {
+            return await PostsService.getPost(id);
+        }, onSuccess: (data) => {
+            setPostData(data)
+            setPostImage(data.thumbnailUrl)
+        },
+
+    },
+    )
+
+    useEffect(() => {
+        if (data) {
+
+            let draftFormat = convertFromHTML(data.content)
+            const { contentBlocks, entityMap } = draftFormat;
+            const contentState = ContentState.createFromBlockArray(
+                contentBlocks,
+                entityMap
+            );
+            setInitialEditorState(EditorState.createWithContent(contentState))
+        }
+    }, [data])
 
 
     const { error, mutate, isLoading } = useMutation(async (draftData) => {
@@ -74,6 +106,7 @@ const EditPost = () => {
                     isClosable: true,
                 });
                 queryClient.invalidateQueries(["posts", userData?.id])
+
                 // We can navigate back here. @Solyakin
             },
             onError: () => {
@@ -93,6 +126,11 @@ const EditPost = () => {
         const file = e.target.files[0];
         setPostImage(file);
     }
+
+
+
+
+
 
 
 
@@ -123,9 +161,9 @@ const EditPost = () => {
                         }
                         <HStack justifyContent="flex-end">
                             <HStack>
-                                
+
                                 <Button bg="none" borderColor="#F40580" borderRadius="full" _hover={{ background: "none" }} onClick={() => mutate(draftData)} isLoading={isLoading} className={styles.publish_btn}>
-                                
+
                                     <Image src="/upload.svg" width="14" height="14" alt="" />
                                     Save to drafts
                                 </Button>
@@ -140,11 +178,12 @@ const EditPost = () => {
                             </HStack>
                         </HStack>
                         <FormControl mb="4" w={[300, 400, 500]}>
-                            <FormLabel color="whiteAlpha.500" fontSize="sm">Title</FormLabel>
+                            <FormLabel color="white" fontSize="sm">Description</FormLabel>
                             <Input
                                 onChange={(e) => setPostData({ ...postData, title: e.target.value })}
                                 type="text"
                                 borderRadius="md"
+                                value={postData.description}
                                 borderColor="whiteAlpha.400"
                                 fontSize="small"
                                 color="white"
@@ -157,27 +196,30 @@ const EditPost = () => {
                                 onChange={(e) => setPostData({ ...postData, description: e.target.value })}
                                 type="text"
                                 borderRadius="md"
+                                value={postData.description}
                                 borderColor="whiteAlpha.400"
                                 fontSize="small"
                                 color="white"
                                 outline="none"
-                                // height="120px"
                             />
                         </FormControl>
                         <FormControl mb="4" w={[300, 400, 500]}>
-                            <FormLabel color="white" fontSize="sm">Thumbnail</FormLabel>
+                            <FormLabel color="whiteAlpha.500" fontSize="sm">Image</FormLabel>
+                            <label style={{ "color": "#F40580", "cursor": "pointer" }} for="uploadImage">{postImage?.name || postImage || "Select file"}</label>
                             <Input
+                                hidden
                                 type="file"
-                                onChange={handleChangePostImage}
                                 accept="image/png, image/jpeg"
-                                borderRadius="md"
+                                borderRadius="full"
+                                id={"uploadImage"}
                                 borderColor="whiteAlpha.400"
                                 fontSize="small"
                                 color="white"
                                 outline="none"
+                                onChange={handleChangePostImage}
                             />
                         </FormControl>
-                        <Editor2 setHtmlBlockState={setHtmlBlockState} />
+                        <Editor2 setHtmlBlockState={setHtmlBlockState} initialEditorState={initialEditorState} />
                     </Container>
                 </main>
             </ContributorGuard>

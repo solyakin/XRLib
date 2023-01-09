@@ -25,7 +25,8 @@ const Profile = () => {
         queryKey: ['profile', userD?.id], queryFn: async () => {
             return await UserService.getUserData(userD?.id)
         }, onSuccess: (data) => {
-            setUserData(data)
+
+
         },
 
     },
@@ -165,7 +166,7 @@ const Profile = () => {
                                                 </Button>
                                             </HStack>
                                             <Box mt="5" pb="6" borderTop="1px" borderColor="whiteAlpha.500">
-                                                <HStack mt="3" display={{sm : "block", lg : "flex"}}>
+                                                <HStack mt="3" display={{ sm: "block", lg: "flex" }}>
                                                     <HStack flex="0.5">
                                                         <Image src="/photo.png" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
                                                         <Box maxW="170px">
@@ -181,7 +182,7 @@ const Profile = () => {
                                                         </Box>
                                                     </HStack>
                                                 </HStack>
-                                                <HStack mt="6" gap="3" display={{sm : "block", lg : "flex"}}>
+                                                <HStack mt="6" gap="3" display={{ sm: "block", lg: "flex" }}>
                                                     <HStack flex="0.5">
                                                         <Image src="/mail.svg" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
                                                         <Box maxW="170px">
@@ -230,7 +231,7 @@ const Profile = () => {
                                             <HStack borderBottom="1px" borderColor="whiteAlpha.500" justifyContent="space-between">
                                                 <Text>Recent</Text>
                                                 <Text color="whiteAlpha.500" fontSize="sm" _hover={{ color: "white" }}>
-                                                    <Link href="/profile/published">See All</Link>
+                                                    <Link href="/profile/my-post">See All</Link>
                                                 </Text>
                                             </HStack>
                                             {
@@ -245,7 +246,7 @@ const Profile = () => {
                                                     return (
                                                         <Box borderBottom="1px" borderColor="whiteAlpha.500" pt="2" pb="2" key={index}>
                                                             <HStack justifyContent="flex-end">
-                                                                <Text color="#F40580" fontSize="14px">{post.readMinutes}</Text>
+                                                                <Text color="#F40580" fontSize="14px">{post.readMinutes} mins read</Text>
                                                             </HStack>
                                                             <Text fontSize="14px">{post.title}</Text>
                                                             <HStack justifyContent="flex-end">

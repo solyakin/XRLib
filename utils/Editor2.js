@@ -12,8 +12,8 @@ import { DEFAULT_HTML_CONVERSION_OPTIONS } from "../config/draftjs-html-conversi
 const config = {
     image: { uploadCallback: () => console.log("callback called") },
 };
-const Editor2 = ({ setHtmlBlockState }) => {
-    const [editorState, setEditorState] = useState(EditorState.createEmpty()); // create custom type for textState
+const Editor2 = ({ setHtmlBlockState, initialEditorState, }) => {
+    const [editorState, setEditorState] = useState(initialEditorState || EditorState.createEmpty()); // create custom type for textState
     //const [htmlBlockState, setHtmlBlockState] = useState("")
 
     const handleTextChange = (currentTextState) => {

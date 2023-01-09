@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import UserService from "../services/users/users.service"
 import useAuth from "./authentication/hooks/useAuth"
 
-const AdminTable = () => {
+const AdminTable = ({ mutateRole }) => {
     const { userData } = useAuth();
     const { data } = useQuery({
         queryKey: ['admin-users'], queryFn: async () => {

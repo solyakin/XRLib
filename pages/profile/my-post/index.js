@@ -51,10 +51,8 @@ const Published = () => {
     )
     const { isLoading, data } = useQuery({
         queryKey: ['published-posts', userData?.id], queryFn: async () => {
-            console.log(userData?.id)
             return await PostsService.getPublishedPostsByUserId(userData?.id)
         }, onSuccess: (data) => {
-            console.log(data)
         },
         onError: (error) => {
             toast({
@@ -119,16 +117,21 @@ const Published = () => {
                                             {
                                                 data && data.map((post, index) => {
                                                     return (
-                                                        <Link href={encodeURIComponent(`/${post.id}`)} key={index}>
+                                                        <Link href={`my-post/edit-post/${post.id}`} key={index}>
                                                             <div className={styles.newsletter}>
                                                                 <div className={styles.content}>
                                                                     <div className={styles.text}>
                                                                         <h3>{post.title}</h3>
-                                                                        <p>{post.contentText ? post.contentText.substring(0, 290) : post.content.substring(0, 290)}...</p>
+                                                                        {post?.description ?
+                                                                            <p>{post.description}...</p>
+                                                                            :
+                                                                            <p>{post.contentText ? post.contentText.substring(0, 290) : "No description"}...</p>
+
+                                                                        }
                                                                     </div>
                                                                     <div className={styles.author}>
-                                                                        <Avatar size={"sm"} src={post.author.profileImageUrl} />
-                                                                        <p style={{ textTransform: "capitalize" }}>{post.author.displayName}<span> · {post.readMinutes} mins read</span></p>
+                                                                        <Avatar size={"sm"} src={userData?.profileImageUrl} />
+                                                                        <p style={{ textTransform: "capitalize" }}>{userData?.displayName}<span> · {post.readMinutes} mins read</span></p>
                                                                     </div>
                                                                 </div>
                                                                 <div className={styles.photo}>
@@ -159,16 +162,21 @@ const Published = () => {
                                             {
                                                 unpublishedData && unpublishedData.map((post, index) => {
                                                     return (
-                                                        <Link href={encodeURIComponent(`/${post.id}`)} key={index}>
+                                                        <Link href={`my-post/edit-post/${post.id}`} key={index}>
                                                             <div className={styles.newsletter}>
                                                                 <div className={styles.content}>
                                                                     <div className={styles.text}>
                                                                         <h3>{post.title}</h3>
-                                                                        <p>{post.content.substring(0, 290)}...</p>
+                                                                        {post?.description ?
+                                                                            <p>{post.description}...</p>
+                                                                            :
+                                                                            <p>{post.contentText ? post.contentText.substring(0, 290) : "No description"}...</p>
+
+                                                                        }
                                                                     </div>
                                                                     <div className={styles.author}>
-                                                                        <Avatar size={"sm"} src={post.author.profileImageUrl} />
-                                                                        <p style={{ textTransform: "capitalize" }}>{post.author.displayName}{!post.readMinutes < 1 ? <span> · {post.readMinutes} mins read</span> : <span> · {"<"} 1 mins read</span>}</p>
+                                                                        <Avatar size={"sm"} src={userData?.profileImageUrl} />
+                                                                        <p style={{ textTransform: "capitalize" }}>{userData?.displayName}{!post.readMinutes < 1 ? <span> · {post.readMinutes} mins read</span> : <span> · {"<"} 1 mins read</span>}</p>
                                                                     </div>
                                                                 </div>
                                                                 <div className={styles.photo}>
@@ -193,16 +201,21 @@ const Published = () => {
                                             {
                                                 draftsData && draftsData.map((post, index) => {
                                                     return (
-                                                        <Link href={encodeURIComponent(`/${post.id}`)} key={index}>
+                                                        <Link href={`my-post/edit-post/${post.id}`} key={index}>
                                                             <div className={styles.newsletter}>
                                                                 <div className={styles.content}>
                                                                     <div className={styles.text}>
                                                                         <h3>{post.title}</h3>
-                                                                        <p>{post.content.substring(0, 290)}...</p>
+                                                                        {post?.description ?
+                                                                            <p>{post.description}...</p>
+                                                                            :
+                                                                            <p>{post.contentText ? post.contentText.substring(0, 290) : "No description"}...</p>
+
+                                                                        }
                                                                     </div>
                                                                     <div className={styles.author}>
-                                                                        <Avatar size={"sm"} src={post.author.profileImageUrl} />
-                                                                        <p style={{ textTransform: "capitalize" }}>{post.author.displayName}<span> · {post.readMinutes} mins read</span></p>
+                                                                        <Avatar size={"sm"} src={userData?.profileImageUrl} />
+                                                                        <p style={{ textTransform: "capitalize" }}>{userData?.displayName}<span> · {post.readMinutes} mins read</span></p>
                                                                     </div>
                                                                 </div>
                                                                 <div className={styles.photo}>
