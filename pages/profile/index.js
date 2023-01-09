@@ -241,9 +241,9 @@ const Profile = () => {
                                                 )
                                             }
                                             {
-                                                myRecentPosts && myRecentPosts.map((post) => {
+                                                myRecentPosts && myRecentPosts.map((post, index) => {
                                                     return (
-                                                        <Box borderBottom="1px" borderColor="whiteAlpha.500" pt="2" pb="2">
+                                                        <Box borderBottom="1px" borderColor="whiteAlpha.500" pt="2" pb="2" key={index}>
                                                             <HStack justifyContent="flex-end">
                                                                 <Text color="#F40580" fontSize="14px">{post.readMinutes}</Text>
                                                             </HStack>

@@ -20,7 +20,6 @@ import {
 import useAuth from '../../components/authentication/hooks/useAuth'
 import { useQuery } from '@tanstack/react-query'
 import PostsService from '../../services/posts/posts.service'
-import { AddIcon, DeleteIcon, } from '@chakra-ui/icons';
 import Header from '../../components/Header';
 import styles from '../../styles/accounts.module.css';
 import timestampToDate from '../../utils/timestamp-to-date';
@@ -151,9 +150,9 @@ const AdminPosts = () => {
                                                         )
                                                     }
                                                     {
-                                                        allPosts && allPosts.map((post) => {
+                                                        allPosts && allPosts.map((post, index) => {
                                                             return (
-                                                                <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
+                                                                <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"} key={index}>
                                                                     <Td>{post.title}</Td>
                                                                     <Td>{post.author.displayName}</Td>
                                                                     {post.isPublished && <Td fontSize="sm" color="#BDBDBD">Published <br></br> <Text as="span">{timestampToDate(post.publishedAt, true) || timestampToDate(post.lastUpdated, true) || timestampToDate(post.createdAt, true)}</Text></Td>}

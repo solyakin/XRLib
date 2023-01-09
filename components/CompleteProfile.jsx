@@ -13,6 +13,7 @@ import {
     FormLabel,
     VStack,
     useToast,
+    Text,
 } from '@chakra-ui/react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
