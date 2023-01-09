@@ -244,6 +244,7 @@ export const AuthProvider = ({ children }) => {
         currentUser,
         authLoading,
         userData,
+        setUserData,
         resetPassword,
     };
 

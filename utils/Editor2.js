@@ -7,18 +7,12 @@ import DOMPurify from "dompurify";
 import { WYSIWYG_EDITOR_DEFAULT_SETTINGS } from "../config/editor.config";
 import { Box } from "@chakra-ui/react";
 import PostsService from "../services/posts/posts.service";
+import { DEFAULT_HTML_CONVERSION_OPTIONS } from "../config/draftjs-html-conversion.config";
 
-
-/* const Editor = dynamic(() => import('draft-js').then((mod) => mod.Editor), {
-    ssr: false,
-});
-const EditorState = dynamic(() => import('draft-js').then((mod) => mod.EditorState), {
-    ssr: false,
-}); */
 const config = {
     image: { uploadCallback: () => console.log("callback called") },
 };
-const Editor2 = ({setHtmlBlockState}) => {
+const Editor2 = ({ setHtmlBlockState }) => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty()); // create custom type for textState
     //const [htmlBlockState, setHtmlBlockState] = useState("")
 
@@ -29,8 +23,9 @@ const Editor2 = ({setHtmlBlockState}) => {
          * stateToHTML function (which takes those two args).
          */
         let contentState = currentTextState.getCurrentContent();
+        //TODO: Do we need to do this everytime content changes?
         let newHtml = DOMPurify.sanitize(
-            stateToHTML(contentState) // sanitize the state to html conversion result
+            stateToHTML(contentState, DEFAULT_HTML_CONVERSION_OPTIONS) // sanitize the state to html conversion result
         );
 
         setHtmlBlockState(newHtml);

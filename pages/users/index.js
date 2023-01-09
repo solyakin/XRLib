@@ -4,12 +4,10 @@ import {
     Container,
     Box,
     Text,
-    HStack,
     Button,
-    Image,
-    Tag,
     RadioGroup, Radio,
     Input, FormControl, FormLabel, Heading,
+    useDisclosure, Modal, ModalOverlay, ModalBody, ModalContent, Stack, Textarea,
     Tabs, TabList, TabPanels, Tab, TabPanel,
     useDisclosure, Modal, ModalOverlay, ModalBody, ModalContent, Stack, Textarea
 } from '@chakra-ui/react'
@@ -49,7 +47,6 @@ const Accounts = () => {
         }, onSuccess: (data) => {
 
         },
-
     },
     )
 
@@ -65,56 +62,56 @@ const Accounts = () => {
             </Head>
             <main>
                 <Header />
-                {/* <adminGuard> */}
-                <Container maxW={"1200px"} pt="2em">
-                    <HStack justifyContent="space-between">
-                        <Text as="h1" fontSize="4xl">USERS</Text>
-                        <Button
-                            onClick={onOpen}
-                            bg="transparent"
-                            background={"#F40580"}
-                            borderRadius="full"
-                            color="white"
-                            _hover={{
-                                border: "1px",
-                                borderColor: "white"
-                            }}
-                        >
-                            <Image src='/Vector (22).svg' width="9px" alt='' mr="10px" />
-                            <Text fontSize="xs">Add User</Text>
-                        </Button>
-                    </HStack>
-                    <Box>
-                        <Tabs colorScheme={"pink"}>
-                            <TabList>
-                                <Tab>
-                                    Admin
-                                    <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">{adminData ? String(adminData.length) : "0"}</Tag>
-                                </Tab>
-                                <Tab>
-                                    Editor
-                                    <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">{editorData ? String(editorData.length) : "0"}</Tag>
-                                </Tab>
-                                <Tab>
-                                    Contributor
-                                    <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">{contributorData ? String(contributorData.length) : "0"}</Tag>
-                                </Tab>
-                            </TabList>
-                            <TabPanels>
-                                <TabPanel>
-                                    <AdminTable />
-                                </TabPanel>
-                                <TabPanel>
-                                    <EditorTable />
-                                </TabPanel>
-                                <TabPanel>
-                                    <ContributorTable />
-                                </TabPanel>
-                            </TabPanels>
-                        </Tabs>
-                    </Box>
-                </Container>
-                {/* </adminGuard> */}
+                <AdminGuard>
+                    <Container maxW={"1200px"} pt="2em">
+                        <HStack justifyContent="space-between">
+                            <Text as="h1" fontSize="4xl">USERS</Text>
+                            <Button
+                                onClick={onOpen}
+                                bg="transparent"
+                                background={"#F40580"}
+                                borderRadius="full"
+                                color="white"
+                                _hover={{
+                                    border: "1px",
+                                    borderColor: "white"
+                                }}
+                            >
+                                <Image src='/Vector (22).svg' width="9px" alt='' mr="10px" />
+                                <Text fontSize="xs">Add User</Text>
+                            </Button>
+                        </HStack>
+                        <Box>
+                            <Tabs colorScheme={"pink"}>
+                                <TabList>
+                                    <Tab>
+                                        Admin
+                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">{adminData ? String(adminData.length) : "0"}</Tag>
+                                    </Tab>
+                                    <Tab>
+                                        Editor
+                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">{editorData ? String(editorData.length) : "0"}</Tag>
+                                    </Tab>
+                                    <Tab>
+                                        Contributor
+                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">{contributorData ? String(contributorData.length) : "0"}</Tag>
+                                    </Tab>
+                                </TabList>
+                                <TabPanels>
+                                    <TabPanel>
+                                        <AdminTable />
+                                    </TabPanel>
+                                    <TabPanel>
+                                        <EditorTable />
+                                    </TabPanel>
+                                    <TabPanel>
+                                        <ContributorTable />
+                                    </TabPanel>
+                                </TabPanels>
+                            </Tabs>
+                        </Box>
+                    </Container>
+                </AdminGuard>
 
                 <Modal onClose={onClose} isOpen={isOpen} isCentered>
                     <ModalOverlay background={"rgba(26, 32, 44, 0.7)"} />
