@@ -104,11 +104,15 @@ const Header = () => {
                                         </MenuItem>
                                         {userData?.role === "contributor" && <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{ background: "white", color: "black" }}>
                                             <Image src="/Vector (19).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
-                                            <Link href="/profile/published">Posts</Link>
+                                            <Link href="/profile/my-post">My Posts</Link>
                                         </MenuItem>}
                                         <MenuItem fontSize="14px" background="#000000" mb="4" _hover={{ background: "white", color: "black" }}>
                                             <Image src="/Vector (21).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
                                             <Link href="#">Stats</Link>
+                                        </MenuItem>
+                                        <MenuItem fontSize="14px" background="#000000" mb="4" _hover={{ background: "white", color: "black" }}>
+                                            <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
+                                            <Link href="/users">Users</Link>
                                         </MenuItem>
                                         <MenuItem fontSize="14px" background="#000000" _hover={{ background: "white", color: "black" }}>
                                             <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />

@@ -10,33 +10,11 @@ import Link from 'next/link'
 import EditProfile from '../../components/EditProfile'
 import PostsService from '../../services/posts/posts.service';
 import SignedInGuard from '../../components/authentication/guards/SignedInGuard';
-import UserService from '../../services/users/users.service';
-import { date } from 'yup';
-import timeAgo from '../../utils/dateToTimeAgo';
-import timestampToDate from '../../utils/timestamp-to-date';
 
-const Profile = () => {
+const UserProfile = () => {
 
-    const { currentUser, userData: userD, setUserData } = useAuth();
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { currentUser, userData } = useAuth();
     const toast = useToast();
-
-    const { data: userData } = useQuery({
-        queryKey: ['profile', userD?.id], queryFn: async () => {
-            return await UserService.getUserData(userD?.id)
-        }, onSuccess: (data) => {
-            setUserData(data)
-        },
-
-    },
-    )
-    const { data: myRecentPosts } = useQuery({
-        queryKey: ['recent-posts', userD?.id], queryFn: async () => {
-            return await PostsService.getMyRecentPosts(userD?.id)
-        },
-
-    },
-    )
 
     const { isLoading, data: postCount } = useQuery({
         queryKey: ['post-count', userData?.id], queryFn: async () => {
@@ -72,8 +50,8 @@ const Profile = () => {
                         <div className="">
                             <Heading mt="10" mb="4">PROFILE</Heading>
                             <div>
-                                <Grid gridTemplateColumns={{ lg: '310px 1fr 310px', sm: "block" }} gap={2}>
-                                    <GridItem border="1px" borderColor="whiteAlpha.500" borderRadius="3xl" p={3} display={{ lg: "block", sm: "none" }}>
+                                <Grid gridTemplateColumns={{ lg : '310px 1fr 310px', sm : "block"}} gap={2}>
+                                    <GridItem border="1px" borderColor="whiteAlpha.500" borderRadius="3xl" p={3} display={{lg : "block", sm : "none"}}>
                                         <Text mt="4">Summary</Text>
                                         <Text fontSize="14px">{userData?.profileSummary}</Text>
                                         <Box marginTop="14rem">
@@ -117,8 +95,7 @@ const Profile = () => {
                                                             <Text fontSize="14px" ml="2">Linkedin</Text>
                                                         </Link>
 
-                                                    </Box>
-                                                }
+                                                    </Box>}
                                             </Box>
                                         </Box>
                                     </GridItem>
@@ -149,20 +126,6 @@ const Profile = () => {
                                                     <Image src="/medal.svg" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
                                                     <Text textTransform={"capitalize"}>{userData?.role || "member"}</Text>
                                                 </Button>
-                                                <Button
-                                                    onClick={onOpen}
-                                                    borderRadius="full"
-                                                    color="white"
-                                                    border="1px"
-                                                    borderColor=""
-                                                    background="transparent"
-                                                    fontSize="14px"
-                                                    minW="120px"
-                                                    _hover={{ color: "white" }}
-                                                >
-                                                    <Image src="/edit.svg" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
-                                                    Edit
-                                                </Button>
                                             </HStack>
                                             <Box mt="5" pb="6" borderTop="1px" borderColor="whiteAlpha.500">
                                                 <HStack mt="3" display={{sm : "block", lg : "flex"}}>
@@ -173,7 +136,7 @@ const Profile = () => {
                                                             <Text fontSize="14px">{currentUser?.displayName}</Text>
                                                         </Box>
                                                     </HStack>
-                                                    <HStack flex="0.5" mt={{ sm: "5" }}>
+                                                    <HStack flex="0.5" mt={{sm : "5"}}>
                                                         <Image src="/Group.svg" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
                                                         <Box maxW="170px">
                                                             <Text fontSize="14px">Display Name </Text>
@@ -233,34 +196,38 @@ const Profile = () => {
                                                     <Link href="/profile/published">See All</Link>
                                                 </Text>
                                             </HStack>
-                                            {
-                                                myRecentPosts && myRecentPosts.length < 1 && (
-                                                    <Text>
-                                                        Nothing to see here...
-                                                    </Text>
-                                                )
-                                            }
-                                            {
-                                                myRecentPosts && myRecentPosts.map((post, index) => {
-                                                    return (
-                                                        <Box borderBottom="1px" borderColor="whiteAlpha.500" pt="2" pb="2" key={index}>
-                                                            <HStack justifyContent="flex-end">
-                                                                <Text color="#F40580" fontSize="14px">{post.readMinutes}</Text>
-                                                            </HStack>
-                                                            <Text fontSize="14px">{post.title}</Text>
-                                                            <HStack justifyContent="flex-end">
-                                                                <Text fontSize="14px">{timeAgo(timestampToDate(post.createdAt))}</Text>
-                                                            </HStack>
-                                                        </Box>
-                                                    )
-                                                })
-                                            }
+                                            <Box borderBottom="1px" borderColor="whiteAlpha.500" pt="2" pb="2">
+                                                <HStack justifyContent="flex-end">
+                                                    <Text color="#F40580" fontSize="14px">5 mins read</Text>
+                                                </HStack>
+                                                <Text fontSize="14px">Mediated Reality: A Superset of VR, AR and MR</Text>
+                                                <HStack justifyContent="flex-end">
+                                                    <Text fontSize="14px">4 Days Ago</Text>
+                                                </HStack>
+                                            </Box>
+                                            <Box borderBottom="1px" borderColor="whiteAlpha.500" pt="2" pb="2">
+                                                <HStack justifyContent="flex-end">
+                                                    <Text color="#F40580" fontSize="14px">5 mins read</Text>
+                                                </HStack>
+                                                <Text fontSize="14px">Mediated Reality: A Superset of VR, AR and MR</Text>
+                                                <HStack justifyContent="flex-end">
+                                                    <Text fontSize="14px">4 Days Ago</Text>
+                                                </HStack>
+                                            </Box>
+                                            <Box borderBottom="1px" borderColor="whiteAlpha.500" pt="2" pb="2">
+                                                <HStack justifyContent="flex-end">
+                                                    <Text color="#F40580" fontSize="14px">5 mins read</Text>
+                                                </HStack>
+                                                <Text fontSize="14px">Mediated Reality: A Superset of VR, AR and MR</Text>
+                                                <HStack justifyContent="flex-end">
+                                                    <Text fontSize="14px">4 Days Ago</Text>
+                                                </HStack>
+                                            </Box>
                                         </Box>
                                     </GridItem>
                                 </Grid>
                             </div>
                         </div>
-                        <EditProfile isOpen={isOpen} onClose={onClose} />
                     </Container>
                 </main>
             </SignedInGuard>
@@ -268,4 +235,4 @@ const Profile = () => {
     )
 }
 
-export default Profile;
+export default UserProfile;

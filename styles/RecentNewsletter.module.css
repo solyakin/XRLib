@@ -24,6 +24,9 @@
     justify-content: space-between;
     gap: 2em;
 }
+.newletterList > a{
+    flex: 0.33;
+}
 .newletterList .item{
     border: 1px solid #3F4753;
     padding: 1em;
@@ -34,11 +37,6 @@
 .item .postImg{
     width: 100%;
     height: 157px;
-    /* width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-position: center;
-    object-fit: cover; */
 }
 .item h4{
     font-family: 'carbinet';
