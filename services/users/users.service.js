@@ -1,4 +1,4 @@
-import { collection, getDoc, doc, updateDoc, query, where, getCountFromServer, getDocs } from "firebase/firestore";
+import { collection, getDoc, doc, updateDoc, query, where, getCountFromServer, getDocs, deleteDoc, limit } from "firebase/firestore";
 import { db, firebaseStorage } from "../../config/firebase";
 import {
     deleteObject,
@@ -37,7 +37,7 @@ class UserService {
             await getDocs(q)
                 .then(async (data) => {
                     data.docs.map(doc => {
-                        console.log(doc.data())
+                        //console.log(doc.data())
                         users.push(doc.data());
                     })
                 })
@@ -47,6 +47,29 @@ class UserService {
         }
         return users;
     }
+
+    /**
+     * 
+     * @param {string} displayName 
+     * @returns {User}
+     */
+    static async getUserDataByDisplayName(displayName) {
+        const q = query(usersCollection, where("displayName", "==", displayName), limit(1))
+        let users = [];
+        try {
+            await getDocs(q)
+                .then(async (data) => {
+                    data.docs.map(doc => {
+                        users.push(doc.data());
+                    })
+                })
+        }
+        catch (error) {
+            throw new Error(`Unable to get users: ${error}`);
+        }
+        return users[0];
+    }
+
     /**
     * 
     * @param {Role} role 
@@ -93,11 +116,37 @@ class UserService {
         );
     }
 
+    static async updateUserRole(userId, newRole,) {
+        const existingRoles = ["member", "admin", "editor"]
+        if (!existingRoles.find((role) => role === newRole)) throw new Error("Invalid Role")
+        updateDoc(doc(usersCollection, userId), { role: newRole })
+    }
+
     static async updateUserProfile(userId, changes) {
-        console.log("updateDoc", changes)
+        //console.log("updateDoc", changes)
         return await updateDoc(doc(usersCollection, userId), changes)
     }
+
+    static async deleteUser(userId) {
+        const storageRef = ref(firebaseStorage, `/profiles/${userId}`);
+        let imageExists;
+        try {
+            let imageFile = await getDownloadURL(await storageRef)
+            if (imageFile) imageExists = true
+
+        }
+        catch {
+            imageExists = false
+        }
+        if (imageExists) deleteObject(storageRef)
+
+        return await deleteDoc(doc(usersCollection, userId))
+
+    }
     static async uploadProfileImageAndGetDownloadUrl(image, userId) {
+        if (typeof image === "string") {
+            return image
+        }
 
         const storageRef = ref(firebaseStorage, `/profiles/${userId}`);
         let imageExists = false

@@ -11,6 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import PostsService from '../../services/posts/posts.service'
 import useAuth from '../../components/authentication/hooks/useAuth'
 import convertHtmlToText from '../../utils/html-to-text'
+import { useRouter } from 'next/router'
 
 const Editor2 = dynamic(() => import('../../utils/Editor2'), {
     ssr: false,
@@ -19,6 +20,7 @@ const Editor2 = dynamic(() => import('../../utils/Editor2'), {
 const Create = () => {
     const toast = useToast();
     const queryClient = useQueryClient();
+    const navigate = useRouter();
     const { userData } = useAuth();
     const [draftData, setDraftData] = useState({ content: "", draftId: undefined });
     const [postImage, setPostImage] = useState();
@@ -74,6 +76,10 @@ const Create = () => {
                     isClosable: true,
                 });
                 queryClient.invalidateQueries(["posts", userData?.id])
+                queryClient.invalidateQueries(["unpublished-posts", userData?.id])
+                navigate.push({
+                    pathname: 'profile/my-post'
+                })
                 // We can navigate back here. @Solyakin
             },
             onError: () => {
@@ -123,9 +129,9 @@ const Create = () => {
                         }
                         <HStack justifyContent="flex-end">
                             <HStack>
-                                
+
                                 <Button bg="none" borderColor="#F40580" borderRadius="full" _hover={{ background: "none" }} onClick={() => mutate(draftData)} isLoading={isLoading} className={styles.publish_btn}>
-                                
+
                                     <Image src="/upload.svg" width="14" height="14" alt="" />
                                     Save to drafts
                                 </Button>
@@ -161,7 +167,7 @@ const Create = () => {
                                 fontSize="small"
                                 color="white"
                                 outline="none"
-                                // height="120px"
+                            // height="120px"
                             />
                         </FormControl>
                         <FormControl mb="4" w={[300, 400, 500]}>

@@ -12,8 +12,8 @@ import { DEFAULT_HTML_CONVERSION_OPTIONS } from "../config/draftjs-html-conversi
 const config = {
     image: { uploadCallback: () => console.log("callback called") },
 };
-const Editor2 = ({ setHtmlBlockState }) => {
-    const [editorState, setEditorState] = useState(EditorState.createEmpty()); // create custom type for textState
+const Editor2 = ({ setHtmlBlockState, initialEditorState, }) => {
+    const [editorState, setEditorState] = useState(initialEditorState || EditorState.createEmpty()); // create custom type for textState
     //const [htmlBlockState, setHtmlBlockState] = useState("")
 
     const handleTextChange = (currentTextState) => {
@@ -31,10 +31,10 @@ const Editor2 = ({ setHtmlBlockState }) => {
         setHtmlBlockState(newHtml);
     };
     const uploadCallback = (file, callback) => {
-        console.log(file);
+        //console.log(file);
         return new Promise((resolve, reject) => {
             const reader = new window.FileReader();
-            console.log(reader);
+            // console.log(reader);
             reader.onloadend = async () => {
                 const form_data = new FormData();
                 form_data.append("file", file);

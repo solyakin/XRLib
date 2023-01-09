@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import UserService from "../services/users/users.service"
 import useAuth from "./authentication/hooks/useAuth"
 
-const ContributorTable = () => {
+const ContributorTable = ({ mutateRole }) => {
     const { userData } = useAuth();
     const { data } = useQuery({
         queryKey: ['contributor-users'], queryFn: async () => {

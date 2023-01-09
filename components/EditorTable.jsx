@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import UserService from "../services/users/users.service"
 import useAuth from "./authentication/hooks/useAuth"
 
-const EditorTable = () => {
+const EditorTable = ({ mutateRole }) => {
     const { userData } = useAuth();
     const { data } = useQuery({
         queryKey: ['editor-users'], queryFn: async () => {
