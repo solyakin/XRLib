@@ -19,7 +19,7 @@ const UserProfile = () => {
         queryKey: ['post-count', userData?.id], queryFn: async () => {
             return await PostsService.getPostsCountByUserId(userData.id)
         }, onSuccess: (data) => {
-            console.log(data)
+            //console.log(data)
         },
         onError: (error) => {
             toast({

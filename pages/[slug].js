@@ -22,7 +22,7 @@ const UserProfile = () => {
         queryKey: ['user', slug], queryFn: async () => {
             return await UserService.getUserDataByDisplayName(slug);
         }, onSuccess: (data) => {
-            console.log(data)
+            //console.log(data)
         },
         onError: (error) => {
             router.push({

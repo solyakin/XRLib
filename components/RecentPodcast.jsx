@@ -22,7 +22,7 @@ const RecentPodcast = ({podcasts}) => {
                                     <div className={styles.audio}>
                                             <AudioPlayer
                                             src={enclosure.url}
-                                            onPlay={e => console.log("onPlay")}
+                                            //onPlay={e => console.log("onPlay")}
                                             style={{borderRadius : "45px", background : "rgba(255, 255, 255, 0.1)", border : "1px solid rgba(255, 255, 255, 0.1)"}}
                                         />
                                     </div>

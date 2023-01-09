@@ -80,10 +80,10 @@ const CompleteProfile = ({ profileClose, profileIsOpen }) => {
         onSubmit: async (values, onSubmitProps) => {
             let fileDownloadUrl = null;
             if (fileToUpload) fileDownloadUrl = await UserService.uploadProfileImageAndGetDownloadUrl(fileToUpload, userData?.id)
-            console.log({
+           /*  console.log({
                 ...userData, displayName: values.displayName, name: values.name, twitterUrl: `https://twitter.com/${values.twitterUrl}`, phoneNumber: values.phoneNumber, website: values.website,
                 facebookUrl: `https://facebook.com/${values.facebookUrl}`, linkedInUrl: `https://linkedin.com/${values.linkedInUrl}`, profileSummary: values.profileSummary, instagramUrl: `https://instagram.com/${values.instagramUrl}`
-            })
+            }) */
             mutate({
                 userId: userData?.id, profileData: {
                     ...userData, profileImageUrl: fileDownloadUrl, name: values.name, displayName: values.displayName, twitterUrl: `https://twitter.com/${values.twitterUrl}`, phoneNumber: values.phoneNumber, website: values.website,

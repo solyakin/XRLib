@@ -64,7 +64,7 @@ const Newsletters = () => {
                 
             },
             onError: (err) => {
-                alert(err)
+                console.log(err)
             }
         }
     );

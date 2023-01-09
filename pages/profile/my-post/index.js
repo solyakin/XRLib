@@ -18,7 +18,7 @@ const Published = () => {
         queryKey: ['drafts', userData?.id], queryFn: async () => {
             return await PostsService.getDraftsByUserId(userData?.id);
         }, onSuccess: (data) => {
-            console.log(data)
+            //console.log(data)
         },
         onError: (error) => {
             toast({
@@ -33,10 +33,10 @@ const Published = () => {
     )
     const { isLoading: unpublishedLoading, data: unpublishedData } = useQuery({
         queryKey: ['unpublished-posts', userData?.id], queryFn: async () => {
-            console.log(userData?.id)
+            //console.log(userData?.id)
             return await PostsService.getUnpublishedPostsByUserId(userData?.id)
         }, onSuccess: (data) => {
-            console.log(data)
+            //console.log(data)
         },
         onError: (error) => {
             toast({

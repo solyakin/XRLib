@@ -31,10 +31,10 @@ const Editor2 = ({ setHtmlBlockState, initialEditorState, }) => {
         setHtmlBlockState(newHtml);
     };
     const uploadCallback = (file, callback) => {
-        console.log(file);
+        //console.log(file);
         return new Promise((resolve, reject) => {
             const reader = new window.FileReader();
-            console.log(reader);
+            // console.log(reader);
             reader.onloadend = async () => {
                 const form_data = new FormData();
                 form_data.append("file", file);

@@ -37,7 +37,7 @@ class UserService {
             await getDocs(q)
                 .then(async (data) => {
                     data.docs.map(doc => {
-                        console.log(doc.data())
+                        //console.log(doc.data())
                         users.push(doc.data());
                     })
                 })
@@ -123,7 +123,7 @@ class UserService {
     }
 
     static async updateUserProfile(userId, changes) {
-        console.log("updateDoc", changes)
+        //console.log("updateDoc", changes)
         return await updateDoc(doc(usersCollection, userId), changes)
     }
 
