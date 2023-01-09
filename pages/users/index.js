@@ -7,10 +7,11 @@ import {
     Button,
     RadioGroup, Radio,
     Input, FormControl, FormLabel, Heading,
+    HStack, Tags, Tag,
     useDisclosure, Modal, ModalOverlay, ModalBody, ModalContent, Stack, Textarea,
     Tabs, TabList, TabPanels, Tab, TabPanel,
-    useDisclosure, Modal, ModalOverlay, ModalBody, ModalContent, Stack, Textarea
 } from '@chakra-ui/react'
+import Image from 'next/image';
 import Header from '../../components/Header';
 import styles from '../../styles/accounts.module.css';
 import { useQuery } from '@tanstack/react-query';
@@ -18,6 +19,7 @@ import UserService from '../../services/users/users.service';
 import AdminTable from '../../components/AdminTable';
 import EditorTable from '../../components/EditorTable';
 import ContributorTable from '../../components/ContributorTable';
+import AdminGuard from '../../components/authentication/guards/AdminGuard'
 
 const Accounts = () => {
 
