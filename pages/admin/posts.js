@@ -236,7 +236,7 @@ const AdminPosts = () => {
                                                         )
                                                     }
                                                     {
-                                                        allPublishedPosts && allPublishedPosts.map((post) => {
+                                                        allPublishedPosts && allPublishedPosts.map((post, index) => {
                                                             return (
                                                                 <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
                                                                     <Td>{post.title}</Td>
@@ -309,7 +309,7 @@ const AdminPosts = () => {
                                                         )
                                                     }
                                                     {
-                                                        allUnpublishedPosts && allUnpublishedPosts.map((post) => {
+                                                        allUnpublishedPosts && allUnpublishedPosts.map((post, index) => {
                                                             return (
                                                                 <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
                                                                     <Td>{post.title}</Td>
