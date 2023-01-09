@@ -10,9 +10,9 @@ import ContributorGuard from '../../../components/authentication/guards/Contribu
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import PostsService from '../../../services/posts/posts.service'
 import useAuth from '../../../components/authentication/hooks/useAuth'
-import convertHtmlToText from '../../utils/html-to-text'
+import convertHtmlToText from '../../../utils/html-to-text'
 
-const Editor2 = dynamic(() => import('../../utils/Editor2'), {
+const Editor2 = dynamic(() => import('../../../utils/Editor2'), {
     ssr: false,
 });
 

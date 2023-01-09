@@ -17,7 +17,7 @@ const CheckInbox = ({ checkClose, checkIsOpen, }) => {
             <ModalContent bg="#000005" borderRadius="md" boxShadow={"dark-lg"} borderColor="white" border="1px" w={[300, 400, 500]}>
                 <ModalBody mb="8" mt="9" marginLeft="6" marginRight="6">
                     <Heading as="h3" mb="3" textAlign="center" size="lg" color="white">Check your inbox</Heading>
-                    <Text color="whiteAlpha.600" textAlign="center" mb="14" fontSize="small">Click the link we sent to redpitbull@gmail.com to complete your account set-up.</Text>
+                    <Text color="whiteAlpha.600" textAlign="center" mb="14" fontSize="small">Click the link we sent to your email to complete your account set-up.</Text>
                     
                     <Button borderRadius="full" background="GrayText" w={"full"} onClick={checkClose}>Continue</Button>
                     <Box mt="12" mb="10">
