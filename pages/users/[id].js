@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { useQuery } from "@tanstack/react-query"
 import useAuth from '../../components/authentication/hooks/useAuth';
 import Link from 'next/link'
-import EditProfile from '../../components/EditProfile'
+// import EditProfile from '../../components/EditProfile'
 import PostsService from '../../services/posts/posts.service';
 import SignedInGuard from '../../components/authentication/guards/SignedInGuard';
 

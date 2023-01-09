@@ -87,7 +87,7 @@ const Header = () => {
                     </li> :
                         <li>
                             <HStack>
-                                <Avatar name={currentUser?.displayName} src={currentUser.photoURL || userData.profileImageUrl} size="sm" />
+                                <Avatar name={currentUser?.displayName} src={currentUser?.photoURL || userData?.profileImageUrl} size="sm" />
                                 <Menu>
                                     <MenuButton
                                         as={Button}

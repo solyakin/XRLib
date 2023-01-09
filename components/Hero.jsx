@@ -1,20 +1,30 @@
 import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from "framer-motion";
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDisclosure } from '@chakra-ui/react';
 import styles from '../styles/Hero.module.css'
 import style from '../styles/Mission.module.css'
 import Header from './Header'
 import CompleteProfile from './CompleteProfile';
+import useAuth from './authentication/hooks/useAuth';
 
 
 const Hero = () => {
 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const { currentUser, userData } = useAuth();
 
   const { isOpen: profileIsOpen, onClose: profileClose, onOpen: profileOpen } = useDisclosure()
+
+  useEffect(() => {
+      if(currentUser !== null && userData?.displayName === null){
+        profileOpen()
+      }
+  },[currentUser])
+
+  console.log(userData)
   
   return (
     <div className={styles.hero}>
@@ -39,7 +49,7 @@ const Hero = () => {
             }}>
               <h1> XR-ATLAS</h1>
             </motion.div>
-            <p className={styles.by} onClick={profileOpen}>By Babatunde</p>
+            <p className={styles.by}>By Babatunde</p>
           </div>
         </div>
         <div className={style.mission} ref={ref}>
