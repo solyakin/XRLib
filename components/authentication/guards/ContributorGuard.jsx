@@ -63,7 +63,7 @@ const ContributorGuard = ({ children }) => {
         }
 
     }
-    if (authLoading) {
+    if (authLoading && !authorized) {
         return (
             <Center w={"100%"} h={"100vh"} bg={color}>
                 <Spinner color="white" />

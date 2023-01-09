@@ -6,15 +6,15 @@ import {
     Text,
     Button,
     RadioGroup, Radio,
+    Image,
     Input, FormControl, FormLabel, Heading,
     HStack, Tags, Tag,
     useDisclosure, Modal, ModalOverlay, ModalBody, ModalContent, Stack, Textarea,
     Tabs, TabList, TabPanels, Tab, TabPanel,
 } from '@chakra-ui/react'
-import Image from 'next/image';
 import Header from '../../components/Header';
 import styles from '../../styles/accounts.module.css';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import UserService from '../../services/users/users.service';
 import AdminTable from '../../components/AdminTable';
 import EditorTable from '../../components/EditorTable';
@@ -25,7 +25,7 @@ import AssignRole from '../../components/AssignRole';
 const Accounts = () => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { isOpen : assignIsOpen, onOpen : assignOpen, onClose : assignClose } = useDisclosure();
+    const { isOpen: assignIsOpen, onOpen: assignOpen, onClose: assignClose } = useDisclosure();
     const [value, setValue] = React.useState('1')
     const { data: adminData } = useQuery({
         queryKey: ['admin-users'], queryFn: async () => {
@@ -54,7 +54,23 @@ const Accounts = () => {
     },
     )
 
-
+    const { error, mutate: mutateUserRoles } = useMutation(async ({ userId, role }) => {
+        return await UserService.updateUserRole(userId, role)
+    },
+        {
+            onSuccess: () => {
+                toast({
+                    title: "Role updated successfully!",
+                    status: "success",
+                    duration: 7000,
+                    isClosable: true,
+                });
+                queryClient.invalidateQueries(['editor-users'])
+                queryClient.invalidateQueries(['admin-users'])
+                queryClient.invalidateQueries(['contributor-users'])
+            }
+        }
+    )
     return (
         <div className={styles.accounts}>
             <Head>
@@ -103,13 +119,13 @@ const Accounts = () => {
                                 </TabList>
                                 <TabPanels>
                                     <TabPanel>
-                                        <AdminTable assignOpen={assignOpen} />
+                                        <AdminTable assignOpen={assignOpen} mutateRole={mutateUserRoles} />
                                     </TabPanel>
                                     <TabPanel>
-                                        <EditorTable />
+                                        <EditorTable mutateRole={mutateUserRoles} />
                                     </TabPanel>
                                     <TabPanel>
-                                        <ContributorTable />
+                                        <ContributorTable mutateRole={mutateUserRoles} />
                                     </TabPanel>
                                 </TabPanels>
                             </Tabs>
@@ -152,7 +168,7 @@ const Accounts = () => {
                         </ModalBody>
                     </ModalContent>
                 </Modal>
-                <AssignRole assignIsOpen={assignIsOpen} assignClose={assignClose}/>
+                <AssignRole assignIsOpen={assignIsOpen} assignClose={assignClose} />
             </main>
         </div>
     )

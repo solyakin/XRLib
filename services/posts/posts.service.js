@@ -134,11 +134,13 @@ class PostsService {
             ? query(
                 postsCollection,
                 limit(take),
+                where("isPublished", "==", true),
                 orderBy("createdAt", "asc"),
                 startAfter(startAfterVal)
             )
             : query(
                 postsCollection,
+                where("isPublished", "==", true),
                 orderBy("createdAt", "asc"),
                 limit(take)
             );
@@ -270,8 +272,8 @@ class PostsService {
         if (!author.id) {
             throw new Error("ID is required")
         }
-        console.log(setDraftData)
-        console.log("saveDraft", author)
+        //console.log(setDraftData)
+        //console.log("saveDraft", author)
         const draftsCollection = collection(db, `users`, `${author.id}`, 'drafts');
         let draftDoc = draftData?.draftId ? doc(draftsCollection, draftData?.draftId) : doc(draftsCollection)
 

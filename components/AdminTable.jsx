@@ -4,9 +4,8 @@ import { useQuery } from "@tanstack/react-query"
 import UserService from "../services/users/users.service"
 // import useAuth from "./authentication/hooks/useAuth"
 
-const AdminTable = ({ assignOpen }) => {
-
-    // const { userData } = useAuth();
+const AdminTable = ({ mutateRole, assignOpen }) => {
+    const { userData } = useAuth();
     const { data } = useQuery({
         queryKey: ['admin-users'], queryFn: async () => {
             return await UserService.getAllUsersByRole("admin")
@@ -42,7 +41,7 @@ const AdminTable = ({ assignOpen }) => {
                                             </MenuButton>
                                             <MenuList background="black" borderColor="#1B1919" minW={"40px"} py="5">
                                                 <MenuItem
-                                                onClick={assignOpen}
+                                                    onClick={assignOpen}
                                                     icon={<AddIcon />}
                                                     mb="3"
                                                     background="#000000"
