@@ -11,10 +11,9 @@ import EditProfile from '../../components/EditProfile'
 import PostsService from '../../services/posts/posts.service';
 import SignedInGuard from '../../components/authentication/guards/SignedInGuard';
 
-const Profile = () => {
+const UserProfile = () => {
 
     const { currentUser, userData } = useAuth();
-    const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
 
     const { isLoading, data: postCount } = useQuery({
@@ -127,20 +126,6 @@ const Profile = () => {
                                                     <Image src="/medal.svg" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
                                                     <Text textTransform={"capitalize"}>{userData?.role || "member"}</Text>
                                                 </Button>
-                                                <Button
-                                                    onClick={onOpen}
-                                                    borderRadius="full"
-                                                    color="white"
-                                                    border="1px"
-                                                    borderColor=""
-                                                    background="transparent"
-                                                    fontSize="14px"
-                                                    minW="120px"
-                                                    _hover={{ color: "white" }}
-                                                >
-                                                    <Image src="/edit.svg" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
-                                                    Edit
-                                                </Button>
                                             </HStack>
                                             <Box mt="5" pb="6" borderTop="1px" borderColor="whiteAlpha.500">
                                                 <HStack mt="3" display={{sm : "block", lg : "flex"}}>
@@ -243,7 +228,6 @@ const Profile = () => {
                                 </Grid>
                             </div>
                         </div>
-                        <EditProfile isOpen={isOpen} onClose={onClose} />
                     </Container>
                 </main>
             </SignedInGuard>
@@ -251,4 +235,4 @@ const Profile = () => {
     )
 }
 
-export default Profile;
+export default UserProfile;

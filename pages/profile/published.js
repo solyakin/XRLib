@@ -47,7 +47,7 @@ const Published = () => {
                     <Container maxW="950px" mt="6">
                         <div className={styles.wrapper}>
                             <div className={styles.title}>
-                                <Heading>Your Posts</Heading>
+                                <Heading>My Posts</Heading>
                                 <Link href="/profile/create">
                                     <button>
                                         <Image src="/sign.svg" width="14" height="14" alt="" />

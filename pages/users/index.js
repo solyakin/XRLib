@@ -13,15 +13,13 @@ import {
     Tabs, TabList, TabPanels, Tab, TabPanel,
     useDisclosure, Modal, ModalOverlay, ModalBody, ModalContent, Stack, Textarea
 } from '@chakra-ui/react'
-// import { AddIcon, DeleteIcon, } from '@chakra-ui/icons';
-import Header from '../components/Header';
-import styles from '../styles/accounts.module.css';
-// import adminGuard from '../components/authentication/guards/adminGuard';
+import Header from '../../components/Header';
+import styles from '../../styles/accounts.module.css';
 import { useQuery } from '@tanstack/react-query';
-import UserService from '../services/users/users.service';
-import AdminTable from '../components/AdminTable';
-import EditorTable from '../components/EditorTable';
-import ContributorTable from '../components/ContributorTable';
+import UserService from '../../services/users/users.service';
+import AdminTable from '../../components/AdminTable';
+import EditorTable from '../../components/EditorTable';
+import ContributorTable from '../../components/ContributorTable';
 
 const Accounts = () => {
 
