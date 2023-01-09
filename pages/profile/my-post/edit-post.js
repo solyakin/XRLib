@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
-import Header from '../../components/Header'
-import styles from '../../styles/Create.module.css'
+import Header from '../../../components/Header'
+import styles from '../../../styles/Create.module.css'
 import Image from 'next/image'
 import { Button, Container, HStack, Text, FormControl, FormLabel, Input, useToast, Textarea } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import 'react-markdown-editor-lite/lib/index.css';
-import ContributorGuard from '../../components/authentication/guards/ContributorGuard'
+import ContributorGuard from '../../../components/authentication/guards/ContributorGuard'
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import PostsService from '../../services/posts/posts.service'
-import useAuth from '../../components/authentication/hooks/useAuth'
+import PostsService from '../../../services/posts/posts.service'
+import useAuth from '../../../components/authentication/hooks/useAuth'
 import convertHtmlToText from '../../utils/html-to-text'
 
 const Editor2 = dynamic(() => import('../../utils/Editor2'), {
