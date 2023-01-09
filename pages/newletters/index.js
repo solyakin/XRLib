@@ -131,39 +131,35 @@ const Newsletters = () => {
                                     )
                                 })
                             }
-        <Pagination
-        pagesCount={pagesCount}
-        currentPage={currentPage}
-        onPageChange={(page) => {
-          let delta = page - currentPage;
-          console.log(delta)
-          let isNext = delta > 0
-          setCurrentPage(page)
-          // If the user is going to the next page, we need to get the last item of the current page
-          if (isNext) {
-            setPreviousCursors([...previousCursors, startFrom])
-            setStartFrom(data?.lastPostRef)
-          }
-          else {
-            // The user is going to the previous page so set the startAfter to the cursor of the previous page
-            setStartFrom(previousCursors[previousCursors.length - 1])
-            // Remove the last cursor from the array since it's now current page
-            setPreviousCursors(previousCursors.slice(0, previousCursors.length - 1))
-          }
-        }}
-      >
-        <PaginationContainer maxW={"1200px"} w={"100%"}>
-          <HStack spacing={2}>
-            <PaginationPrevious>Previous</PaginationPrevious>
-            <PaginationNext>Next</PaginationNext>
-          </HStack>
-        </PaginationContainer>
-      </Pagination>
-                            {/* <div className={styles.pagination}>
-                                <span>1</span>
-                                <span>2</span>
-                                <span>3</span>
-                            </div> */}
+                            <Pagination
+                            pagesCount={pagesCount}
+                            currentPage={currentPage}
+                            onPageChange={(page) => {
+                            let delta = page - currentPage;
+                            console.log(delta)
+                            let isNext = delta > 0
+                            setCurrentPage(page)
+                            // If the user is going to the next page, we need to get the last item of the current page
+                            if (isNext) {
+                                setPreviousCursors([...previousCursors, startFrom])
+                                setStartFrom(data?.lastPostRef)
+                            }
+                            else {
+                                // The user is going to the previous page so set the startAfter to the cursor of the previous page
+                                setStartFrom(previousCursors[previousCursors.length - 1])
+                                // Remove the last cursor from the array since it's now current page
+                                setPreviousCursors(previousCursors.slice(0, previousCursors.length - 1))
+                            }
+                            }}
+                             >
+                                <PaginationContainer maxW={"1200px"} w={"100%"}>
+                                <HStack spacing={2}>
+                                    <PaginationPrevious color="blackAlpha.600" width="120px" _hover={{background : "#F40580", color : 'white'}}>Previous</PaginationPrevious>
+                                    <PaginationNext color="blackAlpha.600" width="120px" _hover={{background : "#F40580", color : 'white'}}>Next</PaginationNext>
+                                </HStack>
+                                </PaginationContainer>
+                            </Pagination>
+                            
                         </div>
                     </div>  
                 </div>

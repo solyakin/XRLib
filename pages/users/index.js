@@ -82,7 +82,7 @@ const Accounts = () => {
                                 }}
                             >
                                 <Image src='/Vector (22).svg' width="10" height="10" alt='' mr="10px" />
-                                <Text fontSize="xs">Add User</Text>
+                                <Text fontSize="xs" ml="2">Add User</Text>
                             </Button>
                         </HStack>
                         <Box>
