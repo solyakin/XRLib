@@ -238,7 +238,7 @@ const AdminPosts = () => {
                                                     {
                                                         allPublishedPosts && allPublishedPosts.map((post, index) => {
                                                             return (
-                                                                <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
+                                                                <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"} key={index}>
                                                                     <Td>{post.title}</Td>
                                                                     <Td>{post.author.displayName}</Td>
                                                                     {post.isPublished && <Td fontSize="sm" color="#BDBDBD">Published <br></br> <Text as="span">{timestampToDate(post.publishedAt, true) || timestampToDate(post.lastUpdated, true) || timestampToDate(post.createdAt, true)}</Text></Td>}
@@ -311,7 +311,7 @@ const AdminPosts = () => {
                                                     {
                                                         allUnpublishedPosts && allUnpublishedPosts.map((post, index) => {
                                                             return (
-                                                                <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
+                                                                <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"} key={index}>
                                                                     <Td>{post.title}</Td>
                                                                     <Td>{post.author.displayName}</Td>
                                                                     {post.isPublished && <Td fontSize="sm" color="#BDBDBD">Published <br></br> <Text as="span">{timestampToDate(post.publishedAt, true) || timestampToDate(post.lastUpdated, true) || timestampToDate(post.createdAt, true)}r</Text></Td>}
