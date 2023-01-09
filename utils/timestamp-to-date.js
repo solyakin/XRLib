@@ -1,6 +1,7 @@
 import { Timestamp } from "firebase/firestore"
 
 const timestampToDate = (timeStamp, mmddyy) => {
+
     //let checkTimeStamp = new Timestamp(timeStamp);
     //if (typeof checkTimeStamp !== timeStamp) throw new Error("Invalid input")
     if (!timeStamp) return false

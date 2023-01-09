@@ -28,10 +28,26 @@ class PostsService {
         }
         return posts;
     }
-    
+
     static async getRecentPosts() {
         let posts = [];
         const q = query(postsCollection, limit(3))
+        try {
+            await getDocs(q)
+                .then(async (data) => {
+                    data.docs.map(doc => {
+                        posts.push(doc.data());
+                    })
+                })
+        }
+        catch (error) {
+            throw new Error(`Unable to get posts: ${error}`);
+        }
+        return posts;
+    }
+    static async getMyRecentPosts(userId) {
+        let posts = [];
+        const q = query(postsCollection, limit(3), where("author.id", "==", userId))
         try {
             await getDocs(q)
                 .then(async (data) => {

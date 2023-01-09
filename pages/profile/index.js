@@ -11,6 +11,9 @@ import EditProfile from '../../components/EditProfile'
 import PostsService from '../../services/posts/posts.service';
 import SignedInGuard from '../../components/authentication/guards/SignedInGuard';
 import UserService from '../../services/users/users.service';
+import { date } from 'yup';
+import timeAgo from '../../utils/dateToTimeAgo';
+import timestampToDate from '../../utils/timestamp-to-date';
 
 const Profile = () => {
 
@@ -23,6 +26,13 @@ const Profile = () => {
             return await UserService.getUserData(userD?.id)
         }, onSuccess: (data) => {
             setUserData(data)
+        },
+
+    },
+    )
+    const { data: myRecentPosts } = useQuery({
+        queryKey: ['recent-posts', userD?.id], queryFn: async () => {
+            return await PostsService.getMyRecentPosts(userD?.id)
         },
 
     },
@@ -223,33 +233,28 @@ const Profile = () => {
                                                     <Link href="/profile/published">See All</Link>
                                                 </Text>
                                             </HStack>
-                                            <Box borderBottom="1px" borderColor="whiteAlpha.500" pt="2" pb="2">
-                                                <HStack justifyContent="flex-end">
-                                                    <Text color="#F40580" fontSize="14px">5 mins read</Text>
-                                                </HStack>
-                                                <Text fontSize="14px">Mediated Reality: A Superset of VR, AR and MR</Text>
-                                                <HStack justifyContent="flex-end">
-                                                    <Text fontSize="14px">4 Days Ago</Text>
-                                                </HStack>
-                                            </Box>
-                                            <Box borderBottom="1px" borderColor="whiteAlpha.500" pt="2" pb="2">
-                                                <HStack justifyContent="flex-end">
-                                                    <Text color="#F40580" fontSize="14px">5 mins read</Text>
-                                                </HStack>
-                                                <Text fontSize="14px">Mediated Reality: A Superset of VR, AR and MR</Text>
-                                                <HStack justifyContent="flex-end">
-                                                    <Text fontSize="14px">4 Days Ago</Text>
-                                                </HStack>
-                                            </Box>
-                                            <Box borderBottom="1px" borderColor="whiteAlpha.500" pt="2" pb="2">
-                                                <HStack justifyContent="flex-end">
-                                                    <Text color="#F40580" fontSize="14px">5 mins read</Text>
-                                                </HStack>
-                                                <Text fontSize="14px">Mediated Reality: A Superset of VR, AR and MR</Text>
-                                                <HStack justifyContent="flex-end">
-                                                    <Text fontSize="14px">4 Days Ago</Text>
-                                                </HStack>
-                                            </Box>
+                                            {
+                                                myRecentPosts && myRecentPosts.length < 1 && (
+                                                    <Text>
+                                                        Nothing to see here...
+                                                    </Text>
+                                                )
+                                            }
+                                            {
+                                                myRecentPosts && myRecentPosts.map((post) => {
+                                                    return (
+                                                        <Box borderBottom="1px" borderColor="whiteAlpha.500" pt="2" pb="2">
+                                                            <HStack justifyContent="flex-end">
+                                                                <Text color="#F40580" fontSize="14px">{post.readMinutes}</Text>
+                                                            </HStack>
+                                                            <Text fontSize="14px">{post.title}</Text>
+                                                            <HStack justifyContent="flex-end">
+                                                                <Text fontSize="14px">{timeAgo(timestampToDate(post.createdAt))}</Text>
+                                                            </HStack>
+                                                        </Box>
+                                                    )
+                                                })
+                                            }
                                         </Box>
                                     </GridItem>
                                 </Grid>
