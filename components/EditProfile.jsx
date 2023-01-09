@@ -24,7 +24,7 @@ const EditProfile = ({ onClose, isOpen }) => {
     const { userData } = useAuth();
     const queryClient = useQueryClient();
     const toast = useToast();
-    const [fileToUpload, setFileToUpload] = useState(null)
+    const [fileToUpload, setFileToUpload] = useState(userData.profileImageUrl || null)
     const formik = useFormik({
         initialValues: {
             displayName: userData?.displayName || "",
@@ -61,11 +61,11 @@ const EditProfile = ({ onClose, isOpen }) => {
         },
     });
     const { error, mutate } = useMutation(async ({ userId, profileData }) => {
-            return await UserService.updateUserProfile(userId, profileData)
+        return await UserService.updateUserProfile(userId, profileData)
     },
         {
             onSuccess: () => {
-                queryClient.invalidateQueries(["profile", userData.id])
+                queryClient.invalidateQueries(["profile", userData?.id])
                 toast({
                     title: "Profile updated successfully!",
                     status: "success",
@@ -89,10 +89,13 @@ const EditProfile = ({ onClose, isOpen }) => {
                         <form onSubmit={formik.handleSubmit}>
                             <FormControl mb="5">
                                 <FormLabel color="white" fontSize="sm">Avatar</FormLabel>
+                                <label style={{ "color": "#F40580", "cursor": "pointer" }} for="uploadImage">{fileToUpload.name || userData.profileImageUrl || "Select file"}</label>
                                 <Input
+                                    hidden
                                     type="file"
                                     accept="image/png, image/jpeg"
                                     borderRadius="full"
+                                    id={"uploadImage"}
                                     borderColor="whiteAlpha.400"
                                     fontSize="small"
                                     color="white"

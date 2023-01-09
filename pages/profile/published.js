@@ -14,8 +14,43 @@ import ContributorGuard from '../../components/authentication/guards/Contributor
 const Published = () => {
     const { userData } = useAuth();
     const toast = useToast();
+    const { isLoading: draftsLoading, data: draftsData } = useQuery({
+        queryKey: ['drafts', userData?.id], queryFn: async () => {
+            return await PostsService.getDraftsByUserId(userData?.id);
+        }, onSuccess: (data) => {
+            console.log(data)
+        },
+        onError: (error) => {
+            toast({
+                title: "Error",
+                description: "Error fetching posts. Please refresh the page",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            })
+        },
+    }
+    )
+    const { isLoading: unpublishedLoading, data: unpublishedData } = useQuery({
+        queryKey: ['unpublished-posts', userData?.id], queryFn: async () => {
+            console.log(userData?.id)
+            return await PostsService.getUnpublishedPostsByUserId(userData?.id)
+        }, onSuccess: (data) => {
+            console.log(data)
+        },
+        onError: (error) => {
+            toast({
+                title: "Error",
+                description: "Error fetching posts. Please refresh the page",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            })
+        },
+    },
+    )
     const { isLoading, data } = useQuery({
-        queryKey: ['posts', userData?.id], queryFn: async () => {
+        queryKey: ['published-posts', userData?.id], queryFn: async () => {
             console.log(userData?.id)
             return await PostsService.getPublishedPostsByUserId(userData?.id)
         }, onSuccess: (data) => {
@@ -62,11 +97,11 @@ const Published = () => {
                                         <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">2</Tag>
                                     </Tab>
                                     <Tab>
-                                        Draft
-                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">2</Tag>    
+                                        Unpublished
+                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">2</Tag>
                                     </Tab>
                                     <Tab>
-                                        Comments
+                                        Drafts
                                         <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">2</Tag>
                                     </Tab>
                                 </TabList>
@@ -80,6 +115,7 @@ const Published = () => {
                                                     </Center>
                                                 )
                                             }
+
                                             {
                                                 data && data.map((post, index) => {
                                                     return (
@@ -88,7 +124,7 @@ const Published = () => {
                                                                 <div className={styles.content}>
                                                                     <div className={styles.text}>
                                                                         <h3>{post.title}</h3>
-                                                                        <p>{post.content.substring(0, 290)}...</p>
+                                                                        <p>{post.contentText ? post.contentText.substring(0, 290) : post.content.substring(0, 290)}...</p>
                                                                     </div>
                                                                     <div className={styles.author}>
                                                                         <Avatar size={"sm"} src={post.author.profileImageUrl} />
@@ -106,10 +142,83 @@ const Published = () => {
                                         </div>
                                     </TabPanel>
                                     <TabPanel>
-                                    <p>Draft</p>
+                                        <div className={styles.list}>
+                                            {
+                                                unpublishedLoading && (
+                                                    <Center>
+                                                        <Spinner />
+                                                    </Center>
+                                                )
+                                            }
+                                            {
+                                                unpublishedData && unpublishedData.length < 1 &&
+                                                <Center>
+                                                    Nothing to see here...
+                                                </Center>
+                                            }
+                                            {
+                                                unpublishedData && unpublishedData.map((post, index) => {
+                                                    return (
+                                                        <Link href={encodeURIComponent(`/${post.id}`)} key={index}>
+                                                            <div className={styles.newsletter}>
+                                                                <div className={styles.content}>
+                                                                    <div className={styles.text}>
+                                                                        <h3>{post.title}</h3>
+                                                                        <p>{post.content.substring(0, 290)}...</p>
+                                                                    </div>
+                                                                    <div className={styles.author}>
+                                                                        <Avatar size={"sm"} src={post.author.profileImageUrl} />
+                                                                        <p style={{ textTransform: "capitalize" }}>{post.author.displayName}{!post.readMinutes < 1 ? <span> · {post.readMinutes} mins read</span> : <span> · {"<"} 1 mins read</span>}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div className={styles.photo}>
+                                                                    <img src={post.thumbnailUrl} width={"140px"} height={"140px"} alt="" />
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+                                                    )
+                                                })
+                                            }
+                                        </div>
                                     </TabPanel>
                                     <TabPanel>
-                                    <p>Comments</p>
+                                        <div className={styles.list}>
+                                            {
+                                                draftsLoading && (
+                                                    <Center>
+                                                        <Spinner />
+                                                    </Center>
+                                                )
+                                            }
+                                            {
+                                                draftsData && draftsData.map((post, index) => {
+                                                    return (
+                                                        <Link href={encodeURIComponent(`/${post.id}`)} key={index}>
+                                                            <div className={styles.newsletter}>
+                                                                <div className={styles.content}>
+                                                                    <div className={styles.text}>
+                                                                        <h3>{post.title}</h3>
+                                                                        <p>{post.content.substring(0, 290)}...</p>
+                                                                    </div>
+                                                                    <div className={styles.author}>
+                                                                        <Avatar size={"sm"} src={post.author.profileImageUrl} />
+                                                                        <p style={{ textTransform: "capitalize" }}>{post.author.displayName}<span> · {post.readMinutes} mins read</span></p>
+                                                                    </div>
+                                                                </div>
+                                                                <div className={styles.photo}>
+                                                                    {
+                                                                        post.thumbnailUrl
+                                                                            ?
+                                                                            <img src={post.thumbnailUrl} width={"140px"} height={"140px"} alt="Nothing" />
+                                                                            : <img src={post.thumbnailUrl} width={"140px"} height={"140px"} alt="No thumbnail available for drafts" />
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+                                                    )
+                                                })
+                                            }
+                                        </div>
                                     </TabPanel>
                                 </TabPanels>
                             </Tabs>

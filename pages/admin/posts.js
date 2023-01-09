@@ -15,16 +15,72 @@ import {
     Input, FormControl, FormLabel, Heading,
     Tabs, TabList, TabPanels, Tab, TabPanel,
     Menu, MenuButton, MenuList, MenuItem,
-    useDisclosure, Modal, ModalOverlay, ModalBody, ModalContent, Stack, Textarea
+    useDisclosure, Modal, ModalOverlay, ModalBody, ModalContent, Stack, Textarea, useToast, Center, Spinner
 } from '@chakra-ui/react'
+import useAuth from '../../components/authentication/hooks/useAuth'
+import { useQuery } from '@tanstack/react-query'
+import PostsService from '../../services/posts/posts.service'
 import { AddIcon, DeleteIcon, } from '@chakra-ui/icons';
 import Header from '../../components/Header';
 import styles from '../../styles/accounts.module.css';
+import timestampToDate from '../../utils/timestamp-to-date';
 
 const AdminPosts = () => {
-
+    const { userData } = useAuth();
+    const toast = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [value, setValue] = React.useState('1')
+    const { isLoading: allPostsLoading, data: allPosts } = useQuery({
+        queryKey: ['all-posts'], queryFn: async () => {
+            return await PostsService.getAllPosts();
+        }, onSuccess: (data) => {
+            console.log(data)
+        },
+        onError: (error) => {
+            toast({
+                title: "Error",
+                description: "Error fetching posts. Please refresh the page",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            })
+        },
+    }
+    )
+    const { isLoading: allUnpublishedPostsLoading, data: allUnpublishedPosts } = useQuery({
+        queryKey: ['all-unpublished-posts'], queryFn: async () => {
+            return await PostsService.getAllUnpublishedPosts()
+        }, onSuccess: (data) => {
+            console.log(data)
+        },
+        onError: (error) => {
+            toast({
+                title: "Error",
+                description: "Error fetching posts. Please refresh the page",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            })
+        },
+    },
+    )
+    const { isLoading: allPublishedPostsLoading, data: allPublishedPosts } = useQuery({
+        queryKey: ['all-published-posts'], queryFn: async () => {
+            return await PostsService.getAllPublishedPosts()
+        }, onSuccess: (data) => {
+            console.log(data)
+        },
+        onError: (error) => {
+            toast({
+                title: "Error",
+                description: "Error fetching posts. Please refresh the page",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            })
+        },
+    },
+    )
 
     return (
         <div className={styles.accounts}>
@@ -63,11 +119,7 @@ const AdminPosts = () => {
                                     <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">120</Tag>
                                 </Tab>
                                 <Tab>
-                                    Draft
-                                    <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">2</Tag>
-                                </Tab>
-                                <Tab>
-                                    Unpublished
+                                    Published
                                     <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">2</Tag>
                                 </Tab>
                                 <Tab>
@@ -83,148 +135,230 @@ const AdminPosts = () => {
                                                 <Tr background="#333333" color="whiteAlpha.700">
                                                     <Th>Title</Th>
                                                     <Th>Author</Th>
-                                                    <Th>Email address</Th>
+                                                    <Th>Publish Date</Th>
                                                     <Th>Status</Th>
                                                     <Th isNumeric></Th>
                                                 </Tr>
                                             </Thead>
                                             <Tbody borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
-                                                <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
-                                                    <Td>Lorem ipsum dolor sit amet</Td>
-                                                    <Td>Solomon Brown</Td>
-                                                    <Td fontSize="sm" color="#BDBDBD">Published <br></br> <Text as="span">20 Jun 2022</Text></Td>
-                                                    <Td>
-                                                        <Tag background={"#27AE60"} color="whiteAlpha.900">Published</Tag>
-                                                    </Td>
-                                                    <Td display={"flex"} justifyContent="flex-end">
-                                                        <Menu isLazy>
-                                                            <MenuButton>
-                                                                <Image src="/Vector (23).svg" width="13px" walt="" />
-                                                            </MenuButton>
-                                                            <MenuList background="black" borderColor="#1B1919" minW={"40px"} py="5">
-                                                                <MenuItem
-                                                                    mb="3"
-                                                                    background="#000000"
-                                                                    _hover={{ background: "white", color: "black" }}
-                                                                    fontSize={"sm"}
-                                                                >
-                                                                    Edit
-                                                                </MenuItem>
-                                                                <MenuItem
-                                                                    mb="3"
-                                                                    background="#000000"
-                                                                    _hover={{ background: "white", color: "black" }}
-                                                                    fontSize={"sm"}
-                                                                >
-                                                                    View
-                                                                </MenuItem>
-                                                                <MenuItem
-                                                                    background="#000000"
-                                                                    _hover={{ background: "white", color: "black" }}
-                                                                    fontSize={"sm"}
-                                                                >
-                                                                    Unpublish
-                                                                </MenuItem>
-                                                            </MenuList>
-                                                        </Menu>
-                                                    </Td>
-                                                </Tr>
-                                                <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
-                                                    <Td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ad</Td>
-                                                    <Td>Babatunde</Td>
-                                                    <Td fontSize="sm" color="#BDBDBD">Published <br></br> <Text as="span">20 Jun 2022</Text></Td>
-                                                    <Td isNumeric>
-                                                        <Tag background={"#4F4F4F"} color="whiteAlpha.900">Trashed</Tag>
-                                                    </Td>
-                                                    <Td display={"flex"} justifyContent="flex-end">
-                                                        <Image src="/Vector (23).svg" width="13px" walt="" />
-                                                    </Td>
-                                                </Tr>
-                                                <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
-                                                    <Td>Lorem ipsum dolor sit amet</Td>
-                                                    <Td>Ada samuel</Td>
-                                                    <Td fontSize="sm" color="#BDBDBD">Published <br></br> <Text as="span">20 Jun 2022</Text></Td>
-                                                    <Td>
-                                                        <Tag background={"#F2994A"} color="whiteAlpha.900">In draft</Tag>
-                                                    </Td>
-                                                    <Td display={"flex"} justifyContent="flex-end">
-                                                        <Image src="/Vector (23).svg" width="13px" walt="" />
-                                                    </Td>
-                                                </Tr>
-                                                <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
-                                                    <Td>Lorem ipsum dolor sit amet</Td>
-                                                    <Td>Solomon Brown</Td>
-                                                    <Td fontSize="sm" color="#BDBDBD">Published <br></br> <Text as="span">20 Jun 2022</Text></Td>
-                                                    <Td>
-                                                        <Tag background={"#27AE60"} color="whiteAlpha.900">Published</Tag>
-                                                    </Td>
-                                                    <Td display={"flex"} justifyContent="flex-end">
-                                                        <Menu isLazy>
-                                                            <MenuButton>
-                                                                <Image src="/Vector (23).svg" width="13px" walt="" />
-                                                            </MenuButton>
-                                                            <MenuList background="black" borderColor="#1B1919" minW={"40px"} py="5">
-                                                                <MenuItem
-                                                                    mb="3"
-                                                                    background="#000000"
-                                                                    _hover={{ background: "white", color: "black" }}
-                                                                    fontSize={"sm"}
-                                                                >
-                                                                    Edit
-                                                                </MenuItem>
-                                                                <MenuItem
-                                                                    mb="3"
-                                                                    background="#000000"
-                                                                    _hover={{ background: "white", color: "black" }}
-                                                                    fontSize={"sm"}
-                                                                >
-                                                                    View
-                                                                </MenuItem>
-                                                                <MenuItem
-                                                                    background="#000000"
-                                                                    _hover={{ background: "white", color: "black" }}
-                                                                    fontSize={"sm"}
-                                                                >
-                                                                    Unpublish
-                                                                </MenuItem>
-                                                            </MenuList>
-                                                        </Menu>
-                                                    </Td>
-                                                </Tr>
-                                                <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
-                                                    <Td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ad</Td>
-                                                    <Td>Babatunde</Td>
-                                                    <Td fontSize="sm" color="#BDBDBD">Published <br></br> <Text as="span">20 Jun 2022</Text></Td>
-                                                    <Td isNumeric>
-                                                        <Tag background={"#4F4F4F"} color="whiteAlpha.900">Trashed</Tag>
-                                                    </Td>
-                                                    <Td display={"flex"} justifyContent="flex-end">
-                                                        <Image src="/Vector (23).svg" width="13px" walt="" />
-                                                    </Td>
-                                                </Tr>
-                                                <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
-                                                    <Td>Lorem ipsum dolor sit amet</Td>
-                                                    <Td>Ada samuel</Td>
-                                                    <Td fontSize="sm" color="#BDBDBD">Published <br></br> <Text as="span">20 Jun 2022</Text></Td>
-                                                    <Td>
-                                                        <Tag background={"#F2994A"} color="whiteAlpha.900">In draft</Tag>
-                                                    </Td>
-                                                    <Td display={"flex"} justifyContent="flex-end">
-                                                        <Image src="/Vector (23).svg" width="13px" walt="" />
-                                                    </Td>
-                                                </Tr>
+                                                {
+                                                    allPostsLoading && (
+                                                        <Center>
+                                                            <Spinner />
+                                                        </Center>
+                                                    )
+                                                }
+                                                {
+                                                    allPosts && allPosts.map((post) => {
+                                                        return (
+                                                            <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
+                                                                <Td>{post.title}</Td>
+                                                                <Td>{post.author.displayName}</Td>
+                                                                {post.isPublished && <Td fontSize="sm" color="#BDBDBD">Published <br></br> <Text as="span">{timestampToDate(post.publishedAt, true) || timestampToDate(post.lastUpdated, true) || timestampToDate(post.createdAt, true)}</Text></Td>}
+                                                                {!post.isPublished && <Td fontSize="sm" color="#BDBDBD">N/A</Td>}
+                                                                <Td>
+                                                                    {post.isPublished && <Tag background={"#27AE60"} color="whiteAlpha.900">Published</Tag>}
+                                                                    {!post.isPublished && <Tag background={"#4F4F4F"} color="whiteAlpha.900">Unpublished</Tag>}
+
+                                                                </Td>
+                                                                <Td display={"flex"} justifyContent="flex-end">
+                                                                    <Menu isLazy>
+                                                                        <MenuButton>
+                                                                            <Image src="/Vector (23).svg" width="13px" walt="" />
+                                                                        </MenuButton>
+                                                                        <MenuList background="black" borderColor="#1B1919" minW={"40px"} py="5">
+                                                                            <MenuItem
+                                                                                mb="3"
+                                                                                background="#000000"
+                                                                                _hover={{ background: "white", color: "black" }}
+                                                                                fontSize={"sm"}
+                                                                            >
+                                                                                Edit
+                                                                            </MenuItem>
+                                                                            <MenuItem
+                                                                                mb="3"
+                                                                                background="#000000"
+                                                                                _hover={{ background: "white", color: "black" }}
+                                                                                fontSize={"sm"}
+                                                                            >
+                                                                                View
+                                                                            </MenuItem>
+                                                                            {
+                                                                                post.isPublished &&
+                                                                                <MenuItem
+                                                                                    background="#000000"
+                                                                                    _hover={{ background: "white", color: "black" }}
+                                                                                    fontSize={"sm"}
+                                                                                >
+                                                                                    Unpublish
+                                                                                </MenuItem>
+                                                                            }
+                                                                            {
+                                                                                !post.isPublished &&
+                                                                                <MenuItem
+                                                                                    background="#000000"
+                                                                                    _hover={{ background: "white", color: "black" }}
+                                                                                    fontSize={"sm"}
+                                                                                >
+                                                                                    Publish
+                                                                                </MenuItem>
+                                                                            }
+                                                                        </MenuList>
+                                                                    </Menu>
+                                                                </Td>
+                                                            </Tr>
+                                                        )
+                                                    })
+                                                }
                                             </Tbody>
                                         </Table>
                                     </TableContainer>
                                 </TabPanel>
                                 <TabPanel>
-                                    <p>drafts!</p>
+                                    <TableContainer mt="2rem" color="whiteAlpha.900">
+                                        <Table variant='unstyled'>
+                                            <Thead>
+                                                <Tr background="#333333" color="whiteAlpha.700">
+                                                    <Th>Title</Th>
+                                                    <Th>Author</Th>
+                                                    <Th>Publish Date</Th>
+                                                    <Th>Status</Th>
+                                                    <Th isNumeric></Th>
+                                                </Tr>
+                                            </Thead>
+                                            <Tbody borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
+                                                {
+                                                    allPublishedPostsLoading && (
+                                                        <Center>
+                                                            <Spinner />
+                                                        </Center>
+                                                    )
+                                                }
+                                                {
+                                                    allPublishedPosts && allPublishedPosts.map((post) => {
+                                                        return (
+                                                            <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
+                                                                <Td>{post.title}</Td>
+                                                                <Td>{post.author.displayName}</Td>
+                                                                {post.isPublished && <Td fontSize="sm" color="#BDBDBD">Published <br></br> <Text as="span">{timestampToDate(post.publishedAt, true) || timestampToDate(post.lastUpdated, true) || timestampToDate(post.createdAt, true)}</Text></Td>}
+                                                                {!post.isPublished && <Td fontSize="sm" color="#BDBDBD">N/A</Td>}
+                                                                <Td>
+                                                                    {post.isPublished && <Tag background={"#27AE60"} color="whiteAlpha.900">Published</Tag>}
+                                                                    {!post.isPublished && <Tag background={"#4F4F4F"} color="whiteAlpha.900">Unpublished</Tag>}
+
+                                                                </Td>
+                                                                <Td display={"flex"} justifyContent="flex-end">
+                                                                    <Menu isLazy>
+                                                                        <MenuButton>
+                                                                            <Image src="/Vector (23).svg" width="13px" walt="" />
+                                                                        </MenuButton>
+                                                                        <MenuList background="black" borderColor="#1B1919" minW={"40px"} py="5">
+                                                                            <MenuItem
+                                                                                mb="3"
+                                                                                background="#000000"
+                                                                                _hover={{ background: "white", color: "black" }}
+                                                                                fontSize={"sm"}
+                                                                            >
+                                                                                Edit
+                                                                            </MenuItem>
+                                                                            <MenuItem
+                                                                                mb="3"
+                                                                                background="#000000"
+                                                                                _hover={{ background: "white", color: "black" }}
+                                                                                fontSize={"sm"}
+                                                                            >
+                                                                                View
+                                                                            </MenuItem>
+                                                                            <MenuItem
+                                                                                background="#000000"
+                                                                                _hover={{ background: "white", color: "black" }}
+                                                                                fontSize={"sm"}
+                                                                            >
+                                                                                Unpublish
+                                                                            </MenuItem>
+                                                                        </MenuList>
+                                                                    </Menu>
+                                                                </Td>
+                                                            </Tr>
+                                                        )
+                                                    })
+                                                }
+                                            </Tbody>
+                                        </Table>
+                                    </TableContainer>
                                 </TabPanel>
                                 <TabPanel>
-                                    <p>Published!</p>
-                                </TabPanel>
-                                <TabPanel>
-                                    <p>Comment!</p>
+                                    <TableContainer mt="2rem" color="whiteAlpha.900">
+                                        <Table variant='unstyled'>
+                                            <Thead>
+                                                <Tr background="#333333" color="whiteAlpha.700">
+                                                    <Th>Title</Th>
+                                                    <Th>Author</Th>
+                                                    <Th>Publish Date</Th>
+                                                    <Th>Status</Th>
+                                                    <Th isNumeric></Th>
+                                                </Tr>
+                                            </Thead>
+                                            <Tbody borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
+                                                {
+                                                    allUnpublishedPostsLoading && (
+                                                        <Center>
+                                                            <Spinner />
+                                                        </Center>
+                                                    )
+                                                }
+                                                {
+                                                    allUnpublishedPosts && allUnpublishedPosts.map((post) => {
+                                                        return (
+                                                            <Tr borderBottom={"1px"} borderColor={" rgba(251, 4, 123, 0.5)"}>
+                                                                <Td>{post.title}</Td>
+                                                                <Td>{post.author.displayName}</Td>
+                                                                {post.isPublished && <Td fontSize="sm" color="#BDBDBD">Published <br></br> <Text as="span">{timestampToDate(post.publishedAt, true) || timestampToDate(post.lastUpdated, true) || timestampToDate(post.createdAt, true)}</Text></Td>}
+                                                                {!post.isPublished && <Td fontSize="sm" color="#BDBDBD">N/A</Td>}
+                                                                <Td>
+                                                                    {post.isPublished && <Tag background={"#27AE60"} color="whiteAlpha.900">Published</Tag>}
+                                                                    {!post.isPublished && <Tag background={"#4F4F4F"} color="whiteAlpha.900">Unpublished</Tag>}
+
+                                                                </Td>
+                                                                <Td display={"flex"} justifyContent="flex-end">
+                                                                    <Menu isLazy>
+                                                                        <MenuButton>
+                                                                            <Image src="/Vector (23).svg" width="13px" walt="" />
+                                                                        </MenuButton>
+                                                                        <MenuList background="black" borderColor="#1B1919" minW={"40px"} py="5">
+                                                                            <MenuItem
+                                                                                mb="3"
+                                                                                background="#000000"
+                                                                                _hover={{ background: "white", color: "black" }}
+                                                                                fontSize={"sm"}
+                                                                            >
+                                                                                Edit
+                                                                            </MenuItem>
+                                                                            <MenuItem
+                                                                                mb="3"
+                                                                                background="#000000"
+                                                                                _hover={{ background: "white", color: "black" }}
+                                                                                fontSize={"sm"}
+                                                                            >
+                                                                                View
+                                                                            </MenuItem>
+                                                                            <MenuItem
+                                                                                background="#000000"
+                                                                                _hover={{ background: "white", color: "black" }}
+                                                                                fontSize={"sm"}
+                                                                            >
+                                                                                Unpublish
+                                                                            </MenuItem>
+                                                                        </MenuList>
+                                                                    </Menu>
+                                                                </Td>
+                                                            </Tr>
+                                                        )
+                                                    })
+                                                }
+                                            </Tbody>
+                                        </Table>
+                                    </TableContainer>
                                 </TabPanel>
                             </TabPanels>
                         </Tabs>

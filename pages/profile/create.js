@@ -34,6 +34,7 @@ const Create = () => {
         //return s.split(' ').filter(String).length; - this can also be used
     }
 
+
     const { error, mutate, isLoading } = useMutation(async (draftData) => {
         let authorData = {
             id: userData?.id,
@@ -47,7 +48,7 @@ const Create = () => {
          * Going beyond reading 500 words per minute can compromise the quality of reading and your comprehension.
          *  There are ways to balance reading pace and comprehension.
          */
-        return await PostsService.saveDraft(authorData, { ...draftData, content: htmlBlockState, contentText: convertHtmlToText(htmlBlockState), readMinutes: countWords(convertHtmlToText(htmlBlockState)) / 200 }, setDraftData)
+        return await PostsService.saveDraft(authorData, { ...draftData, content: htmlBlockState, contentText: convertHtmlToText(htmlBlockState), readMinutes: Math.ceil(countWords(convertHtmlToText(htmlBlockState)) / 200) }, setDraftData)
     },
         {
             onSuccess: () => {
@@ -61,7 +62,7 @@ const Create = () => {
             displayName: userData?.displayName,
             profileImageUrl: userData?.profileImageUrl,
         }
-        return await PostsService.uploadPost(authorData, { ...postData, content: htmlBlockState, contentText: convertHtmlToText(htmlBlockState), readMinutes: countWords(convertHtmlToText(htmlBlockState)) / 200 }, postImage)
+        return await PostsService.uploadPost(authorData, { ...postData, content: htmlBlockState, isPublished: false, contentText: convertHtmlToText(htmlBlockState), readMinutes: Math.ceil(countWords(convertHtmlToText(htmlBlockState)) / 200) }, postImage)
     },
         {
             onSuccess: () => {

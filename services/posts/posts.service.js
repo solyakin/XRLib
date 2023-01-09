@@ -13,16 +13,22 @@ const postsCollection = collection(db, "posts")
 class PostsService {
 
     static async getAllPosts() {
-        return await getDoc(doc(postsCollection)).then(
-            async (doc) => {
-                if (doc.exists()) {
-                    return doc.data();
-                } else {
-                    throw new Error("No posts");
-                }
-            }
-        );
+        let posts = [];
+        const q = query(postsCollection)
+        try {
+            await getDocs(q)
+                .then(async (data) => {
+                    data.docs.map(doc => {
+                        posts.push(doc.data());
+                    })
+                })
+        }
+        catch (error) {
+            throw new Error(`Unable to get posts: ${error}`);
+        }
+        return posts;
     }
+
     static async getPost(postId) {
         return await getDoc(doc(postsCollection, postId)).then(
             async (doc) => {
@@ -33,6 +39,40 @@ class PostsService {
                 }
             }
         );
+    }
+    static async getAllUnpublishedPosts() {
+        const qWithUnpublishedOnly = query(postsCollection, where("isPublished", "==", false))
+        let posts = [];
+        try {
+            await getDocs(qWithUnpublishedOnly)
+                .then(async (data) => {
+                    data.docs.map(doc => {
+                        posts.push(doc.data());
+                    })
+                })
+        }
+        catch (error) {
+            throw new Error(`Unable to get posts: ${error}`);
+        }
+        return posts;
+
+    }
+    static async getAllPublishedPosts() {
+        const qWithPublishedOnly = query(postsCollection, where("isPublished", "==", true))
+        let posts = [];
+        try {
+            await getDocs(qWithPublishedOnly)
+                .then(async (data) => {
+                    data.docs.map(doc => {
+                        posts.push(doc.data());
+                    })
+                })
+        }
+        catch (error) {
+            throw new Error(`Unable to get posts: ${error}`);
+        }
+        return posts;
+
     }
     static async uploadImageForPostAndGetUrl(fileName, file) {
         const storageRef = ref(firebaseStorage, `/temp/${fileName}`);
@@ -91,6 +131,47 @@ class PostsService {
         const q = query(postsCollection, where("isPublished", "==", true))
         let snapshot = await getCountFromServer(q)
         return snapshot.data().count;
+    }
+    static async getUnpublishedPostsByUserId(userId) {
+        const q = query(postsCollection, where("author.id", "==", userId))
+        const qWithUnpublishedOnly = query(q, where("isPublished", "==", false))
+        let posts = [];
+        try {
+            await getDocs(qWithUnpublishedOnly)
+                .then(async (data) => {
+                    data.docs.map(doc => {
+                        posts.push(doc.data());
+                    })
+                })
+        }
+        catch (error) {
+            throw new Error(`Unable to get posts: ${error}`);
+        }
+        return posts;
+
+    }
+    static async getPublishedPostsCount() {
+        const q = query(postsCollection, where("isPublished", "==", false))
+        let snapshot = await getCountFromServer(q)
+        return snapshot.data().count;
+    }
+
+    static async getDraftsByUserId(userId) {
+        const draftsCollection = collection(db, `users`, `${userId}`, 'drafts');
+        const q = query(draftsCollection)
+        let posts = [];
+        try {
+            await getDocs(q)
+                .then(async (data) => {
+                    data.docs.map(doc => {
+                        posts.push(doc.data());
+                    })
+                })
+        }
+        catch (error) {
+            throw new Error(`Unable to get posts: ${error}`);
+        }
+        return posts;
     }
 
     static async getPostsByUserId(userId) {

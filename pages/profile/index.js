@@ -10,12 +10,23 @@ import Link from 'next/link'
 import EditProfile from '../../components/EditProfile'
 import PostsService from '../../services/posts/posts.service';
 import SignedInGuard from '../../components/authentication/guards/SignedInGuard';
+import UserService from '../../services/users/users.service';
 
 const Profile = () => {
 
-    const { currentUser, userData } = useAuth();
+    const { currentUser, userData: userD, setUserData } = useAuth();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
+
+    const { data: userData } = useQuery({
+        queryKey: ['profile', userD?.id], queryFn: async () => {
+            return await UserService.getUserData(userD?.id)
+        }, onSuccess: (data) => {
+            setUserData(data)
+        },
+
+    },
+    )
 
     const { isLoading, data: postCount } = useQuery({
         queryKey: ['post-count', userData?.id], queryFn: async () => {
@@ -51,8 +62,8 @@ const Profile = () => {
                         <div className="">
                             <Heading mt="10" mb="4">PROFILE</Heading>
                             <div>
-                                <Grid gridTemplateColumns={{ lg : '310px 1fr 310px', sm : "block"}} gap={2}>
-                                    <GridItem border="1px" borderColor="whiteAlpha.500" borderRadius="3xl" p={3} display={{lg : "block", sm : "none"}}>
+                                <Grid gridTemplateColumns={{ lg: '310px 1fr 310px', sm: "block" }} gap={2}>
+                                    <GridItem border="1px" borderColor="whiteAlpha.500" borderRadius="3xl" p={3} display={{ lg: "block", sm: "none" }}>
                                         <Text mt="4">Summary</Text>
                                         <Text fontSize="14px">{userData?.profileSummary}</Text>
                                         <Box marginTop="14rem">
@@ -96,7 +107,8 @@ const Profile = () => {
                                                             <Text fontSize="14px" ml="2">Linkedin</Text>
                                                         </Link>
 
-                                                    </Box>}
+                                                    </Box>
+                                                }
                                             </Box>
                                         </Box>
                                     </GridItem>
@@ -143,7 +155,7 @@ const Profile = () => {
                                                 </Button>
                                             </HStack>
                                             <Box mt="5" pb="6" borderTop="1px" borderColor="whiteAlpha.500">
-                                                <HStack mt="3" display={{sm : "block"}}>
+                                                <HStack mt="3" display={{ sm: "block" }}>
                                                     <HStack flex="0.5">
                                                         <Image src="/photo.png" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
                                                         <Box maxW="170px">
@@ -151,7 +163,7 @@ const Profile = () => {
                                                             <Text fontSize="14px">{currentUser?.displayName}</Text>
                                                         </Box>
                                                     </HStack>
-                                                    <HStack flex="0.5" mt={{sm : "5"}}>
+                                                    <HStack flex="0.5" mt={{ sm: "5" }}>
                                                         <Image src="/Group.svg" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
                                                         <Box maxW="170px">
                                                             <Text fontSize="14px">Display Name </Text>
@@ -159,7 +171,7 @@ const Profile = () => {
                                                         </Box>
                                                     </HStack>
                                                 </HStack>
-                                                <HStack mt="6" gap="3" display={{sm : "block"}}>
+                                                <HStack mt="6" gap="3" display={{ sm: "block" }}>
                                                     <HStack flex="0.5">
                                                         <Image src="/mail.svg" width="16" height="16" alt="" style={{ marginRight: "10px" }} />
                                                         <Box maxW="170px">
