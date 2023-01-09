@@ -16,7 +16,7 @@ const Editor2 = dynamic(() => import('../../utils/Editor2'), {
     ssr: false,
 });
 
-const Create = () => {
+const EditPost = () => {
     const toast = useToast();
     const queryClient = useQueryClient();
     const { userData } = useAuth();
@@ -186,4 +186,4 @@ const Create = () => {
     )
 }
 
-export default Create;
+export default EditPost;

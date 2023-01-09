@@ -93,7 +93,6 @@ const CompleteProfile = ({ profileClose, profileIsOpen }) => {
         },
     })
 
-    console.log(form_steps)
     return (
         <div className=''>
             <Modal onClose={profileClose} isOpen={profileIsOpen} isCentered closeOnOverlayClick={false} closeOnEsc={false}>
