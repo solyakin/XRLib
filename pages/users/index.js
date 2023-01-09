@@ -20,10 +20,12 @@ import AdminTable from '../../components/AdminTable';
 import EditorTable from '../../components/EditorTable';
 import ContributorTable from '../../components/ContributorTable';
 import AdminGuard from '../../components/authentication/guards/AdminGuard'
+import AssignRole from '../../components/AssignRole';
 
 const Accounts = () => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen : assignIsOpen, onOpen : assignOpen, onClose : assignClose } = useDisclosure();
     const [value, setValue] = React.useState('1')
     const { data: adminData } = useQuery({
         queryKey: ['admin-users'], queryFn: async () => {
@@ -79,7 +81,7 @@ const Accounts = () => {
                                     borderColor: "white"
                                 }}
                             >
-                                <Image src='/Vector (22).svg' width="9px" alt='' mr="10px" />
+                                <Image src='/Vector (22).svg' width="10" height="10" alt='' mr="10px" />
                                 <Text fontSize="xs">Add User</Text>
                             </Button>
                         </HStack>
@@ -101,7 +103,7 @@ const Accounts = () => {
                                 </TabList>
                                 <TabPanels>
                                     <TabPanel>
-                                        <AdminTable />
+                                        <AdminTable assignOpen={assignOpen} />
                                     </TabPanel>
                                     <TabPanel>
                                         <EditorTable />
@@ -150,6 +152,7 @@ const Accounts = () => {
                         </ModalBody>
                     </ModalContent>
                 </Modal>
+                <AssignRole assignIsOpen={assignIsOpen} assignClose={assignClose}/>
             </main>
         </div>
     )
