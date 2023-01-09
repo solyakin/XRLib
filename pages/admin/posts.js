@@ -20,7 +20,6 @@ import {
 import useAuth from '../../components/authentication/hooks/useAuth'
 import { useQuery } from '@tanstack/react-query'
 import PostsService from '../../services/posts/posts.service'
-import { AddIcon, DeleteIcon, } from '@chakra-ui/icons';
 import Header from '../../components/Header';
 import styles from '../../styles/accounts.module.css';
 import timestampToDate from '../../utils/timestamp-to-date';
