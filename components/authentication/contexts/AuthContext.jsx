@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
         queryKey: ['profile', userData?.id], queryFn: async () => {
             return await UserService.getUserData(userData?.id)
         }, onSuccess: (data) => {
-            setUserData(data)
+           // setUserData(data)
         },
 
     },

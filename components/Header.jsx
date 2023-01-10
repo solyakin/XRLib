@@ -16,6 +16,7 @@ import {
     MenuDivider,
     Menu,
     Box,
+    Text,
 } from '@chakra-ui/react'
 import { ChevronDownIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { useRouter } from "next/router";
@@ -100,29 +101,72 @@ const Header = () => {
                                     <MenuList background="#000000" borderColor="#1B1919" minW="2.5" >
                                         <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{ background: "white", color: "black" }}>
                                             <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
-                                            <Link href="/profile">Profile</Link>
+                                            {!(router.asPath === "/profile") && <Link href="/profile">Profile</Link>}
+                                            {router.asPath === "/profile" && <Text>Profile</Text>}
                                         </MenuItem>
-                                        {userData?.role === "contributor" && <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{ background: "white", color: "black" }}>
-                                            <Image src="/Vector (19).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
-                                            <Link href="/profile/my-post">My Posts</Link>
-                                        </MenuItem>}
+                                        <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{ background: "white", color: "black" }}>
+
+                                            {!(router.asPath === "/profile/my-post") && (
+                                                <>
+                                                    {userData?.role === "contributor" &&
+                                                        <>
+                                                            <Image src="/Vector (19).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
+                                                            <Link href="/profile/my-post">My Posts</Link>
+                                                        </>
+                                                    }
+                                                </>
+                                            )}
+                                            {(router.asPath === "/profile/my-post") && (
+                                                <>
+                                                    {userData?.role === "contributor" &&
+                                                        <>
+                                                            <Image src="/Vector (19).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
+                                                            <Text>My Posts</Text>
+                                                        </>
+                                                    }
+                                                </>
+                                            )}
+                                        </MenuItem>
+
                                         {/* <MenuItem fontSize="14px" background="#000000" mb="4" _hover={{ background: "white", color: "black" }}>
                                             <Image src="/Vector (21).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
                                             <Link href="#">Stats</Link>
                                         </MenuItem> */}
-                                        {
-                                            (userData?.role === "admin") &&
-                                            <MenuItem fontSize="14px" background="#000000" mb="4" _hover={{ background: "white", color: "black" }}>
-                                                <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
-                                                <Link href="/users">Users</Link>
-                                            </MenuItem>
+                                        {!(router.asPath === "/users") && (
+                                            <>
+                                                {
+                                                    (userData?.role === "admin") &&
+                                                    <MenuItem fontSize="14px" background="#000000" mb="4" _hover={{ background: "white", color: "black" }}>
+                                                        <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
+                                                        <Link href="/users">Users</Link>
+                                                    </MenuItem>}
+                                            </>
+                                        )
                                         }
-                                        {(userData?.role === "editor" || userData?.role === "admin") &&
+                                        {(router.asPath === "/users") && (
+                                            <>
+                                                {
+                                                    (userData?.role === "admin") &&
+                                                    <MenuItem fontSize="14px" background="#000000" mb="4" _hover={{ background: "white", color: "black" }}>
+                                                        <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
+                                                        <Text>Users</Text>
+                                                    </MenuItem>}
+                                            </>
+                                        )
+                                        }
+
+                                        {!(router.asPath === "/admin/posts") && (<>{(userData?.role === "editor" || userData?.role === "admin") &&
                                             <MenuItem fontSize="14px" background="#000000" _hover={{ background: "white", color: "black" }}>
                                                 <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
                                                 <Link href="/admin/posts">Repository</Link>
                                             </MenuItem>
-                                        }
+                                        }</>)}
+                                        {(router.asPath === "/admin/posts") && (<>{(userData?.role === "editor" || userData?.role === "admin") &&
+                                            <MenuItem fontSize="14px" background="#000000" _hover={{ background: "white", color: "black" }}>
+                                                <Image src="/Vector (18).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
+                                                <Text>Repository</Text>
+                                            </MenuItem>
+                                        }</>)}
                                         <MenuDivider background={"white"} opacity="1" color={"white"} />
                                         <MenuItem background="#000000" fontSize="14px">
                                             <Box

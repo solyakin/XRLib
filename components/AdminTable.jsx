@@ -1,17 +1,15 @@
-import { AddIcon, DeleteIcon } from "@chakra-ui/icons"
+import { AddIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons"
 import { TableContainer, Table, Thead, Tr, Th, Tbody, Td, Menu, MenuButton, MenuList, MenuItem, Image } from "@chakra-ui/react"
 import { useQuery } from "@tanstack/react-query"
-import UserService from "../services/users/users.service"
+import { useRouter } from "next/router"
+import useAuth from "./authentication/hooks/useAuth"
 // import useAuth from "./authentication/hooks/useAuth"
 
-const AdminTable = ({ mutateRole, assignOpen }) => {
+const AdminTable = ({ mutateRole, assignOpen, setSelectedUser }) => {
     const { userData } = useAuth();
+    const router = useRouter();
     const { data } = useQuery({
-        queryKey: ['admin-users'], queryFn: async () => {
-            return await UserService.getAllUsersByRole("admin")
-        }, onSuccess: (data) => {
-
-        },
+        queryKey: ['admin-users']
     },
     )
 
@@ -41,7 +39,11 @@ const AdminTable = ({ mutateRole, assignOpen }) => {
                                             </MenuButton>
                                             <MenuList background="black" borderColor="#1B1919" minW={"40px"} py="5">
                                                 <MenuItem
-                                                    onClick={assignOpen}
+                                                    onClick={() => {
+                                                        assignOpen();
+                                                        setSelectedUser(user)
+                                                    }}
+
                                                     icon={<AddIcon />}
                                                     mb="3"
                                                     background="#000000"
@@ -51,12 +53,13 @@ const AdminTable = ({ mutateRole, assignOpen }) => {
                                                     Assign Role
                                                 </MenuItem>
                                                 <MenuItem
-                                                    icon={<DeleteIcon color={"red"} />}
+                                                    icon={<ViewIcon />}
                                                     background="#000000"
+                                                    onClick={() => router.push({ pathname: `/${user.displayName}` })}
                                                     _hover={{ background: "white", color: "black" }}
                                                     fontSize={"sm"}
                                                 >
-                                                    Delete User
+                                                    View Profile
                                                 </MenuItem>
                                             </MenuList>
                                         </Menu>

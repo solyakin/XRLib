@@ -25,6 +25,31 @@ class UserService {
             }
         );
     }
+    static async checkDisplayNameExists(displayName) {
+        const q = query(usersCollection, where("displayName", "==", displayName))
+        let snapshot = await getCountFromServer(q)
+        return snapshot.data().count > 0;
+    }
+    static async checkMemberWithEmailExistsAndReturnMember(email) {
+        if (!email) return null
+        const q = query(usersCollection, where("role", "==", "member"))
+        const moreQ = query(q, where("email", "==", email))
+        let users = [];
+        try {
+            await getDocs(moreQ)
+                .then(async (data) => {
+                    data.docs.map(doc => {
+                        //console.log(doc.data())
+                        users.push(doc.data());
+                    })
+                })
+        }
+        catch (error) {
+            throw new Error(`Unable to get users: ${error}`);
+        }
+        return users[0];
+
+    }
     /**
      * 
      * @param {Role} role 
@@ -117,7 +142,7 @@ class UserService {
     }
 
     static async updateUserRole(userId, newRole,) {
-        const existingRoles = ["member", "admin", "editor"]
+        const existingRoles = ["member", "admin", "editor", "contributor"]
         if (!existingRoles.find((role) => role === newRole)) throw new Error("Invalid Role")
         updateDoc(doc(usersCollection, userId), { role: newRole })
     }

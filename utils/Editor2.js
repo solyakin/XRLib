@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { stateToHTML } from "draft-js-export-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState } from "draft-js"
@@ -9,11 +9,13 @@ import { Box } from "@chakra-ui/react";
 import PostsService from "../services/posts/posts.service";
 import { DEFAULT_HTML_CONVERSION_OPTIONS } from "../config/draftjs-html-conversion.config";
 
-const config = {
-    image: { uploadCallback: () => console.log("callback called") },
-};
+
+
+
 const Editor2 = ({ setHtmlBlockState, initialEditorState, }) => {
-    const [editorState, setEditorState] = useState(initialEditorState || EditorState.createEmpty()); // create custom type for textState
+
+    const [editorState, setEditorState] = useState(EditorState.createEmpty()); // create custom type for textState
+    const [initialized, setInitialized] = useState(false)
     //const [htmlBlockState, setHtmlBlockState] = useState("")
 
     const handleTextChange = (currentTextState) => {
@@ -44,6 +46,18 @@ const Editor2 = ({ setHtmlBlockState, initialEditorState, }) => {
             reader.readAsDataURL(file);
         });
     };
+    // Check if state update from fetched content has already been made and don't reset state every single render
+    useEffect(() => {
+        if (initialEditorState !== EditorState.createEmpty()) {
+            setEditorState(initialEditorState)
+            setInitialized(true)
+        }
+
+        return () => {
+            setInitialized(false)
+            setEditorState(EditorState.createEmpty())
+        }
+    }, [initialEditorState])
 
     return (
         <Box zIndex={3}>

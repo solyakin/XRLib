@@ -24,6 +24,7 @@ const EditProfile = ({ onClose, isOpen }) => {
     const { userData } = useAuth();
     const queryClient = useQueryClient();
     const toast = useToast();
+    const [displayNameExists, setDisplayNameExists] = useState(false)
     const [fileToUpload, setFileToUpload] = useState(userData.profileImageUrl || null)
     const formik = useFormik({
         initialValues: {
@@ -104,10 +105,28 @@ const EditProfile = ({ onClose, isOpen }) => {
                             <HStack alignItems="center" gap="6" mb="5">
                                 <FormControl>
                                     <FormLabel color="white" fontSize="sm">Display Name</FormLabel>
-                                    <Input type="text" name='displayName' value={formik.values.displayName} onChange={formik.handleChange} onBlur={formik.handleBlur} placeholder='AS' borderRadius="full" borderColor="whiteAlpha.400" fontSize="small" color="white" outline="none" />
+                                    <Input type="text" name='displayName' value={formik.values.displayName} onChange={formik.handleChange} onBlur={async (e) => {
+                                        formik.handleBlur(e);
+                                        let displayNameExistsVal = await UserService.checkDisplayNameExists(formik.values.displayName)
+                                        let isItYourUserName = formik.values.displayName === formik.initialValues.displayName
+                                        setDisplayNameExists(isItYourUserName ? false : displayNameExistsVal)
+                                    }} placeholder='AS' borderRadius="full" borderColor="whiteAlpha.400" fontSize="small" color="white" outline="none" />
                                     {formik.touched.displayName && formik.errors.displayName ? (
                                         <Text color="red.400" fontSize="sm" mt="2">{formik.errors.displayName}</Text>
                                     ) : null}
+
+                                    {
+                                        formik.touched.displayName && !displayNameExists &&
+                                        <Text color={"green"}>
+                                            This username is  {formik.values.displayName === formik.initialValues.displayName ? "yours" : "unique"}
+                                        </Text>
+                                    }
+                                    {
+                                        formik.touched.displayName && displayNameExists &&
+                                        <Text color={"red"}>
+                                            Username taken
+                                        </Text>
+                                    }
                                 </FormControl>
                             </HStack>
                             <HStack alignItems="center" gap="6" mb="5">
@@ -171,7 +190,7 @@ const EditProfile = ({ onClose, isOpen }) => {
                                 isLoading={formik.isSubmitting}
                                 type={"submit"}
                                 mb="12"
-                                disabled={!formik.isValid || formik.isSubmitting}
+                                disabled={!formik.isValid || formik.isSubmitting || displayNameExists}
                             >
                                 Update
                             </Button>

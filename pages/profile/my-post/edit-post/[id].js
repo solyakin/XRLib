@@ -26,12 +26,11 @@ const EditPost = () => {
     const router = useRouter();
     const { id } = router.query;
     const { userData } = useAuth();
-    const [draftData, setDraftData] = useState({ content: "", draftId: undefined });
+    const [draftData, setDraftData] = useState({ content: "", draftId: undefined, readMinutes: null, title: "", description: "" });
     const [postImage, setPostImage] = useState();
     const [postData, setPostData] = useState({ content: "", readMinutes: null, title: "", description: "" })
     const [draftLastUpdated, setDraftLastUpdated] = useState(null);
     const [htmlBlockState, setHtmlBlockState] = useState(null)
-    const [draftFromHTML, setDraftFromHTML] = useState(null)
     const [initialEditorState, setInitialEditorState] = useState(EditorState.createEmpty())
 
     function countWords(s) {
@@ -64,7 +63,7 @@ const EditPost = () => {
             );
             setInitialEditorState(EditorState.createWithContent(contentState))
         }
-    }, [data])
+    }, [postData])
 
 
     const { error, mutate, isLoading } = useMutation(async (draftData) => {
@@ -85,22 +84,19 @@ const EditPost = () => {
         {
             onSuccess: () => {
                 setDraftLastUpdated(new Date())
+                queryClient.invalidateQueries(["drafts", userData?.id])
+
             }
         }
     )
     const { error: postError, mutate: postMutate, isLoading: postIsLoading } = useMutation(async (postData) => {
-        let authorData = {
-            id: userData?.id,
-            displayName: userData?.displayName,
-            profileImageUrl: userData?.profileImageUrl,
-        }
-        return await PostsService.uploadPost(authorData, { ...postData, content: htmlBlockState, isPublished: false, contentText: convertHtmlToText(htmlBlockState), readMinutes: Math.ceil(countWords(convertHtmlToText(htmlBlockState)) / 200) }, postImage)
+        return await PostsService.editPost({ ...postData, content: htmlBlockState, isPublished: false, contentText: convertHtmlToText(htmlBlockState), readMinutes: Math.ceil(countWords(convertHtmlToText(htmlBlockState)) / 200) }, postImage)
     },
         {
             onSuccess: () => {
                 toast({
-                    title: "Hurray! Your post has been uploaded",
-                    description: "Our editors will review and if it makes the cut, you'll be on our newspaper!",
+                    title: "Hurray! Your post has been edited successfully",
+                    // description: "Our editors will review and if it makes the cut, you'll be on our newspaper!",
                     status: "success",
                     duration: 7000,
                     isClosable: true,
@@ -165,25 +161,25 @@ const EditPost = () => {
                                 <Button bg="none" borderColor="#F40580" borderRadius="full" _hover={{ background: "none" }} onClick={() => mutate(draftData)} isLoading={isLoading} className={styles.publish_btn}>
 
                                     <Image src="/upload.svg" width="14" height="14" alt="" />
-                                    Save to drafts
+                                    Update draft
                                 </Button>
 
                                 <Button isLoading={postIsLoading} background="#F40580" borderRadius="full" className={styles.publish_btn} onClick={() => {
                                     postMutate(postData)
                                 }} >
                                     <Image src="/upload.svg" width="14" height="14" alt="" />
-                                    Save to posts
+                                    Update post
                                 </Button>
 
                             </HStack>
                         </HStack>
                         <FormControl mb="4" w={[300, 400, 500]}>
-                            <FormLabel color="white" fontSize="sm">Description</FormLabel>
+                            <FormLabel color="white" fontSize="sm">Title</FormLabel>
                             <Input
                                 onChange={(e) => setPostData({ ...postData, title: e.target.value })}
                                 type="text"
                                 borderRadius="md"
-                                value={postData.description}
+                                value={postData.title}
                                 borderColor="whiteAlpha.400"
                                 fontSize="small"
                                 color="white"
