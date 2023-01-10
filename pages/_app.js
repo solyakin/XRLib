@@ -10,7 +10,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const AppInner = ({ Component, ...rest }) => {
   const { currentUser, authDone } = useAuth();
   const toast = useToast();
-  useEffect(() => {
+/*   useEffect(() => {
     if (currentUser) {
       if (!currentUser.emailVerified) {
         toast({
@@ -22,7 +22,7 @@ const AppInner = ({ Component, ...rest }) => {
         // Trigger popup that says you cannot access all the features of this app without a fully verified account
       }
     }
-  }, [currentUser])
+  }, [currentUser]) */
   if (!authDone) {
     <Center>
       <Spinner />
