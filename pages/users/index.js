@@ -6,7 +6,6 @@ import {
     Text,
     Button,
     RadioGroup, Radio,
-    Image,
     Input, FormControl, FormLabel, Heading,
     HStack, Tags, Tag,
     useDisclosure, Modal, ModalOverlay, ModalBody, ModalContent, Stack, Textarea,
@@ -161,7 +160,7 @@ const Accounts = () => {
                             <Heading as="h3" mb="3" textAlign="center" size="md" color="white">Promote a member</Heading>
                             <FormControl isRequired mb="5">
                                 <FormLabel color="whiteAlpha.700">Email</FormLabel>
-                                <Input value={inviteData.email} onChange={(e) => setInviteData({ ...inviteData, email: e.target.value })}
+                                <Input value={inviteData?.email} onChange={(e) => setInviteData({ ...inviteData, email: e.target.value })}
                                     onBlur={async () => {
                                         await UserService.checkMemberWithEmailExistsAndReturnMember(inviteData.email).then(member => setMemberData(member))
                                     }}
