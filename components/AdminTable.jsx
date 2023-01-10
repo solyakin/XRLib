@@ -1,11 +1,9 @@
-import { AddIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons"
+import { AddIcon, ViewIcon } from "@chakra-ui/icons"
 import { TableContainer, Table, Thead, Tr, Th, Tbody, Td, Menu, MenuButton, MenuList, MenuItem, Image } from "@chakra-ui/react"
 import { useQuery } from "@tanstack/react-query"
-
 import { useRouter } from "next/router"
 import useAuth from "./authentication/hooks/useAuth"
 import UserService from "../services/users/users.service"
-import useAuth from "./authentication/hooks/useAuth"
 
 
 const AdminTable = ({ mutateRole, assignOpen, setSelectedUser }) => {
