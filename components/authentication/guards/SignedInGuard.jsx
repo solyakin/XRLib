@@ -43,6 +43,7 @@ const SignedInGuard = ({ children }) => {
     }, [authDone]);
 
     function authCheck() {
+        console.log("authCheck")
         // redirect to login page if accessing a private page and not logged in 
         if (authDone) {
 

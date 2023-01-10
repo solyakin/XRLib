@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
         queryKey: ['profile', userData?.id], queryFn: async () => {
             return await UserService.getUserData(userData?.id)
         }, onSuccess: (data) => {
-            setUserData(data)
+            // setUserData(data)
         },
 
     },
@@ -97,7 +97,7 @@ export const AuthProvider = ({ children }) => {
             .then(async (userCredential) => {
                 sendEmailVerification(userCredential.user, {
                     // Conditionally set return url to localhost or main production url based on env variable.
-                    url: process.env.NEXT_PUBLIC_DEVELOPMENT_MODE ? `http://localhost:3000/update-info/?user=${email}` : `https://xratlas.com/update-info/?user=${email}`
+                    url: process.env.NEXT_PUBLIC_DEVELOPMENT_MODE ? `http://localhost:3000/` : `https://xratlas.com/`
                 })
                 // Signed in and save user to firestore
                 const { user } = userCredential;

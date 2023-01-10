@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/newletters/index.js"  ],
+, "pages/newletters/index.js", "pages/profile/my-post/edit-draft/[id].js", "components/history/HistoryContext.jsx"  ],
   "exclude": [
     "node_modules"
   ]

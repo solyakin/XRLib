@@ -92,15 +92,15 @@ const Published = () => {
                                 <TabList>
                                     <Tab>
                                         Published
-                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">2</Tag>
+                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">{data && data.length || 0}</Tag>
                                     </Tab>
                                     <Tab>
                                         Unpublished
-                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">2</Tag>
+                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">{unpublishedData && unpublishedData.length || 0}</Tag>
                                     </Tab>
                                     <Tab>
                                         Drafts
-                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">2</Tag>
+                                        <Tag ml={"2"} size="sm" borderRadius="full" background={"#F40580"} color="whiteAlpha.900">{draftsData && draftsData.length || 0}</Tag>
                                     </Tab>
                                 </TabList>
                                 <TabPanels>
@@ -201,7 +201,7 @@ const Published = () => {
                                             {
                                                 draftsData && draftsData.map((post, index) => {
                                                     return (
-                                                        <Link href={`my-post/edit-post/${post.id}`} key={index}>
+                                                        <Link href={`my-post/edit-draft/${post.draftId}`} key={index}>
                                                             <div className={styles.newsletter}>
                                                                 <div className={styles.content}>
                                                                     <div className={styles.text}>

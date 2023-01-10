@@ -27,6 +27,7 @@ const CompleteProfile = ({ profileClose, profileIsOpen }) => {
     const queryClient = useQueryClient();
     const toast = useToast();
     const [fileToUpload, setFileToUpload] = useState(null)
+    const [displayNameExists, setDisplayNameExists] = useState(false)
     const { error, mutate } = useMutation(async ({ userId, profileData }) => {
         return await UserService.updateUserProfile(userId, profileData)
     },
@@ -77,13 +78,14 @@ const CompleteProfile = ({ profileClose, profileIsOpen }) => {
             profileSummary: Yup.string(),
         }),
         validateOnMount: true,
+        validateOnBlur: true,
         onSubmit: async (values, onSubmitProps) => {
             let fileDownloadUrl = null;
             if (fileToUpload) fileDownloadUrl = await UserService.uploadProfileImageAndGetDownloadUrl(fileToUpload, userData?.id)
-           /*  console.log({
-                ...userData, displayName: values.displayName, name: values.name, twitterUrl: `https://twitter.com/${values.twitterUrl}`, phoneNumber: values.phoneNumber, website: values.website,
-                facebookUrl: `https://facebook.com/${values.facebookUrl}`, linkedInUrl: `https://linkedin.com/${values.linkedInUrl}`, profileSummary: values.profileSummary, instagramUrl: `https://instagram.com/${values.instagramUrl}`
-            }) */
+            /*  console.log({
+                 ...userData, displayName: values.displayName, name: values.name, twitterUrl: `https://twitter.com/${values.twitterUrl}`, phoneNumber: values.phoneNumber, website: values.website,
+                 facebookUrl: `https://facebook.com/${values.facebookUrl}`, linkedInUrl: `https://linkedin.com/${values.linkedInUrl}`, profileSummary: values.profileSummary, instagramUrl: `https://instagram.com/${values.instagramUrl}`
+             }) */
             mutate({
                 userId: userData?.id, profileData: {
                     ...userData, profileImageUrl: fileDownloadUrl, name: values.name, displayName: values.displayName, twitterUrl: `https://twitter.com/${values.twitterUrl}`, phoneNumber: values.phoneNumber, website: values.website,
@@ -131,6 +133,7 @@ const CompleteProfile = ({ profileClose, profileIsOpen }) => {
                                                     borderColor="whiteAlpha.400"
                                                     fontSize="small"
                                                     color="white"
+                                                    onBlur={formik.handleBlur}
                                                     name={"name"}
                                                     outline="none"
                                                     value={formik.values.name}
@@ -150,7 +153,13 @@ const CompleteProfile = ({ profileClose, profileIsOpen }) => {
                                                     name='displayName'
                                                     value={formik.values.displayName}
                                                     onChange={formik.handleChange}
-                                                    onBlur={formik.handleBlur}
+                                                    onBlur={async (e) => {
+                                                        console.log("called")
+                                                        formik.handleBlur(e);
+                                                        let displayNameExistsVal = await UserService.checkDisplayNameExists(formik.values.displayName)
+                                                        let isItYourUserName = formik.values.displayName === formik.initialValues.displayName
+                                                        setDisplayNameExists(isItYourUserName ? false : displayNameExistsVal)
+                                                    }}
                                                     fontSize="small"
                                                     color="white"
                                                     outline="none"
@@ -158,6 +167,19 @@ const CompleteProfile = ({ profileClose, profileIsOpen }) => {
                                                 {formik.touched.displayName && formik.errors.displayName ? (
                                                     <Text color="red.400" fontSize="sm" mt="2">{formik.errors.displayName}</Text>
                                                 ) : null}
+                                                {
+                                                    formik.touched.displayName && !displayNameExists &&
+                                                    <Text color={"green"}>
+                                                        This username is  {formik.values.displayName === formik.initialValues.displayName ? "yours" : "unique"}
+                                                    </Text>
+                                                }
+                                                {
+                                                    formik.touched.displayName && displayNameExists &&
+                                                    <Text color={"red"}>
+                                                        Username taken
+                                                    </Text>
+                                                }
+
                                             </FormControl>
                                         </HStack>
                                         <HStack mb="3" gap={3}>
@@ -287,7 +309,7 @@ const CompleteProfile = ({ profileClose, profileIsOpen }) => {
                                             >
                                                 Previous
                                             </Button>
-                                            <Button borderRadius="full" fontSize="sm" disabled={!formik.isValid || formik.isSubmitting} background="#F40580" fontWeight="light" color="white" w="32" isLoading={formik.isSubmitting}
+                                            <Button borderRadius="full" fontSize="sm" disabled={!formik.isValid || formik.isSubmitting || displayNameUnique} background="#F40580" fontWeight="light" color="white" w="32" isLoading={formik.isSubmitting}
                                                 type={"submit"} _hover={{ border: "1px solid white" }}
                                             >
                                                 Submit

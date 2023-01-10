@@ -1,32 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
-import Header from '../../components/Header'
-import styles from '../../styles/Create.module.css'
+import Header from '../../../../components/Header'
+import styles from '../../../../styles/Create.module.css'
 import Image from 'next/image'
 import { Button, Container, HStack, Text, FormControl, FormLabel, Input, useToast, Textarea } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import 'react-markdown-editor-lite/lib/index.css';
-import ContributorGuard from '../../components/authentication/guards/ContributorGuard'
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import PostsService from '../../services/posts/posts.service'
-import useAuth from '../../components/authentication/hooks/useAuth'
-import convertHtmlToText from '../../utils/html-to-text'
+import ContributorGuard from '../../../../components/authentication/guards/ContributorGuard'
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import PostsService from '../../../../services/posts/posts.service'
+import useAuth from '../../../../components/authentication/hooks/useAuth'
+import convertHtmlToText from '../../../../utils/html-to-text'
 import { useRouter } from 'next/router'
+import { ContentState, EditorState, convertFromHTML } from 'draft-js'
 
-const Editor2 = dynamic(() => import('../../utils/Editor2'), {
+const Editor2 = dynamic(() => import('../../../../utils/Editor2'), {
     ssr: false,
 });
 
-const Create = () => {
-    const toast = useToast();
+
+
+const EditPost = () => {
     const queryClient = useQueryClient();
-    const navigate = useRouter();
+    const toast = useToast();
+    const router = useRouter();
+    const { id } = router.query;
     const { userData } = useAuth();
     const [draftData, setDraftData] = useState({ content: "", draftId: undefined, readMinutes: null, title: "", description: "" });
-    const [postImage, setPostImage] = useState();
-    const [postData, setPostData] = useState({ content: "", readMinutes: null, title: "", description: "" })
     const [draftLastUpdated, setDraftLastUpdated] = useState(null);
     const [htmlBlockState, setHtmlBlockState] = useState(null)
+    const [initialEditorState, setInitialEditorState] = useState(EditorState.createEmpty())
 
     function countWords(s) {
         s = s.replace(/(^\s*)|(\s*$)/gi, "");//exclude  start and end white-space
@@ -35,6 +38,38 @@ const Create = () => {
         return s.split(' ').filter(function (str) { return str != ""; }).length;
         //return s.split(' ').filter(String).length; - this can also be used
     }
+
+    const { data } = useQuery({
+        queryKey: ['draft', id, userData?.id], queryFn: async () => {
+            return await PostsService.getDraft(id, userData?.id);
+        }, onSuccess: (data) => {
+            setDraftData(data)
+        },
+        onError: (err) => {
+            toast({
+                title: "Oops!",
+                status: "error",
+                description: `Could not load draft. Please refresh the page or try again later.`,
+                isClosable: true,
+                duration: 3000,
+            });
+        }
+
+    },
+    )
+
+    useEffect(() => {
+        if (data) {
+
+            let draftFormat = convertFromHTML(data.content)
+            const { contentBlocks, entityMap } = draftFormat;
+            const contentState = ContentState.createFromBlockArray(
+                contentBlocks,
+                entityMap
+            );
+            setInitialEditorState(EditorState.createWithContent(contentState))
+        }
+    }, [draftData])
 
 
     const { error, mutate, isLoading } = useMutation(async (draftData) => {
@@ -46,59 +81,27 @@ const Create = () => {
         /**
          * readMinutes = words/200
          * Why?
-         * Generally, reading at less than 100-200 words per minute is the normal rate for learning, and 200-400 words per minute are the normal rate for comprehension. 
+         * Generally, reading at less than 100-200 words per minute is the normal rate for learning, and 200-400 words per minute is the normal rate for comprehension. 
          * Going beyond reading 500 words per minute can compromise the quality of reading and your comprehension.
          *  There are ways to balance reading pace and comprehension.
          */
-        return await PostsService.saveDraft(authorData, { ...draftData, ...postData, content: htmlBlockState, contentText: convertHtmlToText(htmlBlockState), readMinutes: Math.ceil(countWords(convertHtmlToText(htmlBlockState)) / 200) }, setDraftData)
+        return await PostsService.saveDraft(authorData, { ...draftData, content: htmlBlockState, contentText: convertHtmlToText(htmlBlockState), readMinutes: Math.ceil(countWords(convertHtmlToText(htmlBlockState)) / 200) }, setDraftData)
     },
         {
             onSuccess: () => {
                 setDraftLastUpdated(new Date())
+                queryClient.invalidateQueries(["drafts", userData?.id])
+
             }
         }
     )
-    const { error: postError, mutate: postMutate, isLoading: postIsLoading } = useMutation(async (postData) => {
-        let authorData = {
-            id: userData?.id,
-            displayName: userData?.displayName,
-            profileImageUrl: userData?.profileImageUrl,
-        }
-        return await PostsService.uploadPost(authorData, { ...postData, content: htmlBlockState, isPublished: false, contentText: convertHtmlToText(htmlBlockState), readMinutes: Math.ceil(countWords(convertHtmlToText(htmlBlockState)) / 200) }, postImage)
-    },
-        {
-            onSuccess: () => {
-                toast({
-                    title: "Hurray! Your post has been uploaded",
-                    description: "Our editors will review and if it makes the cut, you'll be on our newspaper!",
-                    status: "success",
-                    duration: 7000,
-                    isClosable: true,
-                });
-                queryClient.invalidateQueries(["posts", userData?.id])
-                queryClient.invalidateQueries(["unpublished-posts", userData?.id])
-                navigate.push({
-                    pathname: 'profile/my-post'
-                })
-                // We can navigate back here. @Solyakin
-            },
-            onError: () => {
-                toast({
-                    title: "Error submitting post",
-                    description: "Try saving to drafts, refreshing the page and submitting post again.",
-                    status: "error",
-                    duration: 7000,
-                    isClosable: true,
-                });
-            }
-        }
 
-    )
 
-    const handleChangePostImage = (e) => {
-        const file = e.target.files[0];
-        setPostImage(file);
-    }
+
+
+
+
+
 
 
 
@@ -133,24 +136,20 @@ const Create = () => {
                                 <Button bg="none" borderColor="#F40580" borderRadius="full" _hover={{ background: "none" }} onClick={() => mutate(draftData)} isLoading={isLoading} className={styles.publish_btn}>
 
                                     <Image src="/upload.svg" width="14" height="14" alt="" />
-                                    Save to drafts
+                                    Update draft
                                 </Button>
 
-                                <Button isLoading={postIsLoading} background="#F40580" borderRadius="full" className={styles.publish_btn} onClick={() => {
-                                    postMutate(postData)
-                                }} >
-                                    <Image src="/upload.svg" width="14" height="14" alt="" />
-                                    Save to posts
-                                </Button>
+
 
                             </HStack>
                         </HStack>
                         <FormControl mb="4" w={[300, 400, 500]}>
-                            <FormLabel color="whiteAlpha.500" fontSize="sm">Title</FormLabel>
+                            <FormLabel color="white" fontSize="sm">Title</FormLabel>
                             <Input
-                                onChange={(e) => setPostData({ ...postData, title: e.target.value })}
+                                onChange={(e) => setDraftData({ ...draftData, title: e.target.value })}
                                 type="text"
                                 borderRadius="md"
+                                value={draftData.title}
                                 borderColor="whiteAlpha.400"
                                 fontSize="small"
                                 color="white"
@@ -160,30 +159,33 @@ const Create = () => {
                         <FormControl mb="4" w={[300, 400, 500]}>
                             <FormLabel color="white" fontSize="sm">Description</FormLabel>
                             <Textarea
-                                onChange={(e) => setPostData({ ...postData, description: e.target.value })}
+                                onChange={(e) => setDraftData({ ...draftData, description: e.target.value })}
                                 type="text"
                                 borderRadius="md"
+                                value={draftData.description}
                                 borderColor="whiteAlpha.400"
                                 fontSize="small"
                                 color="white"
                                 outline="none"
-                            // height="120px"
                             />
                         </FormControl>
-                        <FormControl mb="4" w={[300, 400, 500]}>
-                            <FormLabel color="white" fontSize="sm">Thumbnail</FormLabel>
+                        {/*  <FormControl mb="4" w={[300, 400, 500]}>
+                            <FormLabel color="whiteAlpha.500" fontSize="sm">Image</FormLabel>
+                            <label style={{ "color": "#F40580", "cursor": "pointer" }} for="uploadImage">{postImage?.name || postImage || "Select file"}</label>
                             <Input
+                                hidden
                                 type="file"
-                                onChange={handleChangePostImage}
                                 accept="image/png, image/jpeg"
-                                borderRadius="md"
+                                borderRadius="full"
+                                id={"uploadImage"}
                                 borderColor="whiteAlpha.400"
                                 fontSize="small"
                                 color="white"
                                 outline="none"
+                                onChange={handleChangePostImage}
                             />
-                        </FormControl>
-                        <Editor2 setHtmlBlockState={setHtmlBlockState} />
+                        </FormControl> */}
+                        <Editor2 setHtmlBlockState={setHtmlBlockState} initialEditorState={initialEditorState} />
                     </Container>
                 </main>
             </ContributorGuard>
@@ -192,4 +194,4 @@ const Create = () => {
     )
 }
 
-export default Create;
+export default EditPost;

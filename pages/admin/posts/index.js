@@ -8,28 +8,24 @@ import {
     Box,
     Text,
     HStack,
-    Button,
     Image,
     Tag,
-    RadioGroup, Radio,
-    Input, FormControl, FormLabel, Heading,
     Tabs, TabList, TabPanels, Tab, TabPanel,
     Menu, MenuButton, MenuList, MenuItem,
-    useDisclosure, Modal, ModalOverlay, ModalBody, ModalContent, Stack, Textarea, useToast, Center, Spinner
+    useDisclosure, useToast, Center, Spinner
 } from '@chakra-ui/react'
-import useAuth from '../../components/authentication/hooks/useAuth'
-import { useQuery } from '@tanstack/react-query'
-import PostsService from '../../services/posts/posts.service'
-import Header from '../../components/Header';
-import styles from '../../styles/accounts.module.css';
-import timestampToDate from '../../utils/timestamp-to-date';
-import EditorGuard from '../../components/authentication/guards/EditorGuard';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import PostsService from '../../../services/posts/posts.service'
+import Header from '../../../components/Header';
+import styles from '../../../styles/accounts.module.css';
+import timestampToDate from '../../../utils/timestamp-to-date';
+import EditorGuard from '../../../components/authentication/guards/EditorGuard';
+import { useRouter } from 'next/router';
 
 const AdminPosts = () => {
-    const { userData } = useAuth();
+    const queryClient = useQueryClient();
     const toast = useToast();
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [value, setValue] = React.useState('1')
+    const router = useRouter();
     const { isLoading: allPostsLoading, data: allPosts } = useQuery({
         queryKey: ['all-posts'], queryFn: async () => {
             return await PostsService.getAllPosts();
@@ -82,6 +78,57 @@ const AdminPosts = () => {
     },
     )
 
+    const { error, mutate: publishPost, isLoading } = useMutation(async ({ postId }) => {
+        return await PostsService.publishPost(postId);
+    },
+        {
+            onSuccess: () => {
+                toast({
+                    title: "Post published successfully!",
+                    status: "success",
+                    duration: 7000,
+                    isClosable: true,
+                });
+                queryClient.invalidateQueries(['all-posts'])
+                queryClient.invalidateQueries(['all-published-posts'])
+                queryClient.invalidateQueries(['all-unpublished-posts'])
+            },
+            onError: (err) => {
+                toast({
+                    title: `Operation failed: ${err}`,
+                    status: "error",
+                    duration: 7000,
+                    isClosable: true,
+                });
+            }
+        }
+    )
+    const { error: unpublishError, mutate: unpublishPost, isLoading: unpublishLoading } = useMutation(async ({ postId }) => {
+        return await PostsService.unPublishPost(postId);
+    },
+        {
+            onSuccess: () => {
+                toast({
+                    title: "Post unpublished successfully!",
+                    status: "success",
+                    duration: 7000,
+                    isClosable: true,
+                });
+                queryClient.invalidateQueries(['all-published-posts'])
+                queryClient.invalidateQueries(['all-posts'])
+                queryClient.invalidateQueries(['all-unpublished-posts'])
+            },
+            onError: (err) => {
+                toast({
+                    title: `Operation failed: ${err}`,
+                    status: "error",
+                    duration: 7000,
+                    isClosable: true,
+                });
+            }
+        }
+    )
+
     return (
         <EditorGuard>
             <div className={styles.accounts}>
@@ -97,20 +144,7 @@ const AdminPosts = () => {
                     <Container maxW={"1200px"} pt="2em">
                         <HStack justifyContent="space-between">
                             <Text as="h1" fontSize="4xl">POSTS</Text>
-                            <Button
-                                onClick={onOpen}
-                                bg="transparent"
-                                background={"#F40580"}
-                                borderRadius="full"
-                                color="white"
-                                _hover={{
-                                    border: "1px",
-                                    borderColor: "white"
-                                }}
-                            >
-                                <Image src='/sign.svg' width="12px" alt='' mr="10px" />
-                                <Text fontSize="xs">New</Text>
-                            </Button>
+
                         </HStack>
                         <Box>
                             <Tabs colorScheme={"pink"}>
@@ -160,17 +194,17 @@ const AdminPosts = () => {
                                                                     <Td>
                                                                         {post.isPublished && <Tag background={"#27AE60"} color="whiteAlpha.900">Published</Tag>}
                                                                         {!post.isPublished && <Tag background={"#4F4F4F"} color="whiteAlpha.900">Unpublished</Tag>}
-
                                                                     </Td>
                                                                     <Td display={"flex"} justifyContent="flex-end">
                                                                         <Menu isLazy>
                                                                             <MenuButton>
-                                                                                <Image src="/Vector (23).svg" width="13px" walt="" />
+                                                                                <Image src="/Vector (23).svg" width="13px" alt="" />
                                                                             </MenuButton>
                                                                             <MenuList background="black" borderColor="#1B1919" minW={"40px"} py="5">
                                                                                 <MenuItem
                                                                                     mb="3"
                                                                                     background="#000000"
+                                                                                    onClick={() => { router.push({ pathname: `./posts/edit/${post.id}` }) }}
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
                                                                                 >
@@ -179,6 +213,7 @@ const AdminPosts = () => {
                                                                                 <MenuItem
                                                                                     mb="3"
                                                                                     background="#000000"
+                                                                                    onClick={() => { router.push({ pathname: `./posts${post.id}` }) }}
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
                                                                                 >
@@ -187,6 +222,7 @@ const AdminPosts = () => {
                                                                                 {
                                                                                     post.isPublished &&
                                                                                     <MenuItem
+                                                                                        onClick={() => unpublishPost({ postId: post.id })}
                                                                                         background="#000000"
                                                                                         _hover={{ background: "white", color: "black" }}
                                                                                         fontSize={"sm"}
@@ -197,6 +233,7 @@ const AdminPosts = () => {
                                                                                 {
                                                                                     !post.isPublished &&
                                                                                     <MenuItem
+                                                                                        onClick={() => publishPost({ postId: post.id })}
                                                                                         background="#000000"
                                                                                         _hover={{ background: "white", color: "black" }}
                                                                                         fontSize={"sm"}
@@ -259,18 +296,21 @@ const AdminPosts = () => {
                                                                                     background="#000000"
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
+                                                                                    onClick={() => { router.push({ pathname: `./posts/edit/${post.id}` }) }}
                                                                                 >
                                                                                     Edit
                                                                                 </MenuItem>
                                                                                 <MenuItem
                                                                                     mb="3"
                                                                                     background="#000000"
+                                                                                    onClick={() => { router.push({ pathname: `./posts/${post.id}` }) }}
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
                                                                                 >
                                                                                     View
                                                                                 </MenuItem>
                                                                                 <MenuItem
+                                                                                    onClick={() => unpublishPost({ postId: post.id })}
                                                                                     background="#000000"
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
@@ -332,19 +372,23 @@ const AdminPosts = () => {
                                                                                     background="#000000"
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
+                                                                                    onClick={() => { router.push({ pathname: `./posts/edit/${post.id}` }) }}
                                                                                 >
                                                                                     Edit
                                                                                 </MenuItem>
                                                                                 <MenuItem
+
                                                                                     mb="3"
                                                                                     background="#000000"
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
+                                                                                    onClick={() => { router.push({ pathname: `./posts/${post.id}` }) }}
                                                                                 >
                                                                                     View
                                                                                 </MenuItem>
                                                                                 <MenuItem
                                                                                     background="#000000"
+                                                                                    onClick={() => unpublishPost({ postId: post.id })}
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
                                                                                 >
@@ -366,41 +410,6 @@ const AdminPosts = () => {
                         </Box>
                     </Container>
 
-                    <Modal onClose={onClose} isOpen={isOpen} isCentered>
-                        <ModalOverlay background={"rgba(26, 32, 44, 0.7)"} />
-                        <ModalContent bg="#000005" borderRadius="md" boxShadow={"dark-lg"} borderColor="white" border="1px">
-                            <ModalBody mb="8" mt="9" marginLeft="6" marginRight="6">
-                                <Heading as="h3" mb="3" textAlign="center" size="md" color="white">Add New User</Heading>
-                                <FormControl isRequired mb="5">
-                                    <FormLabel color="whiteAlpha.700">Email</FormLabel>
-                                    <Input type="email" placeholder='username@gmail.com' borderRadius="md" borderColor="whiteAlpha.400" fontSize="small" color="white" boder="1px" outline="none" />
-                                </FormControl>
-                                <RadioGroup onChange={setValue} value={value} color="white" fontSize={"sm"}>
-                                    <Stack direction='column'>
-                                        <Text color="whiteAlpha.700">Role</Text>
-                                        <Radio value='Administrator' borderColor={"pink"} size={"sm"} mb="3" colorScheme="pink" alignItems={"baseline"}>
-                                            Administrator
-                                            <Text color="#828282" fontSize="12px">Super control; Invite new people, modify site settings etc.</Text>
-                                        </Radio>
-                                        <Radio value='Editor' borderColor={"pink"} size={"sm"} mb="3" colorScheme="pink" alignItems={"baseline"}>
-                                            Editor
-                                            <Text color="#828282" fontSize="12px">Has access to all posts.</Text>
-                                        </Radio>
-                                        <Radio value='Contributor' borderColor={"pink"} size={"sm"} mb="3" colorScheme="pink" alignItems={"baseline"}>
-                                            Contributor
-                                            <Text color="#828282" fontSize="12px">Can write and edit their posts. They can’t publish them.</Text>
-                                        </Radio>
-                                    </Stack>
-                                </RadioGroup>
-                                <FormControl color="white" fontSize={"13px"} mt="4">
-                                    <FormLabel color="whiteAlpha.700" fontSize={"13px"}>Custom message (optional)</FormLabel>
-                                    <Textarea borderColor="whiteAlpha.400"></Textarea>
-                                    <Text color="whiteAlpha.700" fontSize={"11px"} mt="2">0/400 characters </Text>
-                                </FormControl>
-                                <Button w="100%" mt="12" mb="6" borderRadius="full" fontSize={"13px"}>Send Invitation</Button>
-                            </ModalBody>
-                        </ModalContent>
-                    </Modal>
                 </main>
             </div>
         </EditorGuard>

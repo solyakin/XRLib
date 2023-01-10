@@ -73,6 +73,19 @@ class PostsService {
             }
         );
     }
+    static async getDraft(draftId, userId) {
+        if (!userId) throw new Error("Pass in a user id!")
+        const draftsCollection = collection(db, `users`, `${userId}`, 'drafts');
+        return await getDoc(doc(draftsCollection, draftId)).then(
+            async (doc) => {
+                if (doc.exists()) {
+                    return doc.data();
+                } else {
+                    throw new Error("Draft does not exist");
+                }
+            }
+        );
+    }
     static async getAllUnpublishedPosts() {
         const qWithUnpublishedOnly = query(postsCollection, where("isPublished", "==", false))
         let posts = [];
@@ -259,6 +272,7 @@ class PostsService {
         return await setDoc(newPostRef, post)
     }
 
+
     static async editPost(changes) {
         let existingPost = doc(postsCollection, changes.id);
         let post = {
@@ -267,6 +281,27 @@ class PostsService {
         }
         return await updateDoc(existingPost, post)
     }
+
+    static async publishPost(postId) {
+        let existingPost = doc(postsCollection, postId);
+        let post = {
+            isPublished: true,
+            publishedAt: Timestamp.now(),
+            lastUpdated: Timestamp.now(),
+        }
+        return await updateDoc(existingPost, post)
+    }
+    static async unPublishPost(postId) {
+        let existingPost = doc(postsCollection, postId);
+        let post = {
+            isPublished: false,
+            unPublishedAt: Timestamp.now(),
+            publishedAt: null,
+            lastUpdated: Timestamp.now(),
+        }
+        return await updateDoc(existingPost, post)
+    }
+
 
     static async saveDraft(author, draftData, setDraftData) {
         if (!author.id) {

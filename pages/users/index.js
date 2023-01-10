@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head';
 import {
     Container,
@@ -10,23 +10,30 @@ import {
     Input, FormControl, FormLabel, Heading,
     HStack, Tags, Tag,
     useDisclosure, Modal, ModalOverlay, ModalBody, ModalContent, Stack, Textarea,
-    Tabs, TabList, TabPanels, Tab, TabPanel,
+    Tabs, TabList, TabPanels, Tab, TabPanel, useToast,
 } from '@chakra-ui/react'
 import Header from '../../components/Header';
 import styles from '../../styles/accounts.module.css';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import UserService from '../../services/users/users.service';
 import AdminTable from '../../components/AdminTable';
 import EditorTable from '../../components/EditorTable';
 import ContributorTable from '../../components/ContributorTable';
 import AdminGuard from '../../components/authentication/guards/AdminGuard'
 import AssignRole from '../../components/AssignRole';
+import { AddIcon } from '@chakra-ui/icons';
 
 const Accounts = () => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const toast = useToast();
+    const queryClient = useQueryClient();
     const { isOpen: assignIsOpen, onOpen: assignOpen, onClose: assignClose } = useDisclosure();
+    const [selectedUser, setSelectedUser] = useState(null);
     const [value, setValue] = React.useState('1')
+    const [memberData, setMemberData] = useState(null)
+    const [memberRole, setMemberRole] = useState(undefined)
+    const [inviteData, setInviteData] = useState({ email: "", customMessage: "" })
     const { data: adminData } = useQuery({
         queryKey: ['admin-users'], queryFn: async () => {
             return await UserService.getAllUsersByRole("admin")
@@ -54,8 +61,8 @@ const Accounts = () => {
     },
     )
 
-    const { error, mutate: mutateUserRoles } = useMutation(async ({ userId, role }) => {
-        return await UserService.updateUserRole(userId, role)
+    const { error, mutate: mutateUserRoles, isLoading } = useMutation(async ({ userId, role, setRoleToChangeTo }) => {
+        return await UserService.updateUserRole(userId, role).then(() => setRoleToChangeTo(null))
     },
         {
             onSuccess: () => {
@@ -65,9 +72,20 @@ const Accounts = () => {
                     duration: 7000,
                     isClosable: true,
                 });
+                setMemberRole(undefined);
+                setInviteData(undefined);
+                onClose();
                 queryClient.invalidateQueries(['editor-users'])
                 queryClient.invalidateQueries(['admin-users'])
                 queryClient.invalidateQueries(['contributor-users'])
+            },
+            onError: (err) => {
+                toast({
+                    title: `Operation failed: ${err}`,
+                    status: "error",
+                    duration: 7000,
+                    isClosable: true,
+                });
             }
         }
     )
@@ -97,8 +115,11 @@ const Accounts = () => {
                                     borderColor: "white"
                                 }}
                             >
-                                <Image src='/Vector (22).svg' width="8" height="10" alt='' mr="6px" style={{width : "12px"}} />
-                                <Text fontSize="xs" ml="2">Add User</Text>
+
+                                <HStack>
+                                    <AddIcon />
+                                    <Text fontSize="xs">Promote Member</Text>
+                                </HStack>
                             </Button>
                         </HStack>
                         <Box>
@@ -119,13 +140,13 @@ const Accounts = () => {
                                 </TabList>
                                 <TabPanels>
                                     <TabPanel>
-                                        <AdminTable assignOpen={assignOpen} mutateRole={mutateUserRoles} />
+                                        <AdminTable setSelectedUser={setSelectedUser} assignOpen={assignOpen} mutateRole={mutateUserRoles} />
                                     </TabPanel>
                                     <TabPanel>
-                                        <EditorTable mutateRole={mutateUserRoles} />
+                                        <EditorTable setSelectedUser={setSelectedUser} assignOpen={assignOpen} mutateRole={mutateUserRoles} />
                                     </TabPanel>
                                     <TabPanel>
-                                        <ContributorTable mutateRole={mutateUserRoles} />
+                                        <ContributorTable setSelectedUser={setSelectedUser} assignOpen={assignOpen} mutateRole={mutateUserRoles} />
                                     </TabPanel>
                                 </TabPanels>
                             </Tabs>
@@ -137,38 +158,50 @@ const Accounts = () => {
                     <ModalOverlay background={"rgba(26, 32, 44, 0.7)"} />
                     <ModalContent bg="#000005" borderRadius="md" boxShadow={"dark-lg"} borderColor="white" border="1px">
                         <ModalBody mb="8" mt="9" marginLeft="6" marginRight="6">
-                            <Heading as="h3" mb="3" textAlign="center" size="md" color="white">Add New User</Heading>
+                            <Heading as="h3" mb="3" textAlign="center" size="md" color="white">Promote a member</Heading>
                             <FormControl isRequired mb="5">
                                 <FormLabel color="whiteAlpha.700">Email</FormLabel>
-                                <Input type="email" placeholder='username@gmail.com' borderRadius="md" borderColor="whiteAlpha.400" fontSize="small" color="white" boder="1px" outline="none" />
+                                <Input value={inviteData.email} onChange={(e) => setInviteData({ ...inviteData, email: e.target.value })}
+                                    onBlur={async () => {
+                                        await UserService.checkMemberWithEmailExistsAndReturnMember(inviteData.email).then(member => setMemberData(member))
+                                    }}
+                                    type="email" placeholder='username@gmail.com' borderRadius="md" borderColor="whiteAlpha.400" fontSize="small" color="white" boder="1px" outline="none" />
+                                {
+                                    memberData &&
+                                    <Text color={"green"}>
+                                        Member exists
+                                    </Text>
+
+                                }
+                                {
+                                    !memberData &&
+                                    <Text color={"red"}>
+                                        Member does not exist
+                                    </Text>
+                                }
                             </FormControl>
-                            <RadioGroup onChange={setValue} value={value} color="white" fontSize={"sm"}>
+                            <RadioGroup onChange={setMemberRole} value={memberRole} color="white" fontSize={"sm"}>
                                 <Stack direction='column'>
                                     <Text color="whiteAlpha.700">Role</Text>
-                                    <Radio value='Administrator' borderColor={"pink"} size={"sm"} mb="3" colorScheme="pink" alignItems={"baseline"}>
+                                    <Radio value='admin' borderColor={"pink"} size={"sm"} mb="3" colorScheme="pink" alignItems={"baseline"}>
                                         Administrator
                                         <Text color="#828282" fontSize="12px">Super control; Invite new people, modify site settings etc.</Text>
                                     </Radio>
-                                    <Radio value='Editor' borderColor={"pink"} size={"sm"} mb="3" colorScheme="pink" alignItems={"baseline"}>
+                                    <Radio value='editor' borderColor={"pink"} size={"sm"} mb="3" colorScheme="pink" alignItems={"baseline"}>
                                         Editor
                                         <Text color="#828282" fontSize="12px">Has access to all posts.</Text>
                                     </Radio>
-                                    <Radio value='Contributor' borderColor={"pink"} size={"sm"} mb="3" colorScheme="pink" alignItems={"baseline"}>
+                                    <Radio value='contributor' borderColor={"pink"} size={"sm"} mb="3" colorScheme="pink" alignItems={"baseline"}>
                                         Contributor
                                         <Text color="#828282" fontSize="12px">Can write and edit their posts. They can’t publish them.</Text>
                                     </Radio>
                                 </Stack>
                             </RadioGroup>
-                            <FormControl color="white" fontSize={"13px"} mt="4">
-                                <FormLabel color="whiteAlpha.700" fontSize={"13px"}>Custom message (optional)</FormLabel>
-                                <Textarea borderColor="whiteAlpha.400"></Textarea>
-                                <Text color="whiteAlpha.700" fontSize={"11px"} mt="2">0/400 characters </Text>
-                            </FormControl>
-                            <Button w="100%" mt="12" mb="6" borderRadius="full" fontSize={"13px"}>Send Invitation</Button>
+                            <Button w="100%" mt="12" mb="6" onClick={() => mutateUserRoles({ userId: memberData?.id, role: memberRole, setRoleToChangeTo: setMemberRole })} borderRadius="full" disabled={!memberData || memberData?.email !== inviteData.email} fontSize={"13px"}>Send Invitation</Button>
                         </ModalBody>
                     </ModalContent>
                 </Modal>
-                <AssignRole assignIsOpen={assignIsOpen} assignClose={assignClose} />
+                <AssignRole assignIsOpen={assignIsOpen} isLoading={isLoading} mutateRole={mutateUserRoles} assignClose={assignClose} selectedUser={selectedUser} />
             </main>
         </div>
     )

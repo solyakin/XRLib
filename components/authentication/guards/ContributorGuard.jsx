@@ -19,7 +19,7 @@ const ContributorGuard = ({ children }) => {
     const { userData, authLoading, authDone } = useAuth() || {};
     const toast = useToast();
     const router = useRouter();
-    const [authorized, setAuthorized] = useState(false);
+    const [authorized, setAuthorized] = useState(true);
 
     useEffect(() => {
         // on initial load - run auth check 
@@ -31,8 +31,10 @@ const ContributorGuard = ({ children }) => {
             const hideContent = () => setAuthorized(false);
             router.events.on('routeChangeStart', hideContent);
 
+
             // on route change complete - run auth check 
             router.events.on('routeChangeComplete', () => contributorCheck)
+
 
             // unsubscribe from events in useEffect return function
             return () => {
@@ -47,9 +49,9 @@ const ContributorGuard = ({ children }) => {
         if (authDone) {
 
             // redirect to login page if accessing a private page and not logged in
-            if (!(userData?.role === "contributor")) {
+            if (!(userData?.role === "contributor") || !(userData?.role === "admin") || !(userData?.role === "editor")) {
                 setAuthorized(false);
-                router.back();
+                router.push({ pathname: "404" })
                 toast({
                     title: "You are not authorized to access this page. Please login as a contributor",
                     status: "error",
@@ -77,7 +79,7 @@ const ContributorGuard = ({ children }) => {
     }
     return (
         <Center w={"100%"} h={"100vh"} bg={color}>
-           <Spinner/>
+            <Spinner />
         </Center>
     )
 }
