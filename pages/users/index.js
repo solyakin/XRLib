@@ -97,7 +97,7 @@ const Accounts = () => {
                                     borderColor: "white"
                                 }}
                             >
-                                <Image src='/Vector (22).svg' width="10" height="10" alt='' mr="10px" />
+                                <Image src='/Vector (22).svg' width="8" height="10" alt='' mr="6px" style={{width : "12px"}} />
                                 <Text fontSize="xs" ml="2">Add User</Text>
                             </Button>
                         </HStack>
