@@ -115,6 +115,7 @@ const Accounts = () => {
                                     borderColor: "white"
                                 }}
                             >
+
                                 <HStack>
                                     <AddIcon />
                                     <Text fontSize="xs">Promote Member</Text>
