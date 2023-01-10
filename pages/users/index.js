@@ -6,7 +6,6 @@ import {
     Text,
     Button,
     RadioGroup, Radio,
-    Image,
     Input, FormControl, FormLabel, Heading,
     HStack, Tags, Tag,
     useDisclosure, Modal, ModalOverlay, ModalBody, ModalContent, Stack, Textarea,
