@@ -12,21 +12,20 @@ import {
     Tag,
     Tabs, TabList, TabPanels, Tab, TabPanel,
     Menu, MenuButton, MenuList, MenuItem,
-    useDisclosure,useToast, Center, Spinner
+    useDisclosure, useToast, Center, Spinner
 } from '@chakra-ui/react'
-import useAuth from '../../components/authentication/hooks/useAuth'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import PostsService from '../../services/posts/posts.service'
-import Header from '../../components/Header';
-import styles from '../../styles/accounts.module.css';
-import timestampToDate from '../../utils/timestamp-to-date';
-import EditorGuard from '../../components/authentication/guards/EditorGuard';
+import PostsService from '../../../services/posts/posts.service'
+import Header from '../../../components/Header';
+import styles from '../../../styles/accounts.module.css';
+import timestampToDate from '../../../utils/timestamp-to-date';
+import EditorGuard from '../../../components/authentication/guards/EditorGuard';
+import { useRouter } from 'next/router';
 
 const AdminPosts = () => {
     const queryClient = useQueryClient();
     const toast = useToast();
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [value, setValue] = React.useState('1')
+    const router = useRouter();
     const { isLoading: allPostsLoading, data: allPosts } = useQuery({
         queryKey: ['all-posts'], queryFn: async () => {
             return await PostsService.getAllPosts();
@@ -195,17 +194,17 @@ const AdminPosts = () => {
                                                                     <Td>
                                                                         {post.isPublished && <Tag background={"#27AE60"} color="whiteAlpha.900">Published</Tag>}
                                                                         {!post.isPublished && <Tag background={"#4F4F4F"} color="whiteAlpha.900">Unpublished</Tag>}
-
                                                                     </Td>
                                                                     <Td display={"flex"} justifyContent="flex-end">
                                                                         <Menu isLazy>
                                                                             <MenuButton>
-                                                                                <Image src="/Vector (23).svg" width="13px" walt="" />
+                                                                                <Image src="/Vector (23).svg" width="13px" alt="" />
                                                                             </MenuButton>
                                                                             <MenuList background="black" borderColor="#1B1919" minW={"40px"} py="5">
                                                                                 <MenuItem
                                                                                     mb="3"
                                                                                     background="#000000"
+                                                                                    onClick={() => { router.push({ pathname: `./posts/edit/${post.id}` }) }}
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
                                                                                 >
@@ -214,6 +213,7 @@ const AdminPosts = () => {
                                                                                 <MenuItem
                                                                                     mb="3"
                                                                                     background="#000000"
+                                                                                    onClick={() => { router.push({ pathname: `./posts${post.id}` }) }}
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
                                                                                 >
@@ -296,12 +296,14 @@ const AdminPosts = () => {
                                                                                     background="#000000"
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
+                                                                                    onClick={() => { router.push({ pathname: `./posts/edit/${post.id}` }) }}
                                                                                 >
                                                                                     Edit
                                                                                 </MenuItem>
                                                                                 <MenuItem
                                                                                     mb="3"
                                                                                     background="#000000"
+                                                                                    onClick={() => { router.push({ pathname: `./posts/${post.id}` }) }}
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
                                                                                 >
@@ -370,6 +372,7 @@ const AdminPosts = () => {
                                                                                     background="#000000"
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
+                                                                                    onClick={() => { router.push({ pathname: `./posts/edit/${post.id}` }) }}
                                                                                 >
                                                                                     Edit
                                                                                 </MenuItem>
@@ -379,6 +382,7 @@ const AdminPosts = () => {
                                                                                     background="#000000"
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
+                                                                                    onClick={() => { router.push({ pathname: `./posts/${post.id}` }) }}
                                                                                 >
                                                                                     View
                                                                                 </MenuItem>

@@ -49,9 +49,9 @@ const ContributorGuard = ({ children }) => {
         if (authDone) {
 
             // redirect to login page if accessing a private page and not logged in
-            if (!(userData?.role === "contributor")) {
+            if (!(userData?.role === "contributor") || !(userData?.role === "admin") || !(userData?.role === "editor")) {
                 setAuthorized(false);
-                router.back();
+                router.push({ pathname: "404" })
                 toast({
                     title: "You are not authorized to access this page. Please login as a contributor",
                     status: "error",

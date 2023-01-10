@@ -104,29 +104,34 @@ const Header = () => {
                                             {!(router.asPath === "/profile") && <Link href="/profile">Profile</Link>}
                                             {router.asPath === "/profile" && <Text>Profile</Text>}
                                         </MenuItem>
-                                        <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{ background: "white", color: "black" }}>
 
-                                            {!(router.asPath === "/profile/my-post") && (
-                                                <>
-                                                    {userData?.role === "contributor" &&
-                                                        <>
+                                        {!(router.asPath === "/profile/my-post") && (
+                                            <>
+                                                {userData?.role === "contributor" &&
+                                                    <>
+                                                        <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{ background: "white", color: "black" }}>
+
                                                             <Image src="/Vector (19).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
                                                             <Link href="/profile/my-post">My Posts</Link>
-                                                        </>
-                                                    }
-                                                </>
-                                            )}
-                                            {(router.asPath === "/profile/my-post") && (
-                                                <>
-                                                    {userData?.role === "contributor" &&
-                                                        <>
+                                                        </MenuItem>
+
+                                                    </>
+                                                }
+                                            </>
+                                        )}
+                                        {(router.asPath === "/profile/my-post") && (
+                                            <>
+                                                {userData?.role === "contributor" &&
+                                                    <>
+                                                        <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{ background: "white", color: "black" }}>
                                                             <Image src="/Vector (19).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
                                                             <Text>My Posts</Text>
-                                                        </>
-                                                    }
-                                                </>
-                                            )}
-                                        </MenuItem>
+                                                        </MenuItem>
+
+                                                    </>
+                                                }
+                                            </>
+                                        )}
 
                                         {/* <MenuItem fontSize="14px" background="#000000" mb="4" _hover={{ background: "white", color: "black" }}>
                                             <Image src="/Vector (21).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
