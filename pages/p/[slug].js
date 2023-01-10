@@ -1,16 +1,16 @@
 import React from 'react'
 import Head from 'next/head'
 import { Grid, GridItem, Container, Box, Text, Heading, HStack, Button, Stack, useToast } from '@chakra-ui/react';
-import styles from '../styles/user.module.css'
+import styles from '../../styles/user.module.css'
 import Image from 'next/image'
 import { useQuery } from "@tanstack/react-query"
 import Link from 'next/link'
 import { useRouter } from 'next/router';
-import UserService from '../../services/users/users.service';
 import Header from '../../components/Header';
-import PostsService from '../../services/posts/posts.service';
 import timestampToDate from '../../utils/timestamp-to-date';
 import timeAgo from '../../utils/dateToTimeAgo';
+import UserService from '../../services/users/users.service';
+import PostsService from '../../services/posts/posts.service';
 
 const UserProfile = () => {
 
