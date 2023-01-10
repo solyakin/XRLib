@@ -45,7 +45,8 @@ const EditPost = () => {
         queryKey: ['post', id], queryFn: async () => {
             return await PostsService.getPost(id);
         }, onSuccess: (data) => {
-            setPostData(data)
+            if (data.imagePaths) setPostData(data)
+            else setPostData({ ...data, imagePaths: [] })
             setPostImage(data.thumbnailUrl)
         },
 
@@ -122,12 +123,6 @@ const EditPost = () => {
         const file = e.target.files[0];
         setPostImage(file);
     }
-
-
-
-
-
-
 
 
 
@@ -225,7 +220,7 @@ const EditPost = () => {
                                 onChange={handleChangePostImage}
                             />
                         </FormControl>
-                        <Editor2 setHtmlBlockState={setHtmlBlockState} initialEditorState={initialEditorState} />
+                        <Editor2 setHtmlBlockState={setHtmlBlockState} setPostData={setPostData} postData={postData} initialEditorState={initialEditorState} />
                     </Container>
                 </main>
             </ContributorGuard>

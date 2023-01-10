@@ -31,7 +31,8 @@ class PostsService {
 
     static async getRecentPosts() {
         let posts = [];
-        const q = query(postsCollection, limit(3))
+        const q1 = query(postsCollection, limit(3), where("isPublished", "==", true), orderBy("createdAt", "asc"))
+        const q = query(q1, limit(3), orderBy("createdAt", "asc"),)
         try {
             await getDocs(q)
                 .then(async (data) => {
@@ -120,8 +121,8 @@ class PostsService {
         return posts;
 
     }
-    static async uploadImageForPostAndGetUrl(fileName, file) {
-        const storageRef = ref(firebaseStorage, `/temp/${fileName}`);
+    static async uploadImageForPostAndGetUrl(fileName, file, postId, userId) {
+        const storageRef = ref(firebaseStorage, `/temp/${userId}/${fileName}`);
         let imageExists = false
         try {
             let imageFile = await getDownloadURL(await storageRef)

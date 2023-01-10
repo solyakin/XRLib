@@ -12,6 +12,8 @@ import PostsService from '../../services/posts/posts.service'
 import useAuth from '../../components/authentication/hooks/useAuth'
 import convertHtmlToText from '../../utils/html-to-text'
 import { useRouter } from 'next/router'
+import { collection, doc } from 'firebase/firestore'
+import { db } from '../../config/firebase'
 
 const Editor2 = dynamic(() => import('../../utils/Editor2'), {
     ssr: false,
@@ -22,9 +24,9 @@ const Create = () => {
     const queryClient = useQueryClient();
     const navigate = useRouter();
     const { userData } = useAuth();
-    const [draftData, setDraftData] = useState({ content: "", draftId: undefined, readMinutes: null, title: "", description: "" });
+    const [draftData, setDraftData] = useState({ content: "", draftId: undefined, readMinutes: null, title: "", description: "", imagePaths: [] });
     const [postImage, setPostImage] = useState();
-    const [postData, setPostData] = useState({ content: "", readMinutes: null, title: "", description: "" })
+    const [postData, setPostData] = useState({ content: "", readMinutes: null, title: "", description: "", imagePaths: [] })
     const [draftLastUpdated, setDraftLastUpdated] = useState(null);
     const [htmlBlockState, setHtmlBlockState] = useState(null)
 
@@ -64,6 +66,8 @@ const Create = () => {
             displayName: userData?.displayName,
             profileImageUrl: userData?.profileImageUrl,
         }
+        const postsCollection = collection(db, "posts")
+        let newPostRef = doc(postsCollection);
         return await PostsService.uploadPost(authorData, { ...postData, content: htmlBlockState, isPublished: false, contentText: convertHtmlToText(htmlBlockState), readMinutes: Math.ceil(countWords(convertHtmlToText(htmlBlockState)) / 200) }, postImage)
     },
         {
@@ -78,7 +82,7 @@ const Create = () => {
                 queryClient.invalidateQueries(["posts", userData?.id])
                 queryClient.invalidateQueries(["unpublished-posts", userData?.id])
                 navigate.push({
-                    pathname: 'profile/my-post'
+                    pathname: '../profile/my-post'
                 })
                 // We can navigate back here. @Solyakin
             },
@@ -167,7 +171,6 @@ const Create = () => {
                                 fontSize="small"
                                 color="white"
                                 outline="none"
-                            // height="120px"
                             />
                         </FormControl>
                         <FormControl mb="4" w={[300, 400, 500]}>
@@ -183,7 +186,7 @@ const Create = () => {
                                 outline="none"
                             />
                         </FormControl>
-                        <Editor2 setHtmlBlockState={setHtmlBlockState} />
+                        <Editor2 setDraftData={setDraftData} setPostData={setPostData} postData={postData} draftData={draftData} setHtmlBlockState={setHtmlBlockState} />
                     </Container>
                 </main>
             </ContributorGuard>

@@ -43,7 +43,8 @@ const EditPost = () => {
         queryKey: ['draft', id, userData?.id], queryFn: async () => {
             return await PostsService.getDraft(id, userData?.id);
         }, onSuccess: (data) => {
-            setDraftData(data)
+            if (data.imagePaths) setDraftData(data)
+            else setDraftData({ ...data, imagePaths: [] })
         },
         onError: (err) => {
             toast({
@@ -195,7 +196,7 @@ const EditPost = () => {
                                 onChange={handleChangePostImage}
                             />
                         </FormControl> */}
-                        <Editor2 setHtmlBlockState={setHtmlBlockState} initialEditorState={initialEditorState} />
+                        <Editor2 setHtmlBlockState={setHtmlBlockState} draftData={draftData} setDraftData={setDraftData} initialEditorState={initialEditorState} />
                     </Container>
                 </main>
             </ContributorGuard>

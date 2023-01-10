@@ -7,7 +7,6 @@ import UserService from "../services/users/users.service"
 
 
 const AdminTable = ({ mutateRole, assignOpen, setSelectedUser }) => {
-    const { userData } = useAuth();
     const router = useRouter();
     const { data } = useQuery({
         queryKey: ['admin-users']
@@ -56,7 +55,7 @@ const AdminTable = ({ mutateRole, assignOpen, setSelectedUser }) => {
                                                 <MenuItem
                                                     icon={<ViewIcon />}
                                                     background="#000000"
-                                                    onClick={() => router.push({ pathname: `/${user.displayName}` })}
+                                                    onClick={() => router.push({ pathname: `p/${user.displayName}` })}
                                                     _hover={{ background: "white", color: "black" }}
                                                     fontSize={"sm"}
                                                 >

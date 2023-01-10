@@ -71,6 +71,7 @@ const EditProfile = ({ onClose, isOpen }) => {
                     duration: 7000,
                     isClosable: true,
                 });
+                onClose();
             }
         }
     )

@@ -31,7 +31,7 @@ const Newsletters = () => {
         error,
         data: coursesData,
         isFetching,
-    } = useQuery(["post-count"], PostsService.getPostsCount, {
+    } = useQuery(["post-count"], PostsService.getPublishedPostsCount, {
         keepPreviousData: true, onSuccess(data) {
             setTotalItems(data);
         },
@@ -68,20 +68,6 @@ const Newsletters = () => {
             }
         }
     );
-    useEffect(() => {
-      
-        const fetching = async () => {
-            try {
-                const data = await axios.request(options)
-                const result = data.data;
-                setPost(result.docs)
-                 
-              } catch (error) {
-                  //console.log(error)
-              }
-        }
-        fetching()
-    }, [])
     
   return (
     <div className={styles.newletters}>

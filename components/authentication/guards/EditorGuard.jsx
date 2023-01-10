@@ -46,12 +46,13 @@ const EditorGuard = ({ children }) => {
         // redirect to login page if accessing a private page and not logged in 
         if (authDone) {
 
+            const allowedRoles = ["admin", "editor"]
             // redirect to login page if accessing a private page and not logged in
-            if (!(userData?.role === "editor") && !(userData?.role === "admin")) {
+            if (!allowedRoles.includes(userData?.role)) {
                 setAuthorized(false);
-                router.push({ pathname: "404" })
+                router.push({ pathname: "/404" })
                 toast({
-                    title: "You are not authorized to access this page. Please login as a editor",
+                    title: "You are not authorized to access this page. Please login as an editor",
                     status: "error",
                     duration: 3000,
                     isClosable: true,
