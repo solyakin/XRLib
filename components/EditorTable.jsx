@@ -54,7 +54,7 @@ const EditorTable = ({ mutateRole, setSelectedUser, assignOpen }) => {
                                                 <MenuItem
                                                     icon={<ViewIcon />}
                                                     background="#000000"
-                                                    onClick={() => router.push({ pathname: `/${user.displayName}` })}
+                                                    onClick={() => router.push({ pathname: `p/${user.displayName}` })}
                                                     _hover={{ background: "white", color: "black" }}
                                                     fontSize={"sm"}
                                                 >

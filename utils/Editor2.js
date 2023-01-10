@@ -8,15 +8,46 @@ import { WYSIWYG_EDITOR_DEFAULT_SETTINGS } from "../config/editor.config";
 import { Box } from "@chakra-ui/react";
 import PostsService from "../services/posts/posts.service";
 import { DEFAULT_HTML_CONVERSION_OPTIONS } from "../config/draftjs-html-conversion.config";
+import useAuth from "../components/authentication/hooks/useAuth";
+
+
+/* const MediaComponent = ({ contentState, block, blockProps }) => {
+    const { foo } = blockProps;
+    const data = contentState.getEntity(block.getEntityAt(0)).getData();
+    const emptyHtml = ' ';
+    return (
+        <div>
+            {emptyHtml}
+            <img
+                src={data.src}
+                alt={data.alt || ''}
+                style={{ height: data.height || 'auto', width: data.width || 'auto' }}
+            />
+        </div>
+    );
+}
+
+function myBlockRenderer(contentBlock) {
+    const type = contentBlock.getType();
+
+    // Convert image type to mediaComponent
+    if (type === 'atomic') {
+        return {
+            component: MediaComponent,
+            editable: false,
+            props: {
+                foo: 'bar',
+            },
+        };
+    }
+} */
 
 
 
-
-const Editor2 = ({ setHtmlBlockState, initialEditorState, }) => {
-
+const Editor2 = ({ setHtmlBlockState, initialEditorState, setPostData, setDraftData, draftData, postData }) => {
+    const { userData } = useAuth();
     const [editorState, setEditorState] = useState(EditorState.createEmpty()); // create custom type for textState
     const [initialized, setInitialized] = useState(false)
-    //const [htmlBlockState, setHtmlBlockState] = useState("")
 
     const handleTextChange = (currentTextState) => {
         setEditorState(currentTextState);
@@ -40,7 +71,9 @@ const Editor2 = ({ setHtmlBlockState, initialEditorState, }) => {
             reader.onloadend = async () => {
                 const form_data = new FormData();
                 form_data.append("file", file);
-                const res = await PostsService.uploadImageForPostAndGetUrl(file.name, file)
+                const res = await PostsService.uploadImageForPostAndGetUrl(file.name, file, userData?.id)
+                if (setDraftData && typeof draftData?.imagePaths === "object") setDraftData({ ...draftData, imagePaths: [...draftData.imagePaths, `/temp/${userData?.id}/${file.name}`] })
+                if (setPostData && typeof postData?.imagePaths === "object") setPostData({ ...postData, imagePaths: [...postData?.imagePaths, `/temp/${userData?.id}/${file.name}`] })
                 resolve(res);
             };
             reader.readAsDataURL(file);
@@ -62,6 +95,7 @@ const Editor2 = ({ setHtmlBlockState, initialEditorState, }) => {
     return (
         <Box zIndex={3}>
             <Editor
+               // blockRendererFn={myBlockRenderer}
                 {...WYSIWYG_EDITOR_DEFAULT_SETTINGS}
                 editorState={editorState}
                 onEditorStateChange={handleTextChange}

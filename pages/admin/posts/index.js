@@ -92,6 +92,8 @@ const AdminPosts = () => {
                 queryClient.invalidateQueries(['all-posts'])
                 queryClient.invalidateQueries(['all-published-posts'])
                 queryClient.invalidateQueries(['all-unpublished-posts'])
+                queryClient.invalidateQueries(['recent-posts'])
+
             },
             onError: (err) => {
                 toast({
@@ -117,6 +119,7 @@ const AdminPosts = () => {
                 queryClient.invalidateQueries(['all-published-posts'])
                 queryClient.invalidateQueries(['all-posts'])
                 queryClient.invalidateQueries(['all-unpublished-posts'])
+                queryClient.invalidateQueries(['recent-posts'])
             },
             onError: (err) => {
                 toast({
@@ -388,11 +391,11 @@ const AdminPosts = () => {
                                                                                 </MenuItem>
                                                                                 <MenuItem
                                                                                     background="#000000"
-                                                                                    onClick={() => unpublishPost({ postId: post.id })}
+                                                                                    onClick={() => publishPost({ postId: post.id })}
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
                                                                                 >
-                                                                                    Unpublish
+                                                                                    Publish
                                                                                 </MenuItem>
                                                                             </MenuList>
                                                                         </Menu>

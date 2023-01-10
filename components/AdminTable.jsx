@@ -1,15 +1,10 @@
-import { AddIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons"
+import { AddIcon, ViewIcon } from "@chakra-ui/icons"
 import { TableContainer, Table, Thead, Tr, Th, Tbody, Td, Menu, MenuButton, MenuList, MenuItem, Image } from "@chakra-ui/react"
 import { useQuery } from "@tanstack/react-query"
-
 import { useRouter } from "next/router"
-import useAuth from "./authentication/hooks/useAuth"
-import UserService from "../services/users/users.service"
-import useAuth from "./authentication/hooks/useAuth"
 
 
 const AdminTable = ({ mutateRole, assignOpen, setSelectedUser }) => {
-    const { userData } = useAuth();
     const router = useRouter();
     const { data } = useQuery({
         queryKey: ['admin-users']
@@ -58,7 +53,7 @@ const AdminTable = ({ mutateRole, assignOpen, setSelectedUser }) => {
                                                 <MenuItem
                                                     icon={<ViewIcon />}
                                                     background="#000000"
-                                                    onClick={() => router.push({ pathname: `/${user.displayName}` })}
+                                                    onClick={() => router.push({ pathname: `p/${user.displayName}` })}
                                                     _hover={{ background: "white", color: "black" }}
                                                     fontSize={"sm"}
                                                 >
