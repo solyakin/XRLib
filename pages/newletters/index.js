@@ -58,13 +58,13 @@ const Newsletters = () => {
         {
             keepPreviousData: true,
             onSuccess: (data) => {
-                 console.log(data);
-                 console.log("startFromState", startFrom)
+                 //console.log(data);
+                 //console.log("startFromState", startFrom)
                  //setStartFrom(data.lastPostRef)
                 
             },
             onError: (err) => {
-                console.log(err)
+                //console.log(err)
             }
         }
     );
@@ -77,7 +77,7 @@ const Newsletters = () => {
                 setPost(result.docs)
                  
               } catch (error) {
-                  console.log(error)
+                  //console.log(error)
               }
         }
         fetching()
@@ -136,7 +136,7 @@ const Newsletters = () => {
                             currentPage={currentPage}
                             onPageChange={(page) => {
                             let delta = page - currentPage;
-                            console.log(delta)
+                            //console.log(delta)
                             let isNext = delta > 0
                             setCurrentPage(page)
                             // If the user is going to the next page, we need to get the last item of the current page

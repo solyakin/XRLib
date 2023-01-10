@@ -3,7 +3,6 @@ import { Center, ChakraProvider, Spinner, useToast } from '@chakra-ui/react'
 import theme from '../utils/theme';
 import { AuthProvider } from '../components/authentication/contexts/AuthContext';
 import useAuth from '../components/authentication/hooks/useAuth';
-import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 
