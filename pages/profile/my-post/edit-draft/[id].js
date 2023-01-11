@@ -14,7 +14,7 @@ import convertHtmlToText from '../../../../utils/html-to-text'
 import { useRouter } from 'next/router'
 import { ContentState, EditorState, convertFromHTML } from 'draft-js'
 
-const Editor2 = dynamic(() => import('../../../../utils/Editor2'), {
+const Editor2 = dynamic(() => import('../../../../components/Editor2'), {
     ssr: false,
 });
 
@@ -99,14 +99,6 @@ const EditPost = () => {
 
 
 
-
-
-
-
-
-
-
-
     return (
         <div className={styles.create}>
             <Head>
@@ -180,23 +172,10 @@ const EditPost = () => {
                                 outline="none"
                             />
                         </FormControl>
-                        {/*  <FormControl mb="4" w={[300, 400, 500]}>
-                            <FormLabel color="whiteAlpha.500" fontSize="sm">Image</FormLabel>
-                            <label style={{ "color": "#F40580", "cursor": "pointer" }} for="uploadImage">{postImage?.name || postImage || "Select file"}</label>
-                            <Input
-                                hidden
-                                type="file"
-                                accept="image/png, image/jpeg"
-                                borderRadius="full"
-                                id={"uploadImage"}
-                                borderColor="whiteAlpha.400"
-                                fontSize="small"
-                                color="white"
-                                outline="none"
-                                onChange={handleChangePostImage}
-                            />
-                        </FormControl> */}
-                        <Editor2 setHtmlBlockState={setHtmlBlockState} draftData={draftData} setDraftData={setDraftData} initialEditorState={initialEditorState} />
+                        {
+                            userData &&
+                            <Editor2 setHtmlBlockState={setHtmlBlockState} draftData={draftData} setDraftData={setDraftData} initialEditorState={initialEditorState} userId={userData?.id} draftId={id} />
+                        }
                     </Container>
                 </main>
             </ContributorGuard>

@@ -11,15 +11,14 @@ const RecentNewsletter = ({ info }) => {
             return await PostsService.getRecentPosts()
         }, onSuccess: (data) => {
         },
-    },
-    )
+    })
 
     return (
         <div className={styles.newletters}>
             <h3>{info?.title}</h3>
             <div className={styles.newletterList}>
                 {
-                    data && data.map(({ id, thumbnailUrl, description, author, title, contentText, readMinutes }) => {
+                    data && data.map(({ id, thumbnailUrl, author, title, contentText, readMinutes }) => {
                         return (
                             <Link href={`/newletters/${id}`} key={id}>
                                 <div className={styles.item}>

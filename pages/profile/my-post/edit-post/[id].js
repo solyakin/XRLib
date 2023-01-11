@@ -14,7 +14,7 @@ import convertHtmlToText from '../../../../utils/html-to-text'
 import { useRouter } from 'next/router'
 import { ContentState, EditorState, convertFromHTML } from 'draft-js'
 
-const Editor2 = dynamic(() => import('../../../../utils/Editor2'), {
+const Editor2 = dynamic(() => import('../../../../components/Editor2'), {
     ssr: false,
 });
 
@@ -166,7 +166,7 @@ const EditPost = () => {
                                 <Button bg="none" borderColor="#F40580" borderRadius="full" _hover={{ background: "none" }} onClick={() => mutate(draftData)} isLoading={isLoading} className={styles.publish_btn}>
 
                                     <Image src="/upload.svg" width="14" height="14" alt="" />
-                                    Update draft
+                                    Save to drafts
                                 </Button>
 
                                 <Button isLoading={postIsLoading} background="#F40580" borderRadius="full" className={styles.publish_btn} onClick={() => {
@@ -206,7 +206,7 @@ const EditPost = () => {
                         </FormControl>
                         <FormControl mb="4" w={[300, 400, 500]}>
                             <FormLabel color="whiteAlpha.500" fontSize="sm">Image</FormLabel>
-                            <label style={{ "color": "#F40580", "cursor": "pointer" }} for="uploadImage">{postImage?.name || postImage || "Select file"}</label>
+                            <label style={{ "color": "#F40580", "cursor": "pointer" }} htmlFor="uploadImage">{postImage?.name || postImage || "Select file"}</label>
                             <Input
                                 hidden
                                 type="file"
@@ -220,7 +220,9 @@ const EditPost = () => {
                                 onChange={handleChangePostImage}
                             />
                         </FormControl>
-                        <Editor2 setHtmlBlockState={setHtmlBlockState} setPostData={setPostData} postData={postData} initialEditorState={initialEditorState} />
+                        {userData &&
+                            <Editor2 setHtmlBlockState={setHtmlBlockState} setPostData={setPostData} postData={postData} initialEditorState={initialEditorState} userId={userData?.id} postId={id} />
+                        }
                     </Container>
                 </main>
             </ContributorGuard>

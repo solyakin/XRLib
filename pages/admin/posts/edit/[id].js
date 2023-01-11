@@ -13,14 +13,16 @@ import { useRouter } from 'next/router'
 import { ContentState, EditorState, convertFromHTML } from 'draft-js'
 import Header from '../../../../components/Header'
 import EditorGuard from '../../../../components/authentication/guards/EditorGuard'
+import useAuth from '../../../../components/authentication/hooks/useAuth'
 
-const Editor2 = dynamic(() => import('../../../../utils/Editor2'), {
+const Editor2 = dynamic(() => import('../../../../components/Editor2'), {
     ssr: false,
 });
 
 
 
 const EditPost = () => {
+    const { userData } = useAuth();
     const toast = useToast();
     const queryClient = useQueryClient();
     const router = useRouter();
@@ -166,7 +168,10 @@ const EditPost = () => {
                                 onChange={handleChangePostImage}
                             />
                         </FormControl>
-                        <Editor2 setHtmlBlockState={setHtmlBlockState} postData={postData} setPostData={setPostData} initialEditorState={initialEditorState} />
+                        {
+                            postData &&
+                            <Editor2 setHtmlBlockState={setHtmlBlockState} postData={postData} setPostData={setPostData} initialEditorState={initialEditorState} userId={postData.author.id} postId={id} />
+                        }
                     </Container>
                 </main>
             </EditorGuard>

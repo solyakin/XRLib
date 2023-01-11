@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
 import { collection, doc } from 'firebase/firestore'
 import { db } from '../../config/firebase'
 
-const Editor2 = dynamic(() => import('../../utils/Editor2'), {
+const Editor2 = dynamic(() => import('../../components/Editor2'), {
     ssr: false,
 });
 
@@ -186,7 +186,7 @@ const Create = () => {
                                 outline="none"
                             />
                         </FormControl>
-                        <Editor2 setDraftData={setDraftData} setPostData={setPostData} postData={postData} draftData={draftData} setHtmlBlockState={setHtmlBlockState} />
+                        <Editor2 setDraftData={setDraftData} setPostData={setPostData} postData={postData} draftData={draftData} setHtmlBlockState={setHtmlBlockState} userId={userData?.id} />
                     </Container>
                 </main>
             </ContributorGuard>

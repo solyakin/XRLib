@@ -2,9 +2,7 @@
  * This class holds utility functions for API calls related to posts.
  * 
  */
-
-
-import { collection, doc, getCountFromServer, getDoc, getDocs, limit, orderBy, query, setDoc, startAfter, Timestamp, updateDoc, where } from "firebase/firestore";
+import { arrayUnion, collection, doc, getCountFromServer, getDoc, getDocs, limit, orderBy, query, setDoc, startAfter, Timestamp, updateDoc, where } from "firebase/firestore";
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db, firebaseStorage } from "../../config/firebase";
 
@@ -32,9 +30,8 @@ class PostsService {
     static async getRecentPosts() {
         let posts = [];
         const q1 = query(postsCollection, limit(3), where("isPublished", "==", true), orderBy("createdAt", "asc"))
-        const q = query(q1, limit(3), orderBy("createdAt", "asc"),)
         try {
-            await getDocs(q)
+            await getDocs(q1)
                 .then(async (data) => {
                     data.docs.map(doc => {
                         posts.push(doc.data());
@@ -121,7 +118,7 @@ class PostsService {
         return posts;
 
     }
-    static async uploadImageForPostAndGetUrl(fileName, file, postId, userId) {
+    static async uploadImageForPostAndGetUrl(fileName, file, userId) {
         const storageRef = ref(firebaseStorage, `/temp/${userId}/${fileName}`);
         let imageExists = false
         try {
@@ -282,6 +279,11 @@ class PostsService {
         }
         return await updateDoc(existingPost, post)
     }
+    static async appendImagePathToPost(postId, imagePath, previousImagePaths) {
+        let existingPost = doc(postsCollection, postId);
+
+        return await updateDoc(existingPost, { imagePaths: arrayUnion(imagePath) })
+    }
 
     static async publishPost(postId) {
         let existingPost = doc(postsCollection, postId);
@@ -296,7 +298,7 @@ class PostsService {
         let existingPost = doc(postsCollection, postId);
         let post = {
             isPublished: false,
-            unPublishedAt: Timestamp.now(),
+            unpublishedAt: Timestamp.now(),
             publishedAt: null,
             lastUpdated: Timestamp.now(),
         }
@@ -308,8 +310,6 @@ class PostsService {
         if (!author.id) {
             throw new Error("ID is required")
         }
-        //console.log(setDraftData)
-        //console.log("saveDraft", author)
         const draftsCollection = collection(db, `users`, `${author.id}`, 'drafts');
         let draftDoc = draftData?.draftId ? doc(draftsCollection, draftData?.draftId) : doc(draftsCollection)
 
