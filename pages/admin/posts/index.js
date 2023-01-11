@@ -216,7 +216,7 @@ const AdminPosts = () => {
                                                                                 <MenuItem
                                                                                     mb="3"
                                                                                     background="#000000"
-                                                                                    onClick={() => { router.push({ pathname: `./posts${post.id}` }) }}
+                                                                                    onClick={() => { router.push({ pathname: `./posts/${post.id}` }) }}
                                                                                     _hover={{ background: "white", color: "black" }}
                                                                                     fontSize={"sm"}
                                                                                 >
