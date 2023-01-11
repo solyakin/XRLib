@@ -1,9 +1,6 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
 import Link from 'next/link'
 import React from 'react'
 import styles from '../styles/RecentNewsletter.module.css'
-import { baseUrl } from '../utils/baseUrl'
 import PostsService from '../services/posts/posts.service'
 import { Avatar } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
@@ -14,15 +11,14 @@ const RecentNewsletter = ({ info }) => {
             return await PostsService.getRecentPosts()
         }, onSuccess: (data) => {
         },
-    },
-    )
+    })
 
     return (
         <div className={styles.newletters}>
             <h3>{info?.title}</h3>
             <div className={styles.newletterList}>
                 {
-                    data && data.map(({ id, thumbnailUrl, description, author, title, contentText, readMinutes }) => {
+                    data && data.map(({ id, thumbnailUrl, author, title, contentText, readMinutes }) => {
                         return (
                             <Link href={`/newletters/${id}`} key={id}>
                                 <div className={styles.item}>

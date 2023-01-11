@@ -8,7 +8,7 @@ import { WYSIWYG_EDITOR_DEFAULT_SETTINGS } from "../config/editor.config";
 import { Box } from "@chakra-ui/react";
 import PostsService from "../services/posts/posts.service";
 import { DEFAULT_HTML_CONVERSION_OPTIONS } from "../config/draftjs-html-conversion.config";
-import useAuth from "../components/authentication/hooks/useAuth";
+import useAuth from "./authentication/hooks/useAuth";
 
 
 /* const MediaComponent = ({ contentState, block, blockProps }) => {
@@ -44,8 +44,7 @@ function myBlockRenderer(contentBlock) {
 
 
 
-const Editor2 = ({ setHtmlBlockState, initialEditorState, setPostData, setDraftData, draftData, postData }) => {
-    const { userData } = useAuth();
+const Editor2 = ({ setHtmlBlockState, initialEditorState, setPostData, setDraftData, draftData, postData, userId, postId, draftId }) => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty()); // create custom type for textState
     const [initialized, setInitialized] = useState(false)
 
@@ -71,9 +70,22 @@ const Editor2 = ({ setHtmlBlockState, initialEditorState, setPostData, setDraftD
             reader.onloadend = async () => {
                 const form_data = new FormData();
                 form_data.append("file", file);
-                const res = await PostsService.uploadImageForPostAndGetUrl(file.name, file, userData?.id)
-                if (setDraftData && typeof draftData?.imagePaths === "object") setDraftData({ ...draftData, imagePaths: [...draftData.imagePaths, `/temp/${userData?.id}/${file.name}`] })
-                if (setPostData && typeof postData?.imagePaths === "object") setPostData({ ...postData, imagePaths: [...postData?.imagePaths, `/temp/${userData?.id}/${file.name}`] })
+                console.log(userId)
+                const res = await PostsService.uploadImageForPostAndGetUrl(file.name, file, userId)
+                // Check if we're editing instead of creating afresh and add to imagePaths
+                if (postId) {
+                    await PostsService.appendImagePathToPost(postId, `/temp/${userId}/${file.name}`, postData.imagePaths)
+                }
+                else {
+                    if (setPostData && typeof postData?.imagePaths === "object") setPostData({ ...postData, imagePaths: [...postData?.imagePaths, `/temp/${userId}/${file.name}`] })
+                }
+                if (draftId) {
+                    await PostsService.appendImagePathToPost(postId, `/temp/${userId}/${file.name}`, postData.imagePaths)
+                }
+                else {
+                    if (setDraftData && typeof draftData?.imagePaths === "object") setDraftData({ ...draftData, imagePaths: [...draftData.imagePaths, `/temp/${userId}/${file.name}`] })
+                }
+
                 resolve(res);
             };
             reader.readAsDataURL(file);
@@ -95,7 +107,7 @@ const Editor2 = ({ setHtmlBlockState, initialEditorState, setPostData, setDraftD
     return (
         <Box zIndex={3}>
             <Editor
-               // blockRendererFn={myBlockRenderer}
+                // blockRendererFn={myBlockRenderer}
                 {...WYSIWYG_EDITOR_DEFAULT_SETTINGS}
                 editorState={editorState}
                 onEditorStateChange={handleTextChange}
