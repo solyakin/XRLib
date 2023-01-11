@@ -62,7 +62,6 @@ const UserProfile = () => {
     },
     )
 
-
     return (
         <div className={styles.user}>
             <Head>
