@@ -10,6 +10,7 @@ import Footer from '../../components/Footer';
 import { months, weekday } from '../../utils/monthList';
 import PostsService from '../../services/posts/posts.service';
 import { Avatar } from '@chakra-ui/react';
+import Link from 'next/link';
 
 const info = {
   title : "Related topics",
@@ -31,12 +32,14 @@ const Preview = () => {
 
   useEffect(() => {
     const fetching = async () => {
-      const data = await PostsService.getPost(id)
+      if (id){
+      const data = await PostsService.getPublishedPostBySlug(id)
       const result = data; 
       setPost(result)
+      }
     }
     fetching()
-  }, [])
+  }, [id])
   
  const newDate = post && post.createdAt.toDate();
  let dummyDate = new Date();
@@ -58,7 +61,7 @@ const Preview = () => {
                  { post && <div className={styles.preview} key={post.id}>
                     <div className={styles.author}>
                         <Avatar src={post.author.profileImageUrl} size={"sm"} alt="avatar"/>
-                        <p>{post.author.displayName}</p>
+                       <Link href={`../p/${post.author.displayName}`}> <p>{post.author.displayName}</p></Link>
                         <p><span>{`${weekday[dy]} ${day} ${months[month]} ${year} `}</span></p>
                     </div>
                     <div className={styles.title}>

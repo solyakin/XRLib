@@ -71,6 +71,42 @@ class PostsService {
             }
         );
     }
+
+    static async getPublishedPostBySlug(slug) {
+        const publishedOnlyQuery = query(postsCollection, where("isPublished", "==", true))
+        const q = query(publishedOnlyQuery, where("customUrlSlug", "==", slug))
+
+        let posts = [];
+        try {
+            await getDocs(q)
+                .then(async (data) => {
+                    data.docs.map(doc => {
+                        posts.push(doc.data());
+                    })
+                })
+        }
+        catch (error) {
+            //throw new Error(`Unable to get posts: ${error}`);
+        }
+        if (posts.length) {
+            return posts[0]
+        }
+        else {
+            try {
+                await getDocs(publishedOnlyQuery, where("customUrlSlug", "==", slug))
+                    .then(async (data) => {
+                        data.docs.map(doc => {
+                            posts.push(doc.data());
+                        })
+                    })
+            }
+            catch (error) {
+                //throw new Error(`Unable to get posts: ${error}`);
+            }
+        }
+        return posts[0];
+
+    }
     static async getDraft(draftId, userId) {
         if (!userId) throw new Error("Pass in a user id!")
         const draftsCollection = collection(db, `users`, `${userId}`, 'drafts');
