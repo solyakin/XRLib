@@ -29,15 +29,16 @@ const Newsletters = () => {
     const {
         isLoading,
         error,
-        data: coursesData,
+        data: postCount,
         isFetching,
     } = useQuery(["post-count"], PostsService.getPublishedPostsCount, {
-        keepPreviousData: true, onSuccess(data) {
+         onSuccess(data) {
+            console.log(data)
             setTotalItems(data);
         },
     })
 
-    const [totalItems, setTotalItems] = useState(coursesData || 0);
+    const [totalItems, setTotalItems] = useState(postCount || 0);
     const [startFrom, setStartFrom] = useState(undefined);
     const numberOfPages = Math.ceil(totalItems / itemsPerPage.permanent);
     const {
