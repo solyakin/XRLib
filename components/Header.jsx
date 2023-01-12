@@ -132,7 +132,6 @@ const Header = () => {
                                                 }
                                             </>
                                         )}
-
                                         {!(router.asPath === "/users") && (
                                             <>
                                                 {
@@ -209,9 +208,6 @@ const Header = () => {
                         </DrawerHeader>
                         <DrawerBody>
                             <ul className={styles.menu_list}>
-                                <li className={styles.menu}>
-                                    {/* <Avatar name={currentUser.displayName} src={currentUser.photoURL || userData.profileImageUrl} size="sm" /> */}
-                                </li>
                                 <li className={styles.menu} onClick={hamClose}>
                                     <Link href="/">Home</Link>
                                 </li>
@@ -244,14 +240,13 @@ const Header = () => {
                                         <CheckInbox checkOpen={checkOpen} checkClose={checkClose} checkIsOpen={checkIsOpen} />
                                     </li> : <>
                                         <li className={styles.menu}>
-                                            <Link href="/profile">Profile</Link>
+                                            {!(router.asPath === "/profile") && <Link href="/profile">Profile</Link>}
+                                            {router.asPath === "/profile" && <Text>Profile</Text>}
                                         </li>
                                         <li className={styles.menu}>
                                             <Link href="/profile/published">Posts</Link>
                                         </li>
-                                        {/* <li className={styles.menu}>
-                                            <Link href="#">Stats</Link>
-                                        </li> */}
+                                        
                                         <Box
                                             display="flex"
                                             alignItems="center"
