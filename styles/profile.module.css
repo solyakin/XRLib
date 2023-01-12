@@ -100,4 +100,19 @@
     .title h2{
         font-size: 1.7em;
     }
+    .newsletter{
+        display: block;
+    }
+    .photo img{
+        width: 100%;
+    }
+    .author{
+        margin-bottom: 1em;
+    }
+    .author p{
+        font-size: 12px;
+    }
+    .author svg{
+        width: 14px;
+    }
 }
