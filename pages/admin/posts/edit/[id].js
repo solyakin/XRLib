@@ -169,7 +169,8 @@ const EditPost = () => {
                         </FormControl>
                         {
                             postData &&
-                            <Editor2 setHtmlBlockState={setHtmlBlockState} postData={postData} setPostData={setPostData} initialEditorState={initialEditorState} userId={postData.author?.id} postId={id} />
+                            <Editor2 setHtmlBlockState={setHtmlBlockState} postData={postData} setPostData={setPostData} initialEditorState={initialEditorState} userId={postData?.author?.id} postId={id} />
+
                         }
                     </Container>
                 </main>

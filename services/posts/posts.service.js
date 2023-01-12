@@ -178,6 +178,11 @@ class PostsService {
         let snapshot = await getCountFromServer(q)
         return snapshot.data().count;
     }
+    static async getUnpublishedPostsCount() {
+        const q = query(postsCollection, where("isPublished", "==", false))
+        let snapshot = await getCountFromServer(q)
+        return snapshot.data().count;
+    }
     static async getUnpublishedPostsByUserId(userId) {
         const q = query(postsCollection, where("author.id", "==", userId))
         const qWithUnpublishedOnly = query(q, where("isPublished", "==", false))
@@ -196,11 +201,7 @@ class PostsService {
         return posts;
 
     }
-    static async getPublishedPostsCount() {
-        const q = query(postsCollection, where("isPublished", "==", false))
-        let snapshot = await getCountFromServer(q)
-        return snapshot.data().count;
-    }
+
 
     static async getDraftsByUserId(userId) {
         const draftsCollection = collection(db, `users`, `${userId}`, 'drafts');
