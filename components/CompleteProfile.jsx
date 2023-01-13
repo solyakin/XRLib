@@ -88,7 +88,7 @@ const CompleteProfile = ({ profileClose, profileIsOpen }) => {
              }) */
             mutate({
                 userId: userData?.id, profileData: {
-                    ...userData, profileImageUrl: fileDownloadUrl, name: values.name, displayName: values.displayName, twitterUrl: `https://twitter.com/${values.twitterUrl}`, phoneNumber: values.phoneNumber, website: values.website,
+                    ...userData, profileImageUrl: fileDownloadUrl, name: values.name, displayName: values.displayName.toLowerCase(), twitterUrl: `https://twitter.com/${values.twitterUrl}`, phoneNumber: values.phoneNumber, website: values.website,
                     facebookUrl: `https://facebook.com/${values.facebookUrl}`, linkedInUrl: `https://linkedin.com/${values.linkedInUrl}`, profileSummary: values.profileSummary, instagramUrl: `https://instagram.com/${values.instagramUrl}`
                 }
             })
