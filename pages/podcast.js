@@ -14,14 +14,17 @@ const Podcast = () => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-
         const fetching = async () => {
-            const res = await axios(`${baseUrl}/rss-feed`)
-            const data = res.data
-            setItems(data.items)
+            if (window !== undefined) {
+                const res = await axios(`${baseUrl}/rss-feed`)
+                const data = res.data
+                setItems(data.items)
+            }
         }
         fetching()
-
+        return () => {
+            setItems([])
+        }
     }, [])
 
     return (
