@@ -46,7 +46,7 @@ const Hero = () => {
               }
             },
           }}>
-            <h1> XR-ATLAS</h1>
+            <h1> XRATLAS</h1>
           </motion.div>
           <Link href={"/p/Babatunde"}> <p className={styles.by}>By Babatunde</p></Link>
         </div>
