@@ -56,7 +56,7 @@ export default function Home() {
           <Information />
           <RecentPodcast podcasts={podcasts}/>
           <Glimpse />
-          <RecentNewsletter data={data}/>
+          <RecentNewsletter info={data}/>
           <Community />
           <Footer />
         </main>

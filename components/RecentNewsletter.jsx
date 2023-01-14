@@ -20,17 +20,19 @@ const RecentNewsletter = ({ info }) => {
                 {
                     data && data.map(({ id, thumbnailUrl, author, title, contentText, readMinutes }) => {
                         return (
-                            <Link href={`/newletters/${id}`} key={id}>
-                                <div className={styles.item}>
-                                    <img src={thumbnailUrl} alt="" className={styles.postImg} />
-                                    <h4>{`${title}`}</h4>
-                                    <p>{`${contentText?.substr(0, 160)}...`}</p>
-                                    <div className={styles.author}>
-                                        <Avatar src={author.profileImageUrl} name={author.displayName} />
-                                        <p>{author.displayname} <span>{`· ${readMinutes} min read`}</span></p>
+                            <div className={styles.list_wrapper}>
+                                <Link href={`/newletters/${id}`} key={id}>
+                                    <div className={styles.item}>
+                                        <img src={thumbnailUrl} alt="" className={styles.postImg} />
+                                        <h4>{`${title}`}</h4>
+                                        <p>{`${contentText?.substr(0, 160)}...`}</p>
+                                        <div className={styles.author}>
+                                            <Avatar src={author.profileImageUrl} name={author.displayName} size="sm"/>
+                                            <p>{author.displayname} <span>{`· ${readMinutes} min read`}</span></p>
+                                        </div>
                                     </div>
-                                </div>
-                            </Link>
+                                </Link>
+                            </div>
                         )
                     })
                 }

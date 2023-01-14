@@ -21,11 +21,10 @@
 .newletterList{
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 2em;
 }
-.newletterList > a{
-    flex: 0.33;
+.newletterList .list_wrapper{
+    flex: 0.5;
 }
 .newletterList .item{
     border: 1px solid #3F4753;
@@ -36,7 +35,7 @@
 }
 .item .postImg{
     width: 100%;
-    height: 157px;
+    height: 187px;
 }
 .item h4{
     font-family: 'carbinet';
@@ -49,6 +48,7 @@
     line-height: 1.6;
     margin-top: 5px;
     font-family: 'Firs';
+    word-break: break-all;
 }
 .newletterList .author{
     display: flex;

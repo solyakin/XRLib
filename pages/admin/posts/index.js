@@ -12,7 +12,7 @@ import {
     Tag,
     Tabs, TabList, TabPanels, Tab, TabPanel,
     Menu, MenuButton, MenuList, MenuItem,
-    useDisclosure, useToast, Center, Spinner
+    useToast, Center, Spinner
 } from '@chakra-ui/react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import PostsService from '../../../services/posts/posts.service'

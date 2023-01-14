@@ -19,7 +19,7 @@ a {
 .rdw-editor-main{
   background: rgb(228, 227, 227);
   color : black;
-  min-height: 300px!important;
+  min-height: 350px!important;
 }
 .rhap_stacked .rhap_controls-section{
   margin-top: 0!important;
@@ -29,6 +29,9 @@ a {
 }
 .rhap_additional-controls svg{
   width: 18px;
+}
+.rdw-dropdownoption-default, .rdw-dropdown-selectedtext{
+  color: black!important;
 }
 @media only screen and (max-width : 480px){
   .css-uv6hmy{

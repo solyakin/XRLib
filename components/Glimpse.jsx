@@ -5,7 +5,7 @@ const Glimpse = () => {
   return (
     <div className={styles.glimpse}>
         <div className={styles.headset}>
-            <img src='/Group 17.svg' width={700} height={500} alt="mars"/>
+            <img src='/Group 17.svg' width={700} height={700} alt="mars"/>
         </div>
         <div className={styles.secondcontent}>
             <h2>A GLIMPSE INTO THE FUTURE OF THE METAVERSE</h2>

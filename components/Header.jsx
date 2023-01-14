@@ -53,7 +53,7 @@ const Header = () => {
         <header className={styles.header}>
             <Link href='/'>
                 <div className={styles.logo}>
-                    <Image src="/Product Description.svg" width={140} height={100} alt="" />
+                    <Image src="/icon-xra.png" width={50} height={50} alt="" />
                 </div>
             </Link>
             <nav className={styles.nav}>
