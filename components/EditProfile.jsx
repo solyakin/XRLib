@@ -53,7 +53,7 @@ const EditProfile = ({ onClose, isOpen }) => {
             if (fileToUpload) fileDownloadUrl = await UserService.uploadProfileImageAndGetDownloadUrl(fileToUpload, userData?.id)
             mutate({
                 userId: userData?.id, profileData: {
-                    ...userData, profileImageUrl: fileDownloadUrl, displayName: values.displayName, twitterUrl: `https://twitter.com/${values.twitterUrl}`, phoneNumber: values.phoneNumber, website: values.website,
+                    ...userData, profileImageUrl: fileDownloadUrl, displayName: values.displayName.toLowerCase(), twitterUrl: `https://twitter.com/${values.twitterUrl}`, phoneNumber: values.phoneNumber, website: values.website,
                     facebookUrl: `https://facebook.com/${values.facebookUrl}`, linkedInUrl: `https://linkedin.com/${values.linkedInUrl}`, profileSummary: values.profileSummary, instagramUrl: `https://instagram.com/${values.instagramUrl}`
                 }
             })

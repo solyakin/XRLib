@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { db, firebaseAuth } from "../../../config/firebase"
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut as fbSignOut, sendPasswordResetEmail, sendEmailVerification, signInWithRedirect, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut as fbSignOut, sendPasswordResetEmail, sendEmailVerification, signInWithRedirect, signInWithPopup, deleteUser } from "firebase/auth";
 import { useToast } from "@chakra-ui/react";
 import UserService from "../../../services/users/users.service";
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
@@ -42,6 +42,15 @@ export const AuthProvider = ({ children }) => {
 
     },
     )
+
+    // TODO: Delete account 
+    const deleteAccount = async (currentUser) => {
+        
+        return await deleteUser(currentUser).then(() => {
+            setUserData(null)
+            setCurrentUser(null)
+        })
+    }
 
     const signUpWithGoogle = async () => {
         signInWithPopup(firebaseAuth, googleProvider).then(async function (result) {

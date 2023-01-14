@@ -72,7 +72,7 @@ const EditPost = () => {
             onSuccess: () => {
                 toast({
                     title: "Hurray! Your post has been edited successfully",
-                    // description: "Our editors will review and if it makes the cut, you'll be on our newspaper!",
+                    // description: "Our editors will review and if it makes the cut, you'll be on our newsletter!",
                     status: "success",
                     duration: 7000,
                     isClosable: true,
@@ -169,7 +169,8 @@ const EditPost = () => {
                         </FormControl>
                         {
                             postData &&
-                            <Editor2 setHtmlBlockState={setHtmlBlockState} postData={postData} setPostData={setPostData} initialEditorState={initialEditorState} userId={postData.author?.id} postId={id} />
+                            <Editor2 setHtmlBlockState={setHtmlBlockState} postData={postData} setPostData={setPostData} initialEditorState={initialEditorState} userId={postData?.author?.id} postId={id} />
+
                         }
                     </Container>
                 </main>

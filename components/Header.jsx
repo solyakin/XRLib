@@ -107,7 +107,7 @@ const Header = () => {
 
                                         {!(router.asPath === "/profile/my-post") && (
                                             <>
-                                                {userData?.role === "contributor" &&
+                                                {userData?.role !== "member" &&
                                                     <>
                                                         <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{ background: "white", color: "black" }}>
 
@@ -121,7 +121,7 @@ const Header = () => {
                                         )}
                                         {(router.asPath === "/profile/my-post") && (
                                             <>
-                                                {userData?.role === "contributor" &&
+                                                {(userData?.role !== "member") &&
                                                     <>
                                                         <MenuItem fontSize="14px" mb="4" background="#000000" _hover={{ background: "white", color: "black" }}>
                                                             <Image src="/Vector (19).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />

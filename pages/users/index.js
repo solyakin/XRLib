@@ -162,7 +162,7 @@ const Accounts = () => {
                                 <FormLabel color="whiteAlpha.700">Email</FormLabel>
                                 <Input value={inviteData?.email} onChange={(e) => setInviteData({ ...inviteData, email: e.target.value })}
                                     onBlur={async () => {
-                                        await UserService.checkMemberWithEmailExistsAndReturnMember(inviteData.email).then(member => setMemberData(member))
+                                        await UserService.checkMemberWithEmailExistsAndReturnMember(inviteData?.email).then(member => setMemberData(member))
                                     }}
                                     type="email" placeholder='username@gmail.com' borderRadius="md" borderColor="whiteAlpha.400" fontSize="small" color="white" boder="1px" outline="none" />
                                 {

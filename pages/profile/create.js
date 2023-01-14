@@ -12,8 +12,6 @@ import PostsService from '../../services/posts/posts.service'
 import useAuth from '../../components/authentication/hooks/useAuth'
 import convertHtmlToText from '../../utils/html-to-text'
 import { useRouter } from 'next/router'
-import { collection, doc } from 'firebase/firestore'
-import { db } from '../../config/firebase'
 
 const Editor2 = dynamic(() => import('../../components/Editor2'), {
     ssr: false,
@@ -24,9 +22,9 @@ const Create = () => {
     const queryClient = useQueryClient();
     const navigate = useRouter();
     const { userData } = useAuth();
-    const [draftData, setDraftData] = useState({ content: "", draftId: undefined, readMinutes: null, title: "", description: "", imagePaths: [] });
+    const [draftData, setDraftData] = useState({ content: "", draftId: undefined, readMinutes: null, title: "", description: "", imagePaths: [], customUrlSlug: null });
     const [postImage, setPostImage] = useState();
-    const [postData, setPostData] = useState({ content: "", readMinutes: null, title: "", description: "", imagePaths: [] })
+    const [postData, setPostData] = useState({ content: "", readMinutes: null, title: "", description: "", imagePaths: [], customUrlSlug: null })
     const [draftLastUpdated, setDraftLastUpdated] = useState(null);
     const [htmlBlockState, setHtmlBlockState] = useState(null)
 
@@ -36,6 +34,16 @@ const Create = () => {
         s = s.replace(/\n /, "\n"); // exclude newline with a start spacing
         return s.split(' ').filter(function (str) { return str != ""; }).length;
         //return s.split(' ').filter(String).length; - this can also be used
+    }
+
+    function makeid(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
     }
 
 
@@ -66,15 +74,14 @@ const Create = () => {
             displayName: userData?.displayName,
             profileImageUrl: userData?.profileImageUrl,
         }
-        const postsCollection = collection(db, "posts")
-        let newPostRef = doc(postsCollection);
-        return await PostsService.uploadPost(authorData, { ...postData, content: htmlBlockState, isPublished: false, contentText: convertHtmlToText(htmlBlockState), readMinutes: Math.ceil(countWords(convertHtmlToText(htmlBlockState)) / 200) }, postImage)
+        const randomString = makeid(11)
+        return await PostsService.uploadPost(authorData, { ...postData, content: htmlBlockState, isPublished: false, customUrlSlug: `${postData.title.toLowerCase().split(" ").join("-")}-${randomString}`, contentText: convertHtmlToText(htmlBlockState), readMinutes: Math.ceil(countWords(convertHtmlToText(htmlBlockState)) / 200) }, postImage)
     },
         {
             onSuccess: () => {
                 toast({
                     title: "Hurray! Your post has been uploaded",
-                    description: "Our editors will review and if it makes the cut, you'll be on our newspaper!",
+                    description: "Our editors will review and if it makes the cut, you'll be on our newsletter!",
                     status: "success",
                     duration: 7000,
                     isClosable: true,
@@ -154,6 +161,7 @@ const Create = () => {
                             <Input
                                 onChange={(e) => setPostData({ ...postData, title: e.target.value })}
                                 type="text"
+                                required
                                 borderRadius="md"
                                 borderColor="whiteAlpha.400"
                                 fontSize="small"
@@ -168,6 +176,7 @@ const Create = () => {
                                 type="text"
                                 borderRadius="md"
                                 borderColor="whiteAlpha.400"
+                                required
                                 fontSize="small"
                                 color="white"
                                 outline="none"

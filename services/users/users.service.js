@@ -32,10 +32,11 @@ class UserService {
     }
     static async checkMemberWithEmailExistsAndReturnMember(email) {
         if (!email) return null
-        const q = query(usersCollection, where("role", "==", "member"))
-        const moreQ = query(q, where("email", "==", email))
-        let users = [];
         try {
+
+            const q = query(usersCollection, where("role", "==", "member"))
+            const moreQ = query(q, where("email", "==", email))
+            let users = [];
             await getDocs(moreQ)
                 .then(async (data) => {
                     data.docs.map(doc => {
