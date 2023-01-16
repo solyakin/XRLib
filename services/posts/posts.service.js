@@ -89,16 +89,20 @@ class PostsService {
             //throw new Error(`Unable to get posts: ${error}`);
         }
         if (posts.length) {
+            console.log(posts)
             return posts[0]
         }
         else {
             try {
-                await getDocs(publishedOnlyQuery, where("customUrlSlug", "==", slug))
-                    .then(async (data) => {
-                        data.docs.map(doc => {
-                            posts.push(doc.data());
-                        })
-                    })
+                await getDoc(doc(postsCollection, slug)).then(
+                    async (doc) => {
+                        if (doc.exists()) {
+                            posts.push(doc.data())
+                        } else {
+                            throw new Error("Draft does not exist");
+                        }
+                    }
+                )
             }
             catch (error) {
                 //throw new Error(`Unable to get posts: ${error}`);
