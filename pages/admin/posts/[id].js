@@ -8,7 +8,6 @@ import Header from '../../../components/Header';
 import { months, weekday } from '../../../utils/monthList';
 import PostsService from '../../../services/posts/posts.service';
 import { Avatar } from '@chakra-ui/react';
-import Footer from '../../../components/Footer';
 
 
 
