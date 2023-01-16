@@ -20,8 +20,8 @@ const RecentNewsletter = ({ info }) => {
                 {
                     data && data.map(({ id, thumbnailUrl, author, title, contentText, readMinutes }) => {
                         return (
-                            <div className={styles.list_wrapper}>
-                                <Link href={`/newletters/${id}`} key={id}>
+                            <div className={styles.list_wrapper} key={id}>
+                                <Link href={`/newletters/${id}`}>
                                     <div className={styles.item}>
                                         <img src={thumbnailUrl} alt="" className={styles.postImg} />
                                         <h4>{`${title}`}</h4>
