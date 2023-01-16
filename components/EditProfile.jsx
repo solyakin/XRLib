@@ -174,7 +174,7 @@ const EditProfile = ({ onClose, isOpen }) => {
                                     ) : null}
                                 </FormControl>
                                 <FormControl>
-                                    <FormLabel color="white" fontSize="sm">Instagram handle</FormLabel>
+                                    <FormLabel color="white" fontSize="sm">LinkedIn Name</FormLabel>
                                     <Input type="text" name='instagramUrl' placeholder='@IGusername' value={formik.values.instagramUrl} onChange={formik.handleChange} onBlur={formik.handleBlur} borderRadius="full" borderColor="whiteAlpha.400" fontSize="small" color="white" outline="none" />
                                     {formik.touched.instagramUrl && formik.errors.instagramUrl ? (
                                         <Text color="red.400" fontSize="sm" mt="2">{formik.errors.instagramUrl}</Text>

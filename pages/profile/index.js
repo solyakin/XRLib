@@ -119,7 +119,8 @@ const Profile = () => {
                                                             <Text fontSize="14px" ml="2"> Instagram</Text>
                                                         </Link>
 
-                                                    </Box>}
+                                                    </Box>
+                                                }
                                                 {
 
                                                     userData?.linkedInUrl &&
