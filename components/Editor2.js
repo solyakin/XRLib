@@ -9,6 +9,7 @@ import { Box } from "@chakra-ui/react";
 import PostsService from "../services/posts/posts.service";
 import { DEFAULT_HTML_CONVERSION_OPTIONS } from "../config/draftjs-html-conversion.config";
 import useAuth from "./authentication/hooks/useAuth";
+import { Router, useRouter } from "next/router";
 
 
 /* const MediaComponent = ({ contentState, block, blockProps }) => {
@@ -45,6 +46,7 @@ function myBlockRenderer(contentBlock) {
 
 
 const Editor2 = ({ setHtmlBlockState, initialEditorState, setPostData, setDraftData, draftData, postData, userId, postId, draftId }) => {
+    const router = useRouter();
     const [editorState, setEditorState] = useState(EditorState.createEmpty()); // create custom type for textState
     const [initialized, setInitialized] = useState(false)
 
@@ -93,9 +95,11 @@ const Editor2 = ({ setHtmlBlockState, initialEditorState, setPostData, setDraftD
     };
     // Check if state update from fetched content has already been made and don't reset state every single render
     useEffect(() => {
-        if (initialEditorState !== EditorState.createEmpty()) {
-            setEditorState(initialEditorState)
-            setInitialized(true)
+        if (router.asPath.includes("edit")) {
+            if (initialEditorState !== EditorState.createEmpty() && !initialized) {
+                setEditorState(initialEditorState)
+                setInitialized(true)
+            }
         }
 
         return () => {
