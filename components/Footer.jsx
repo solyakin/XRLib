@@ -76,12 +76,12 @@ const Footer = () => {
                 <p>©2022 All right reserved</p>
                 <ul>
                     <li>
-                      <a href='https://twitter.com/XrAtlas' target="_blank" rel="noopener">
+                      <a href='https://twitter.com/XrAtlas' target="_blank" rel="noreferrer">
                         Twitter
                       </a>
                     </li>
                     <li>
-                      <a href="https://www.linkedin.com/company/xratlas/" target="_blank" rel="noopener">
+                      <a href="https://www.linkedin.com/company/xratlas/" target="_blank" rel="noreferrer">
                         Linkedin
                       </a>
                     </li>
