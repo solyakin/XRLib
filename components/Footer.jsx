@@ -66,8 +66,6 @@ const Footer = () => {
                     />
                 )}
                 />
-                {/* <input type="text" placeholder='Enter your email address.' />
-                <img src="/Vector (8).svg" alt="" /> */}
             </div>
 
             <button onClick={() => window.scrollTo(0,0)}>
@@ -77,9 +75,16 @@ const Footer = () => {
             <div className={styles.copyright}>
                 <p>©2022 All right reserved</p>
                 <ul>
-                    <li>Twitter</li>
-                    <li>Discord</li>
-                    <li>Linkedin</li>
+                    <li>
+                      <a href='https://twitter.com/XrAtlas' target="_blank">
+                        Twitter
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.linkedin.com/company/xratlas/" target="_blank">
+                        Linkedin
+                      </a>
+                    </li>
                 </ul>
             </div>
         </div>

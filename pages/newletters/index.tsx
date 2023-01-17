@@ -1,24 +1,13 @@
 import Head from 'next/head'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import styles from '../../styles/Newsletters.module.css';
-import axios from 'axios';
-import { baseUrl } from '../../utils/baseUrl';
 import {useQuery} from "@tanstack/react-query"
 import PostsService from '../../services/posts/posts.service';
 import { Pagination, PaginationContainer, PaginationNext, PaginationPrevious, usePagination } from '@ajna/pagination';
-import { HStack, Text } from '@chakra-ui/react';
-
-const options = {
-    method : "GET",
-    url : `${baseUrl}/pagination`,
-    params : {
-        page : 1,
-        limit : 4
-    }
-}
+import { HStack, Spinner, Center } from '@chakra-ui/react';
 
 const Newsletters = () => {
 
@@ -52,7 +41,6 @@ const Newsletters = () => {
     });
     const [previousCursors, setPreviousCursors] = useState([]);
 
-    const [postList, setPost] = useState([])
     const { isLoading: postsLoading, data, isFetching: postsFetching } = useQuery(
         ["posts", itemsPerPage.permanent, startFrom],
         () => PostsService.getPaginatedPosts(startFrom, itemsPerPage.permanent),
@@ -91,9 +79,9 @@ const Newsletters = () => {
                     <div className={styles.wrapper}>
                         <div className={styles.list}>
                             {
-                                postsLoading && <Text>
-                                    Loading
-                                </Text>
+                                postsLoading && <Center>
+                                <Spinner />
+                            </Center>
                             }
                             {
                                 data && data.posts.map(({id, content, description, readMinutes, thumbnailUrl, title, author}) => {
@@ -159,26 +147,3 @@ const Newsletters = () => {
 }
 
 export default Newsletters;
-
-
-    // export const getStaticProps = async () => {
-
-    //     const options = {
-    //         method : "GET",
-    //         url : `https://xr-speeds.vercel.app/pagination`,
-    //         params : {
-    //             page : 1,
-    //             limit : 3
-    //         }
-    //     }
-    //     try {
-    //         const data = await axios.request(options)
-    //         const result = data.data;
-    //         return { 
-    //             props : { post : result }
-    //          }
-            
-    //       } catch (error) {
-    //           console.log(error)
-    //       }
-    // }

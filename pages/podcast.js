@@ -8,6 +8,7 @@ import 'react-h5-audio-player/lib/styles.css';
 import Footer from "../components/Footer";
 import axios from "axios";
 import { baseUrl } from "../utils/baseUrl";
+import { Spinner, Center } from "@chakra-ui/react";
 
 const Podcast = () => {
 
@@ -49,6 +50,11 @@ const Podcast = () => {
                     </div>
                     <div className={styles.podcastList}>
                         <div className={styles.d_grid}>
+                            {
+                                !items && <Center>
+                                <Spinner />
+                            </Center>
+                            }
                             {
                                 items && items.map(({ title, content, contentSnippet, enclosure, pubDate }, id) => {
                                     return (

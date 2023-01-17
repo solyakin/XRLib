@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.2em 4rem;
+    padding: 1em 4rem;
     font-family: 'Firs';
     z-index: 1050;
 }
@@ -60,7 +60,7 @@
     margin-top: 2em;
 }
 .menu{
-    font-size: 2em;
+    font-size: 1.4em;
     margin-bottom: 1em;
     font-weight: 500;
     font-family: 'Firs';
@@ -72,7 +72,7 @@
 }
 @media screen and (max-width : 768px) {
     .header{
-        padding: 2rem;
+        padding: 1em 2rem;
     }
     .nav{
         display: none;
@@ -83,6 +83,6 @@
 }
 @media screen and (max-width : 480px) {
     .header{
-        padding: 1.2rem;
+        padding: .3em 1.2rem;
     }
 }

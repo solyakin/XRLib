@@ -83,7 +83,7 @@ const Profile = () => {
                     <Header />
                     <Container maxW="1200px">
                         <div className="">
-                            <Heading mt="10" mb="4" fontSize={"lg"}>PROFILE</Heading>
+                            <Heading mt="2" mb="3" fontSize={"lg"}>PROFILE</Heading>
                             <div>
                                 <Grid gridTemplateColumns={{ lg: '310px 1fr 310px', sm: "block" }} gap={2}>
                                     <GridItem border="1px" borderColor="whiteAlpha.500" borderRadius="3xl" p={3} display={{ lg: "block", sm: "none" }}>

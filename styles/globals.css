@@ -20,6 +20,7 @@ a {
   background: rgb(228, 227, 227);
   color : black;
   min-height: 350px!important;
+  padding: 1em;
 }
 .rhap_stacked .rhap_controls-section{
   margin-top: 0!important;
@@ -32,6 +33,24 @@ a {
 }
 .rdw-dropdownoption-default, .rdw-dropdown-selectedtext{
   color: black!important;
+}
+.rdw-image-modal-header-option{
+  color: black;
+}
+.rdw-image-modal-url-input, .rdw-image-modal-size input{
+  background: white;
+  color: black;
+}
+.rdw-image-modal-btn-section{
+  color: black;
+}
+.rdw-editor-toolbar{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.css-19p5thw{
+  justify-content: center!important;
 }
 @media only screen and (max-width : 480px){
   .css-uv6hmy{
@@ -56,6 +75,10 @@ a {
   .css-y51uy1, .css-umvulm{
     margin-inline-start: 0!important;
     margin-top: 1em!important;
+  }
+  .css-2nt6bn{
+    justify-content: flex-start!important;
+    margin-bottom: 1em;
   }
 }
 @media (prefers-color-scheme: dark) {

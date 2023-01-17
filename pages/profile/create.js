@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Header from '../../components/Header'
 import styles from '../../styles/Create.module.css'
 import Image from 'next/image'
-import { Button, Container, HStack, Text, FormControl, FormLabel, Input, useToast, Textarea } from '@chakra-ui/react'
+import { Button, Container, HStack, Text, FormControl, FormLabel, Input, useToast, Textarea, Box } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import 'react-markdown-editor-lite/lib/index.css';
 import ContributorGuard from '../../components/authentication/guards/ContributorGuard'
@@ -53,13 +53,7 @@ const Create = () => {
             displayName: userData?.displayName,
             profileImageUrl: userData?.profileImageUrl,
         }
-        /**
-         * readMinutes = words/200
-         * Why?
-         * Generally, reading at less than 100-200 words per minute is the normal rate for learning, and 200-400 words per minute are the normal rate for comprehension. 
-         * Going beyond reading 500 words per minute can compromise the quality of reading and your comprehension.
-         *  There are ways to balance reading pace and comprehension.
-         */
+        
         return await PostsService.saveDraft(authorData, { ...draftData, ...postData, content: htmlBlockState, contentText: convertHtmlToText(htmlBlockState), readMinutes: Math.ceil(countWords(convertHtmlToText(htmlBlockState)) / 200) }, setDraftData)
     },
         {
@@ -138,7 +132,7 @@ const Create = () => {
                                 Last updated {draftLastUpdated.toUTCString()}
                             </Text>
                         }
-                        <HStack justifyContent="flex-end">
+                        <HStack justifyContent="flex-end" >
                             <HStack>
 
                                 <Button bg="none" borderColor="#F40580" borderRadius="full" _hover={{ background: "none" }} onClick={() => mutate(draftData)} isLoading={isLoading} className={styles.publish_btn}>
@@ -156,7 +150,7 @@ const Create = () => {
 
                             </HStack>
                         </HStack>
-                        <FormControl mb="4" w={[300, 400, 500]}>
+                        <FormControl mb="4" w={['100%', 400, 500]}>
                             <FormLabel color="whiteAlpha.500" fontSize="sm">Title</FormLabel>
                             <Input
                                 onChange={(e) => setPostData({ ...postData, title: e.target.value })}
@@ -169,7 +163,7 @@ const Create = () => {
                                 outline="none"
                             />
                         </FormControl>
-                        <FormControl mb="4" w={[300, 400, 500]}>
+                        <FormControl mb="4" w={['100%', 400, 500]}>
                             <FormLabel color="white" fontSize="sm">Description</FormLabel>
                             <Textarea
                                 onChange={(e) => setPostData({ ...postData, description: e.target.value })}
@@ -182,7 +176,7 @@ const Create = () => {
                                 outline="none"
                             />
                         </FormControl>
-                        <FormControl mb="4" w={[300, 400, 500]}>
+                        <FormControl mb="4" w={['100%', 400, 500]}>
                             <FormLabel color="white" fontSize="sm">Thumbnail</FormLabel>
                             <Input
                                 type="file"
@@ -195,7 +189,10 @@ const Create = () => {
                                 outline="none"
                             />
                         </FormControl>
-                        <Editor2 setDraftData={setDraftData} setPostData={setPostData} postData={postData} draftData={draftData} setHtmlBlockState={setHtmlBlockState} userId={userData?.id} />
+                        <Box position="relative">
+                            <Editor2 setDraftData={setDraftData} setPostData={setPostData} postData={postData} draftData={draftData} setHtmlBlockState={setHtmlBlockState} userId={userData?.id} />
+                        </Box>
+                        
                     </Container>
                 </main>
             </ContributorGuard>

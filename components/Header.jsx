@@ -204,7 +204,7 @@ const Header = () => {
                     <DrawerContent>
                         <DrawerCloseButton />
                         <DrawerHeader>
-                            <Image src="/Product Description.svg" width={140} height={100} alt="" />
+                            <Image src="/icon-xra.png" width={50} height={50} alt="" />
                         </DrawerHeader>
                         <DrawerBody>
                             <ul className={styles.menu_list}>
@@ -243,13 +243,60 @@ const Header = () => {
                                             {!(router.asPath === "/profile") && <Link href="/profile">Profile</Link>}
                                             {router.asPath === "/profile" && <Text>Profile</Text>}
                                         </li>
+
                                         <li className={styles.menu}>
-                                            <Link href="/profile/published">Posts</Link>
+                                            {!(router.asPath === "/profile/my-post") && (
+                                                <>
+                                                    {userData?.role !== "member" &&
+                                                        <Link href="/profile/my-post">My Posts</Link>
+                                                    }
+                                                </>
+                                            )}
+                                        </li>
+                                        <li>
+                                        {(router.asPath === "/profile/my-post") && (
+                                            <>
+                                                {(userData?.role !== "member") &&
+                                                    <Text mb="1em" fontSize="1.4em">My Posts</Text>
+                                                       
+                                                }
+                                            </>
+                                        )}
+                                        </li>
+                                        <li className={styles.menu}>
+                                        {!(router.asPath === "/users") && (
+                                            <>
+                                                {
+                                                    (userData?.role === "admin") &&
+                                                        <Link href="/users">Users</Link>
+                                                }
+                                            </>
+                                        )
+                                        }
+                                        {(router.asPath === "/users") && (
+                                            <>
+                                                {
+                                                    (userData?.role === "admin") &&
+                                                        <Text>Users</Text>
+                                                }
+                                            </>
+                                        )
+                                        }
+                                        </li>
+                                        <li className={styles.menu}>
+                                            {!(router.asPath === "/admin/posts") && (<>{(userData?.role === "editor" || userData?.role === "admin") &&
+                                                    <Link href="/admin/posts">Repository</Link>
+                                                }
+                                            </>)}
+                                            {(router.asPath === "/admin/posts") && (<>{(userData?.role === "editor" || userData?.role === "admin") &&
+                                                    <Text mb="1em">Repository</Text>
+                                            }</>)}
                                         </li>
                                         
                                         <Box
                                             display="flex"
                                             alignItems="center"
+                                            justifyContent="center"
                                             as="button"
                                             onClick={() => signOut()}
                                             background="#F40580"
@@ -258,6 +305,7 @@ const Header = () => {
                                             w="100%"
                                             borderRadius="full"
                                             textAlign="center"
+                                            marginTop={10   }
                                         >
                                             <Image src="/Vector (20).svg" width="14" height="14" alt="" style={{ marginRight: "10px" }} />
                                             Sign out
