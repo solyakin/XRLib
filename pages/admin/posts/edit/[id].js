@@ -51,7 +51,7 @@ const EditPost = () => {
     )
 
     useEffect(() => {
-        if (data) {
+        if (data && data.content) {
 
             let draftFormat = convertFromHTML(data.content)
             const { contentBlocks, entityMap } = draftFormat;
