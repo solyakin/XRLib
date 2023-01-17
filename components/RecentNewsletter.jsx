@@ -4,6 +4,7 @@ import styles from '../styles/RecentNewsletter.module.css'
 import PostsService from '../services/posts/posts.service'
 import { Avatar } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
+import Image from 'next/image'
 
 const RecentNewsletter = ({ info }) => {
     const { data } = useQuery({
@@ -23,7 +24,13 @@ const RecentNewsletter = ({ info }) => {
                             <div className={styles.list_wrapper} key={id}>
                                 <Link href={`/newletters/${id}`}>
                                     <div className={styles.item}>
-                                        <img src={thumbnailUrl} alt="" className={styles.postImg} />
+                                        {
+                                            thumbnailUrl && <img src={thumbnailUrl} width={500} height={300} alt="figure" className={styles.postimg}/>
+                                        }
+                                        {
+                                            !thumbnailUrl && <Image src='/femalegoogle.png'width={500} height={300} alt="figure" className={styles.postimg}/>
+                                        }
+                                        {/* <img src={thumbnailUrl} alt="" className={styles.postImg} /> */}
                                         <h4>{`${title}`}</h4>
                                         <p>{`${contentText?.substr(0, 160)}...`}</p>
                                         <div className={styles.author}>

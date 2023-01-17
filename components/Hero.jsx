@@ -24,7 +24,6 @@ const Hero = () => {
     }
   }, [currentUser])
 
-  // comm
   return (
     <div className={styles.hero}>
       <div className={styles.header}>

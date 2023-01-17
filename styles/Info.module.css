@@ -57,7 +57,7 @@
     flex: .5;
 }
 .image img{
-    width: 300px;
+    width: 350px;
     height: auto;
     object-fit: cover;
 }

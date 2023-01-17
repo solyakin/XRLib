@@ -15,7 +15,7 @@ const RecentPodcast = ({podcasts}) => {
                     podcasts && podcasts.slice(0, 2).map(({title, contentSnippet, enclosure}, id) => {
                         return(
                             <div className={styles.item} key={id}>
-                                <img src="/profile_3.svg" alt="" className={styles.post_img} />
+                                <img src="/Aran Jamison.png" alt="" className={styles.post_img} />
                                 <div className={styles.content}>
                                     <h5>{title}</h5>
                                     <p>{`${contentSnippet.substr(0, 220)} ...`}</p>

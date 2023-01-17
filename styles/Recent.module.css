@@ -39,6 +39,9 @@
     background-color: black;
     z-index: 10;
 }
+.recent .item img{
+    width: 70px;
+}
 .item p{
    color : #7D7D7D;
    font-size: 14px;

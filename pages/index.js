@@ -46,7 +46,7 @@ export default function Home() {
           <meta property="og:image:height" content="628"></meta>
           <meta property="og:image:alt" content="XR Atlas logo"></meta>
           <meta property="og:image:type" content="image/svg"></meta>
-          <link rel="icon" href="/xr.jpeg" />
+          <link rel="icon" href="/icon-xra.png" />
           <link rel="preconnect" href="https://fonts.googleapis.com"/>
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='true'/>
         </Head>

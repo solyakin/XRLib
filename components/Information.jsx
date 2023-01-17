@@ -21,7 +21,7 @@ const Information = () => {
                 <p>Join us on the XRAtlas Podcast, where we explore the latest developments and trends in the world of Virtual reality, Augmented reality, Artificial Intelligence, and other emerging technologies that are shaping the future of humanity.</p>
             </div>
             <div className={styles.image}>
-                <Image src='/Group 8.svg' width={500} height={500} alt="mars"/>
+                <Image src='/Group 8.png' width={500} height={500} alt="mars"/>
             </div>
         </div>
     </div>
